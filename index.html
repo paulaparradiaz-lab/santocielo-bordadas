@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santo Cielo · Camisetas bordadas a hilo</title>
-<meta name="description" content="Camisetas bordadas a hilo, hechas en Colombia. Colección Mundial 2026 y bordados de siempre. Combo 2 × $125.000 con envío incluido.">
+<meta name="description" content="Camisetas bordadas a hilo, hechas en Colombia. Talla única, envío gratis en compras desde $100.000.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -115,10 +115,69 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
   font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;
   color:var(--topo);border:none;background:none;padding:0;cursor:default}
 .talla-unica svg{width:13px;height:13px;color:var(--topo)}
-.agregar{margin-top:12px;font:600 10.5px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
-  background:var(--tinta);color:#fff;border:none;padding:12px 6px;transition:opacity .2s}
-.agregar:disabled{opacity:.3;cursor:not-allowed}
-.agregar.listo{background:#2E5B2E}
+.acciones{margin-top:12px;display:flex;gap:6px}
+.btn-ver{flex:1;font:600 10px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
+  background:#fff;color:var(--tinta);border:1px solid var(--tinta);padding:11px 6px;cursor:pointer;
+  transition:all .2s}
+.btn-ver:hover{background:var(--tinta);color:#fff}
+.btn-add{width:42px;background:var(--tinta);color:#fff;border:none;font-size:18px;line-height:1;cursor:pointer;
+  transition:transform .15s}
+.btn-add:hover{transform:scale(1.05)}
+.btn-add.listo{background:#2E5B2E}
+
+/* ── FAB carrito flotante ── */
+.fab{position:fixed;bottom:20px;right:20px;z-index:60;background:var(--tinta);color:#fff;
+  border:none;padding:14px 18px;display:none;align-items:center;gap:10px;cursor:pointer;
+  font:600 11.5px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
+  box-shadow:0 8px 28px rgba(24,20,16,.32);transition:transform .2s,box-shadow .2s}
+.fab.on{display:inline-flex}
+.fab:hover{transform:translateY(-2px);box-shadow:0 12px 32px rgba(24,20,16,.4)}
+.fab svg{width:18px;height:18px}
+.fab-badge{background:var(--amarillo);color:var(--tinta);border-radius:50%;min-width:22px;height:22px;
+  display:inline-flex;align-items:center;justify-content:center;font:700 11px 'Hanken Grotesk';
+  letter-spacing:0;padding:0 5px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
+.fab-badge.bump{transform:scale(1.55)}
+.fab-total{font:500 13px 'Bodoni Moda',serif;letter-spacing:0;text-transform:none;opacity:.95}
+
+/* ── Modal de producto ── */
+.prod-modal{position:fixed;inset:0;z-index:200;background:rgba(24,20,16,.72);display:flex;
+  align-items:center;justify-content:center;padding:16px;opacity:0;pointer-events:none;transition:opacity .28s}
+.prod-modal.on{opacity:1;pointer-events:auto}
+.prod-box{background:#fff;width:100%;max-width:780px;max-height:92dvh;overflow-y:auto;position:relative;
+  display:grid;grid-template-columns:1fr;transform:translateY(22px) scale(.97);opacity:0;
+  transition:transform .3s cubic-bezier(.22,.8,.3,1),opacity .28s}
+@media(min-width:720px){.prod-box{grid-template-columns:1fr 1fr;max-height:540px}}
+.prod-modal.on .prod-box{transform:none;opacity:1}
+.prod-vis{background:var(--hueso);display:flex;align-items:center;justify-content:center;padding:32px;
+  min-height:280px;border-bottom:1px solid var(--borde)}
+@media(min-width:720px){.prod-vis{border-bottom:none;border-right:1px solid var(--borde)}}
+.prod-vis svg,.prod-vis img{width:80%;max-width:300px}
+.prod-info{padding:28px 26px 26px;display:flex;flex-direction:column;gap:14px;position:relative}
+.prod-x{position:absolute;top:14px;right:16px;background:none;border:none;font-size:22px;
+  color:var(--topo);cursor:pointer;padding:6px 8px;line-height:1}
+.prod-x:hover{color:var(--tinta)}
+.prod-info .tag{font:600 9.5px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:var(--amarillo)}
+.prod-info h3{font:500 26px 'Bodoni Moda',serif;line-height:1.15}
+.prod-info .precio{font:500 22px 'Bodoni Moda',serif}
+.prod-info .desc{font-size:13.5px;color:var(--topo);line-height:1.65}
+.prod-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
+.prod-feats li{font-size:12.5px;color:var(--topo);padding-left:20px;position:relative;line-height:1.5}
+.prod-feats li::before{content:"✓";position:absolute;left:0;color:var(--amarillo);font-weight:700}
+.prod-cta-row{margin-top:auto;display:flex;flex-direction:column;gap:8px}
+.btn-add-modal{background:#fff;color:var(--tinta);border:1px solid var(--tinta);padding:13px;
+  font:600 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.btn-add-modal:hover{background:var(--hueso)}
+.btn-buy-modal{background:var(--tinta);color:#fff;border:none;padding:14px;
+  font:600 11px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;cursor:pointer;transition:opacity .2s}
+.btn-buy-modal:hover{opacity:.85}
+
+/* ── Toast ── */
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(40px);z-index:250;
+  background:var(--tinta);color:var(--crema);padding:12px 22px;font:500 13px 'Hanken Grotesk';
+  box-shadow:0 8px 28px rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:transform .3s cubic-bezier(.34,1.4,.64,1),opacity .3s;
+  display:flex;align-items:center;gap:9px}
+.toast.on{transform:translateX(-50%) translateY(0);opacity:1}
+.toast::before{content:"✓";color:var(--amarillo);font-weight:700}
 
 /* combo callout */
 .combo-card{margin-top:18px;border:2px dashed var(--tinta);background:#fff;padding:18px 16px;
@@ -169,14 +228,27 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .tabla td b{font:500 14px 'Bodoni Moda',serif}
 .tabla tr:last-child td{border-bottom:none}
 
-/* ---------- checkout ---------- */
-.checkout{padding:58px 0 74px;background:var(--hueso);border-top:1px solid var(--borde)}
-.checkout h2{font:500 clamp(28px,7vw,44px)/1.1 'Bodoni Moda',serif;margin-top:10px}
-.checkout h2 em{font-style:italic;font-weight:400}
-.co-grid{margin-top:28px;display:grid;gap:20px}
-@media(min-width:840px){.co-grid{grid-template-columns:1fr 370px;align-items:start}}
-.panel-co{background:#fff;border:1px solid var(--borde);padding:24px 20px}
-.panel-co h3{font:500 21px 'Bodoni Moda',serif;margin-bottom:16px}
+/* ---------- modal checkout ---------- */
+.co-modal{position:fixed;inset:0;z-index:200;display:flex;align-items:center;justify-content:center;
+  padding:16px;background:rgba(24,20,16,.72);opacity:0;pointer-events:none;
+  transition:opacity .28s;overscroll-behavior:contain}
+.co-modal.on{opacity:1;pointer-events:auto}
+.co-box{position:relative;background:#fff;width:100%;max-width:520px;max-height:90dvh;overflow-y:auto;
+  padding:28px 24px 24px;transform:translateY(22px) scale(.97);opacity:0;
+  transition:transform .3s cubic-bezier(.22,.8,.3,1),opacity .28s}
+.co-modal.on .co-box{transform:none;opacity:1}
+.co-eyebrow{font:600 9.5px 'Hanken Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--topo-claro)}
+.co-titulo{font:500 clamp(22px,5vw,30px)/1.1 'Bodoni Moda',serif;margin:6px 0 4px}
+.co-titulo em{font-style:italic;font-weight:400}
+.co-sub{font-size:13px;color:var(--topo);line-height:1.55;margin-bottom:20px}
+.co-cerrar{position:absolute;top:16px;right:18px;background:none;border:none;font-size:22px;
+  color:var(--topo);line-height:1;cursor:pointer;padding:6px 8px}
+.co-cerrar:hover{color:var(--tinta)}
+.co-mini-items{margin:0 0 16px;padding:12px 14px;background:var(--hueso);border:1px solid var(--borde);
+  font-size:13px;color:var(--topo);line-height:1.65}
+.co-mini-items strong{color:var(--tinta);font-weight:600}
+.panel-co h3{font:500 17px 'Bodoni Moda',serif;margin:18px 0 12px}
+.panel-co h3:first-child{margin-top:0}
 .campo{margin-bottom:13px}
 .campo label{display:block;font:600 10px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo);margin-bottom:6px}
 .campo input{width:100%;border:1px solid var(--borde);border-radius:1px;background:var(--hueso);
@@ -202,9 +274,6 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
   background:var(--tinta);color:#fff;border:none;padding:17px;transition:opacity .2s}
 .pedir:disabled{opacity:.3;cursor:not-allowed}
 .seguro{margin-top:12px;text-align:center;font-size:11.5px;color:var(--topo-claro)}
-.ok-msg{display:none;margin-top:14px;background:#EAF4EA;border:1px solid #BCD9BC;color:#2E5B2E;
-  font-size:13px;padding:13px;line-height:1.5}
-.ok-msg.show{display:block}
 
 /* ---------- drawer carrito ---------- */
 .velo{position:fixed;inset:0;background:rgba(24,20,16,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
@@ -214,6 +283,21 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
   border-left:1px solid var(--borde)}
 .drawer.open{transform:none}
 .drawer-cab{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--borde)}
+
+/* ── Bloque envío gratis (variante 1) ── */
+.envio-block{padding:11px 18px 13px;background:#FFF8E0;border-bottom:1px dashed var(--amarillo);transition:background .3s,border-color .3s}
+.envio-block.unlocked{background:#EAF4EA;border-bottom:1px solid #BCD9BC}
+.envio-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:10px}
+.envio-left{display:flex;align-items:center;gap:7px;font:500 11.5px 'Hanken Grotesk';color:var(--tinta);line-height:1.3}
+.envio-left b{font-weight:700}
+.envio-left svg{width:14px;height:14px;flex-shrink:0;color:var(--tinta);transition:color .3s}
+.envio-block.unlocked .envio-left{color:#2E5B2E}
+.envio-block.unlocked .envio-left svg{color:#2E5B2E}
+.envio-frac{font:600 9.5px 'Hanken Grotesk';letter-spacing:.06em;color:var(--topo-claro);white-space:nowrap;flex-shrink:0}
+.envio-block.unlocked .envio-frac{color:#2E5B2E}
+.envio-bar{height:5px;background:rgba(24,20,16,.08);border-radius:99px;overflow:hidden}
+.envio-bar-fill{height:100%;background:var(--amarillo);border-radius:99px;width:0%;transition:width .6s cubic-bezier(.22,.8,.3,1),background .3s}
+.envio-block.unlocked .envio-bar-fill{background:#2E5B2E}
 .drawer-cab h3{font:500 22px 'Bodoni Moda',serif}
 .cerrar{background:none;border:none;font-size:22px;color:var(--topo);line-height:1}
 .drawer-items{flex:1;overflow-y:auto;padding:12px 18px}
@@ -225,9 +309,20 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .drawer-pie{border-top:1px solid var(--borde);padding:14px 18px 20px;background:var(--hueso)}
 .drawer-pie .linea{padding-top:6px}
 .drawer-total{display:flex;justify-content:space-between;font:500 19px 'Bodoni Moda',serif;margin:8px 0 12px}
-.ir-pagar{width:100%;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
-  background:var(--tinta);color:#fff;border:none;padding:16px}
-.ir-pagar:disabled{opacity:.3}
+.acciones-pago{display:flex;flex-direction:column;gap:8px}
+.btn-pago-online,.btn-pago-contra{width:100%;font:600 12px 'Hanken Grotesk';letter-spacing:.16em;
+  text-transform:uppercase;border:none;padding:15px 10px;cursor:pointer;transition:opacity .2s,background .2s;
+  display:flex;align-items:center;justify-content:center;gap:6px}
+.btn-pago-online{background:var(--tinta);color:#fff}
+.btn-pago-online:hover:not(:disabled){opacity:.88}
+.btn-pago-contra{background:#fff;color:var(--tinta);border:1px solid var(--tinta)}
+.btn-pago-contra:hover:not(:disabled){background:var(--hueso)}
+.btn-pago-contra small{font:600 9.5px 'Hanken Grotesk';letter-spacing:.1em;opacity:.7;text-transform:none}
+.btn-pago-online:disabled,.btn-pago-contra:disabled{opacity:.3;cursor:not-allowed}
+.btn-seguir{background:none;color:var(--topo);border:none;padding:10px;cursor:pointer;
+  font:500 12px 'Hanken Grotesk';letter-spacing:.06em;text-decoration:underline;text-underline-offset:3px;
+  transition:color .2s}
+.btn-seguir:hover{color:var(--tinta)}
 
 footer{background:var(--tinta);color:#B7AD9B;padding:34px 0}
 footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
@@ -246,7 +341,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 </head>
 <body>
 
-<div class="promo-bar">Combo <b>2 × $125.000</b> · envío incluido 🇨🇴</div>
+<div class="promo-bar">Envío <b>GRATIS</b> en compras desde <b>$100.000</b> 🇨🇴</div>
 
 <header>
   <div class="nav">
@@ -413,18 +508,21 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   </div>
 </section>
 
-<!-- ============ CHECKOUT ============ -->
-<section class="checkout" id="checkout">
-  <div class="wrap">
-    <div class="eyebrow">Tu pedido</div>
-    <h2>Confirmar <em>pedido</em></h2>
-    <div class="co-grid">
+<!-- ============ MODAL CHECKOUT ============ -->
+<div class="co-modal" id="coModal" role="dialog" aria-modal="true" aria-labelledby="coTitulo">
+  <div class="co-box" id="coBox">
+    <button class="co-cerrar" onclick="cerrarCo()" aria-label="Cerrar">✕</button>
+    <div class="co-eyebrow">Pago seguro</div>
+    <h2 class="co-titulo" id="coTitulo">Finalizar <em>pedido</em></h2>
+    <div class="co-sub">Completa tus datos y te confirmamos por WhatsApp.</div>
 
-      <div class="panel-co">
-        <h3>Datos de envío</h3>
+    <div class="co-mini-items" id="coMiniItems"></div>
+
+    <div class="panel-co">
+      <h3>Datos de envío</h3>
         <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" autocomplete="name" placeholder="Tu nombre"></div>
         <div class="campo"><label for="tel">WhatsApp</label><input id="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000"></div>
-        <div class="campo"><label for="correo">Correo electrónico</label><input id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com"></div>
+        <div class="campo" id="campoCorreo"><label for="correo">Correo electrónico</label><input id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com"></div>
         <div class="campo" style="position:relative">
           <label for="ciudad">Ciudad / Municipio</label>
           <input id="ciudad" autocomplete="off" placeholder="Escribe tu ciudad" oninput="filtrarMun(this.value)" onfocus="filtrarMun(this.value)" onblur="setTimeout(()=>hideMun(),200)">
@@ -436,41 +534,32 @@ footer small{font-size:11.5px;letter-spacing:.06em}
         </div>
         <div class="campo"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Calle, número, barrio"></div>
 
-        <h3 style="margin-top:24px">Método de pago</h3>
-        <div class="metodos">
-          <label class="metodo sel">
-            <input type="radio" name="pago" value="contraentrega" checked>
-            <span><b>Pago contra entrega</b><p>Pagas en efectivo cuando recibes tus camisetas. Se añade un recargo de $5.000 por costos de la transportadora.</p></span>
-          </label>
-          <label class="metodo">
-            <input type="radio" name="pago" value="online">
-            <span><b>Pago online</b><p>Tarjeta, PSE o Nequi a través de pasarela segura. Procesamos tu pedido de inmediato.</p></span>
-          </label>
+        <!-- Aviso contraentrega: solo se muestra en modo contraentrega -->
+        <div id="avisoContra" style="display:none;margin-top:16px;background:#FFF8E0;border:1px dashed var(--amarillo);padding:13px 14px;font-size:12.5px;color:var(--topo);line-height:1.6">
+          📦 Los pedidos contraentrega tienen un recargo de <b>$5.000</b>, correspondiente a los cobros adicionales de las transportadoras. Este valor se suma al total y se paga al momento de la entrega.
         </div>
 
-        <div id="checkContraWrap" style="margin-top:14px;background:var(--hueso);border:1px solid var(--borde);padding:12px 14px;font-size:12.5px;color:var(--topo);line-height:1.6;border-radius:2px">
+        <!-- Checkbox compromiso: solo en modo contraentrega -->
+        <div id="checkContraWrap" style="display:none;margin-top:12px;background:var(--hueso);border:1px solid var(--borde);padding:12px 14px;font-size:12.5px;color:var(--topo);line-height:1.6;border-radius:2px">
           <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer">
             <input type="checkbox" id="checkContra" onchange="toggleContraCheck(this.checked)" style="margin-top:3px;flex-shrink:0">
-            <span>Acepto el recargo de <b>$5.000</b> por contraentrega y me comprometo a estar disponible para recibir mi pedido.</span>
+            <span>Acepto el recargo de <b>$5.000</b> y me comprometo a estar disponible para recibir mi pedido.</span>
           </label>
         </div>
-      </div>
 
-      <div class="panel-co">
-        <h3>Resumen</h3>
-        <div id="resumen"><div class="vacio">Tu carrito está vacío. Elige modelo arriba ↑</div></div>
-        <div id="lineas"></div>
-        <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
-        <div class="total-row"><span>Total</span><span id="total">$0</span></div>
-        <div class="nudge" id="nudge">💡 Agrega otra camiseta y arma el <b>combo: 2 × $125.000 con envío incluido</b>.</div>
-        <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
-        <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
-        <div class="ok-msg" id="okMsg">¡Pedido recibido! Te escribiremos por WhatsApp para confirmar el envío. ✦</div>
-      </div>
+    </div><!-- /panel-co datos -->
 
-    </div>
-  </div>
-</section>
+    <!-- Resumen compacto dentro del modal -->
+    <div id="lineas" style="margin-top:4px"></div>
+    <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
+    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Combo de <b>2 × $125.000</b>: la opción más completa.</div>
+    <div class="total-row" style="margin:8px 0 16px"><span>Total a pagar</span><span id="total">$0</span></div>
+    <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
+    <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
+    <button onclick="cerrarCo()" style="display:block;margin:14px auto 0;background:none;border:none;font:500 12.5px 'Hanken Grotesk';color:var(--topo);cursor:pointer">← Volver al carrito</button>
+
+  </div><!-- /co-box -->
+</div><!-- /co-modal -->
 
 <footer>
   <div class="wrap">
@@ -486,12 +575,26 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <h3>Tu carrito</h3>
     <button class="cerrar" id="cerrarCarrito" aria-label="Cerrar carrito">✕</button>
   </div>
+  <div class="envio-block" id="envioBlock" style="display:none">
+    <div class="envio-top">
+      <span class="envio-left">
+        <svg id="envioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span id="envioMsg">Te faltan <b>$25.000</b> para envío gratis</span>
+      </span>
+      <span class="envio-frac" id="envioFrac">$0 / $100k</span>
+    </div>
+    <div class="envio-bar"><div class="envio-bar-fill" id="envioBarFill"></div></div>
+  </div>
   <div class="drawer-items" id="drawerItems"></div>
   <div class="drawer-pie">
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
-    <div class="nudge" id="nudgeDrawer">💡 Agrega otra y arma el <b>combo: 2 × $125.000, envío incluido</b>.</div>
-    <button class="ir-pagar" id="irPagar" disabled>Ir a pagar</button>
+    <div class="nudge" id="nudgeDrawer">💡 Combo de <b>2 × $125.000</b>: la opción más completa.</div>
+    <div class="acciones-pago">
+      <button class="btn-pago-online" id="btnPagoOnline" disabled>⚡ Pagar ahora</button>
+      <button class="btn-pago-contra" id="btnPagoContra" disabled>📦 Pagar contra entrega <small>(+$5.000)</small></button>
+      <button class="btn-seguir" id="btnSeguir" onclick="cerrarDrawer()">+ Seguir comprando</button>
+    </div>
   </div>
 </aside>
 
@@ -505,24 +608,45 @@ const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← UR
 const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
-const PRECIO_UNIDAD = 75000;   // precio por camiseta
-const ENVIO         = 10000;   // envío para compras sin combo
-const PRECIO_COMBO  = 125000;  // 2 camisetas, envío incluido
+const PRECIO_UNIDAD  = 75000;   // precio por camiseta
+const ENVIO          = 10000;   // costo de envío si no llega al umbral
+const PRECIO_COMBO   = 125000;  // 2 camisetas como combo
+const UMBRAL_ENVIO   = 100000;  // envío gratis a partir de este subtotal
 
 /* Modelos: pon la ruta de tus PNG en "img" y reemplazan la silueta. */
 const MODELOS = [
-  // ---- Colección Mundial (4) ----
-  {id:"clasica",  coleccion:"mundial",  nombre:"Clásica Blanca",  tag:"Tricolor al pecho",  color:"#F2EFE6", motivo:"bandera", img:""},
-  {id:"tribuna",  coleccion:"mundial",  nombre:"Negra Tribuna",   tag:"Tricolor en manga",  color:"#23252B", motivo:"bandera", img:""},
-  {id:"seleccion",coleccion:"mundial",  nombre:"Azul Selección",  tag:"Bordado grande",     color:"#1F3B7A", motivo:"bandera", img:""},
-  {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:""},
-  // ---- Catálogo (6) ----
-  {id:"orquidea", coleccion:"catalogo", nombre:"Orquídea",        tag:"Flor nacional",      color:"#F2EFE6", motivo:"flor",    img:""},
-  {id:"condor",   coleccion:"catalogo", nombre:"Cóndor",          tag:"Bordado al pecho",   color:"#3A3F35", motivo:"ave",     img:""},
-  {id:"cafetal",  coleccion:"catalogo", nombre:"Cafetal",         tag:"Rama de café",       color:"#E7DFCB", motivo:"flor",    img:""},
-  {id:"caribe",   coleccion:"catalogo", nombre:"Caribe",          tag:"Palmera bordada",    color:"#7FA8B8", motivo:"flor",    img:""},
-  {id:"carnaval", coleccion:"catalogo", nombre:"Carnaval",        tag:"Bordado multicolor", color:"#2B2530", motivo:"flor",    img:""},
-  {id:"acordeon", coleccion:"catalogo", nombre:"Vallenata",       tag:"Acordeón a hilo",    color:"#A8493F", motivo:"ave",     img:""}
+  // ---- Las Colombianas (4) ----
+  {id:"clasica",  coleccion:"mundial",  nombre:"Clásica Blanca",  tag:"Tricolor al pecho",  color:"#F2EFE6", motivo:"bandera", img:"",
+   desc:"La camiseta base de la colección: blanco hueso con el tricolor bordado al pecho. Versátil y atemporal.",
+   feats:["100% algodón peinado","Bordado a hilo, no estampado","Talla única, corte oversize"]},
+  {id:"tribuna",  coleccion:"mundial",  nombre:"Negra Tribuna",   tag:"Tricolor en manga",  color:"#23252B", motivo:"bandera", img:"",
+   desc:"Negra profunda con el tricolor bordado en la manga. Pensada para llevar a partido y a la calle.",
+   feats:["Algodón premium 180g","Bordado discreto en manga izquierda","Corte ligeramente oversize"]},
+  {id:"seleccion",coleccion:"mundial",  nombre:"Azul Selección",  tag:"Bordado grande",     color:"#1F3B7A", motivo:"bandera", img:"",
+   desc:"Azul intenso con bordado grande al centro. La más vistosa de la colección, perfecta para días de selección.",
+   feats:["Tela gruesa con caída","Bordado de 18 cm","Cuello reforzado"]},
+  {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:"",
+   desc:"Inspirada en los uniformes noventeros. Color ladrillo con escudo vintage bordado.",
+   feats:["Algodón con look envejecido","Escudo bordado en relieve","Edición limitada de la colección"]},
+  // ---- Las Clásicas (6) ----
+  {id:"orquidea", coleccion:"catalogo", nombre:"Orquídea",        tag:"Flor nacional",      color:"#F2EFE6", motivo:"flor",    img:"",
+   desc:"La flor nacional bordada en hilo morado y verde. Un clásico que nunca pasa de moda.",
+   feats:["Bordado a color en 4 hilos","Tela hueso de algodón fino","Talla única oversize"]},
+  {id:"condor",   coleccion:"catalogo", nombre:"Cóndor",          tag:"Bordado al pecho",   color:"#3A3F35", motivo:"ave",     img:"",
+   desc:"Verde oliva con el cóndor andino bordado al pecho. Sobrio y con carácter.",
+   feats:["Tono militar atenuado","Bordado con sombras","Tela de algodón pesado"]},
+  {id:"cafetal",  coleccion:"catalogo", nombre:"Cafetal",         tag:"Rama de café",       color:"#E7DFCB", motivo:"flor",    img:"",
+   desc:"Beige cremoso con una rama de café bordada con sus frutos rojos. Aroma de Eje Cafetero.",
+   feats:["Color crema natural","Detalle de frutos en rojo","Bordado en relieve"]},
+  {id:"caribe",   coleccion:"catalogo", nombre:"Caribe",          tag:"Palmera bordada",    color:"#7FA8B8", motivo:"flor",    img:"",
+   desc:"Azul Caribe con una palmera bordada en hilo verde y café. Fresca para clima cálido.",
+   feats:["Tela ligera, ideal para costa","Palmera bordada de 10 cm","Color azul mar suave"]},
+  {id:"carnaval", coleccion:"catalogo", nombre:"Carnaval",        tag:"Bordado multicolor", color:"#2B2530", motivo:"flor",    img:"",
+   desc:"Negra con bordado multicolor inspirado en el Carnaval de Barranquilla. La más vibrante.",
+   feats:["6 hilos de colores diferentes","Bordado de 14 cm","Pieza limitada"]},
+  {id:"acordeon", coleccion:"catalogo", nombre:"Vallenata",       tag:"Acordeón a hilo",    color:"#A8493F", motivo:"ave",     img:"",
+   desc:"Color ladrillo con un acordeón bordado en hilo crema. Homenaje al vallenato de toda la vida.",
+   feats:["Color tierra cálido","Acordeón bordado en detalle","Algodón con cuerpo"]}
 ];
 const TALLAS = ["TU"];
 
@@ -619,13 +743,16 @@ pintarVitrina(); reiniciarTimer();
 /* ---------- grids ---------- */
 function cardHTML(m){
   return `<div class="prod" data-id="${m.id}">
-    <div class="foto">${visual(m)}</div>
+    <div class="foto" onclick="abrirProducto('${m.id}')" style="cursor:pointer">${visual(m)}</div>
     <div class="cuerpo">
       <h3>${m.nombre}</h3>
       <div class="tag">${m.tag}</div>
       <div class="precio">${fmt(PRECIO_UNIDAD)}</div>
       <div class="tallas"><span class="talla-unica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Talla única</span></div>
-      <button class="agregar">Agregar</button>
+      <div class="acciones">
+        <button class="btn-ver" onclick="abrirProducto('${m.id}')">Ver más</button>
+        <button class="btn-add" onclick="agregarRapido('${m.id}', this)" aria-label="Agregar al carrito">+</button>
+      </div>
     </div>
   </div>`;
 }
@@ -639,18 +766,105 @@ document.querySelectorAll(".prod").forEach((c,i)=>{ c.style.transitionDelay = ((
 
 /* ---------- carrito ---------- */
 let carrito = [];
-document.querySelectorAll(".prod").forEach(card=>{
-  const btn = card.querySelector(".agregar");
-  let talla = "TU";
-  btn.onclick = ()=>{
-    const m = MODELOS.find(x=>x.id===card.dataset.id);
-    carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla, precio_unidad:PRECIO_UNIDAD});
-    btn.textContent = "Agregada ✓"; btn.classList.add("listo");
-    setTimeout(()=>{ btn.textContent = "Agregar"; btn.classList.remove("listo"); }, 1400);
-    pintarTodo();
-    abrirDrawer();
-  };
+let modeloActivo = null; // para el modal de producto
+
+function agregarAlCarrito(modeloId){
+  const m = MODELOS.find(x=>x.id===modeloId);
+  if(!m) return;
+  carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla:"TU", precio_unidad:PRECIO_UNIDAD});
+  pintarTodo();
+  bumpBadge();
+}
+
+/* ---- Agregar rápido desde la card ---- */
+function agregarRapido(modeloId, btn){
+  agregarAlCarrito(modeloId);
+  if(btn){
+    const tx = btn.textContent;
+    btn.textContent = "✓"; btn.classList.add("listo");
+    setTimeout(()=>{ btn.textContent = tx; btn.classList.remove("listo"); }, 1100);
+  }
+  mostrarToast(`${MODELOS.find(x=>x.id===modeloId).nombre} agregada`);
+}
+
+/* ---- Modal de producto ---- */
+function abrirProducto(modeloId){
+  const m = MODELOS.find(x=>x.id===modeloId);
+  if(!m) return;
+  modeloActivo = m;
+  document.getElementById("pmVis").innerHTML = visual(m);
+  document.getElementById("pmTag").textContent = m.tag;
+  document.getElementById("pmNombre").textContent = m.nombre;
+  document.getElementById("pmPrecio").textContent = fmt(PRECIO_UNIDAD);
+  document.getElementById("pmDesc").textContent = m.desc || "";
+  document.getElementById("pmFeats").innerHTML = (m.feats||[]).map(f=>`<li>${f}</li>`).join("");
+  document.getElementById("prodModal").classList.add("on");
+  document.body.style.overflow = "hidden";
+}
+function cerrarProducto(){
+  document.getElementById("prodModal").classList.remove("on");
+  document.body.style.overflow = "";
+  modeloActivo = null;
+}
+function agregarDesdeModal(){
+  if(!modeloActivo) return;
+  const nombre = modeloActivo.nombre;
+  agregarAlCarrito(modeloActivo.id);
+  cerrarProducto();
+  mostrarToast(`${nombre} agregada`);
+}
+function comprarAhora(){
+  if(!modeloActivo) return;
+  agregarAlCarrito(modeloActivo.id);
+  cerrarProducto();
+  abrirCo(false); // por defecto: modo pago online
+}
+// Cerrar modal producto con Esc o click fuera — diferido porque el modal está al final del body
+window.addEventListener("DOMContentLoaded", ()=>{
+  const pm = document.getElementById("prodModal");
+  if(!pm) return;
+  document.addEventListener("keydown", e=>{
+    if(e.key==="Escape" && pm.classList.contains("on")) cerrarProducto();
+  });
+  pm.addEventListener("click", e=>{
+    if(e.target === pm) cerrarProducto();
+  });
 });
+
+/* ---- FAB carrito ---- */
+function actualizarFab(c){
+  const fab = document.getElementById("fab");
+  const badge = document.getElementById("fabBadge");
+  const total = document.getElementById("fabTotal");
+  if(!fab) return;
+  if(c.n > 0){
+    fab.classList.add("on");
+    badge.textContent = c.n;
+    total.textContent = "· " + fmt(c.total);
+    total.style.display = "inline";
+  } else {
+    fab.classList.remove("on");
+    total.style.display = "none";
+  }
+}
+function bumpBadge(){
+  const b = document.getElementById("fabBadge");
+  if(!b) return;
+  b.classList.add("bump");
+  setTimeout(()=>b.classList.remove("bump"), 350);
+}
+
+/* ---- Toast ---- */
+let toastTimer = null;
+function mostrarToast(txt){
+  const t = document.getElementById("toast");
+  const tx = document.getElementById("toastTxt");
+  if(!t || !tx) return;
+  tx.textContent = txt;
+  t.classList.add("on");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove("on"), 2200);
+}
 
 /* lógica de precios: pares a precio combo, envío incluido si hay combo */
 function calcular(){
@@ -658,16 +872,19 @@ function calcular(){
   const combos = Math.floor(n/2);
   const sueltas = n % 2;
   const productos = combos*PRECIO_COMBO + sueltas*PRECIO_UNIDAD;
-  const envio = (n === 0) ? 0 : (combos > 0 ? 0 : ENVIO);
+  // Envío gratis si subtotal de productos llega al umbral
+  const envioGratis = productos >= UMBRAL_ENVIO;
+  const envio = (n === 0) ? 0 : (envioGratis ? 0 : ENVIO);
+  // Ahorro: compara contra precio unidad x cantidad + envío SIEMPRE
   const sinPromo = n*PRECIO_UNIDAD + (n>0 ? ENVIO : 0);
-  const ahorro = sinPromo - (productos + envio);
-  return {n, combos, sueltas, productos, envio, total: productos + envio, ahorro};
+  const ahorro = Math.max(0, sinPromo - (productos + envio));
+  return {n, combos, sueltas, productos, envio, envioGratis, total: productos + envio, ahorro};
 }
 
 function lineasHTML(c){
   if(!c.n) return "";
   let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos)}</span></div>`;
-  h += `<div class="linea"><span>Envío</span><span>${c.envio===0 ? "Incluido" : fmt(c.envio)}</span></div>`;
+  h += `<div class="linea${c.envioGratis ? ' verde' : ''}"><span>Envío</span><span>${c.envioGratis ? "Gratis ✓" : fmt(c.envio)}</span></div>`;
   if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorras con el combo</span><span>−${fmt(c.ahorro)}</span></div>`;
   return h;
 }
@@ -680,14 +897,57 @@ function cerrarDrawer(){ drawer.classList.remove("open"); velo.classList.remove(
 document.getElementById("abrirCarrito").onclick = abrirDrawer;
 document.getElementById("cerrarCarrito").onclick = cerrarDrawer;
 velo.onclick = cerrarDrawer;
-document.getElementById("irPagar").onclick = ()=>{
-  cerrarDrawer();
-  document.getElementById("checkout").scrollIntoView({behavior:"smooth"});
-};
+// Modo de pago activo: lo decide cuál botón apretaron en el drawer
+let MODO_PAGO = 'online'; // 'online' | 'contraentrega'
+
+document.getElementById("btnPagoOnline").onclick = ()=> abrirCo(false);
+document.getElementById("btnPagoContra").onclick = ()=> abrirCo(true);
+
+function abrirCo(esContra){
+  if(!carrito.length) return; // no abrir vacío
+  MODO_PAGO = esContra ? 'contraentrega' : 'online';
+  cerrarDrawer(); // por si está abierto
+  // Configurar el modal según modo
+  document.getElementById("coTitulo").innerHTML = esContra
+    ? 'Pedido <em>contraentrega</em>'
+    : 'Finalizar <em>pedido</em>';
+  document.querySelector(".co-sub").textContent = esContra
+    ? 'Llena tus datos y te confirmamos por WhatsApp antes de enviar.'
+    : 'Completa tus datos y paga con tarjeta, Nequi o PSE.';
+  document.getElementById("avisoContra").style.display    = esContra ? '' : 'none';
+  document.getElementById("checkContraWrap").style.display = esContra ? '' : 'none';
+  document.getElementById("checkContra").checked          = false;
+  document.getElementById("linea-contra").style.display   = esContra ? '' : 'none';
+  // El correo es obligatorio solo en pago online; lo ocultamos en contraentrega para no pedir de más
+  document.getElementById("campoCorreo").style.display    = esContra ? 'none' : '';
+  // Texto del botón Confirmar
+  document.getElementById("btnPedir").textContent = esContra
+    ? 'Confirmar pedido'
+    : '⚡ Pagar ahora · Wompi';
+  // Mostrar modal
+  const modal = document.getElementById("coModal");
+  modal.classList.add("on");
+  document.body.style.overflow = "hidden";
+  pintarTodo();
+  setTimeout(()=>{ document.getElementById("nombre").focus(); }, 320);
+}
+function cerrarCo(){
+  document.getElementById("coModal").classList.remove("on");
+  document.body.style.overflow = "";
+}
+// cerrar con Esc solo si el modal está abierto
+document.addEventListener("keydown", e=>{
+  if(e.key==="Escape" && document.getElementById("coModal").classList.contains("on")) cerrarCo();
+});
+// cerrar al clicar fuera de la caja
+document.getElementById("coModal").addEventListener("click", e=>{
+  if(e.target === document.getElementById("coModal")) cerrarCo();
+});
 
 function pintarTodo(){
   const c = calcular();
   document.getElementById("badge").textContent = c.n;
+  actualizarFab(c);
 
   const itemHTML = (it,i)=>`
     <div class="d-item">
@@ -701,49 +961,51 @@ function pintarTodo(){
     : `<div class="vacio" style="padding:14px 0">Tu carrito está vacío.</div>`;
   document.getElementById("drawerLineas").innerHTML = lineasHTML(c);
   document.getElementById("drawerTotal").textContent = fmt(c.total);
-  document.getElementById("irPagar").disabled = !c.n;
+  document.getElementById("btnPagoOnline").disabled = !c.n;
+  document.getElementById("btnPagoContra").disabled = !c.n;
   document.getElementById("nudgeDrawer").classList.toggle("show", c.sueltas === 1);
 
-  // resumen checkout
-  document.getElementById("resumen").innerHTML = c.n
-    ? carrito.map((it,i)=>`
-      <div class="resumen-item">
-        <span>${it.nombre} · Talla única</span>
-        <span><button onclick="quitar(${i})" aria-label="Quitar">✕</button></span>
-      </div>`).join("")
-    : `<div class="vacio">Tu carrito está vacío. Elige modelo y talla arriba ↑</div>`;
+  // bloque envío gratis: solo aparece si hay items
+  const eb = document.getElementById("envioBlock");
+  if(c.n === 0){
+    eb.style.display = "none";
+  } else {
+    eb.style.display = "";
+    const pct = Math.min(100, Math.round((c.productos / UMBRAL_ENVIO) * 100));
+    document.getElementById("envioBarFill").style.width = pct + "%";
+    const faltan = Math.max(0, UMBRAL_ENVIO - c.productos);
+    if(c.envioGratis){
+      eb.classList.add("unlocked");
+      document.getElementById("envioIcon").innerHTML = '<polyline points="20 6 9 17 4 12"/>';
+      document.getElementById("envioMsg").innerHTML = "¡Envío gratis desbloqueado!";
+    } else {
+      eb.classList.remove("unlocked");
+      document.getElementById("envioIcon").innerHTML = '<rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>';
+      document.getElementById("envioMsg").innerHTML = `Te faltan <b>${fmt(faltan)}</b> para envío gratis`;
+    }
+    document.getElementById("envioFrac").textContent = fmt(c.productos) + " / $100k";
+  }
+
+  // modal checkout
   document.getElementById("lineas").innerHTML = lineasHTML(c);
-  document.getElementById("total").textContent = fmt(c.total);
-  document.getElementById("btnPedir").disabled = !c.n;
+  const mini = document.getElementById("coMiniItems");
+  if(mini){
+    mini.innerHTML = c.n
+      ? carrito.map((it,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 0">
+          <span><strong>${it.nombre}</strong> · Talla única</span>
+          <span style="display:flex;align-items:center;gap:8px">${fmt(PRECIO_UNIDAD)}<button onclick="quitar(${i})" aria-label="Quitar" style="background:none;border:none;color:var(--rojo);cursor:pointer;font-size:13px">✕</button></span>
+        </div>`).join("")
+      : '<span style="color:var(--topo-claro)">Tu carrito está vacío.</span>';
+  }
+  actualizarTotal();
+  actualizarBoton();
   document.getElementById("nudge").classList.toggle("show", c.sueltas === 1);
 }
 function quitar(i){ carrito.splice(i,1); pintarTodo(); }
 pintarTodo();
 
-document.querySelectorAll(".metodo input").forEach(r=>{
-  r.addEventListener("change", ()=>{
-    document.querySelectorAll(".metodo").forEach(m=>m.classList.remove("sel"));
-    r.closest(".metodo").classList.add("sel");
-  });
-});
-
-/* ---------- método de pago: mostrar/ocultar checkbox y recargo ---------- */
-const METODO_INPUTS = document.querySelectorAll('input[name="pago"]');
-function metodoActual(){ return document.querySelector('input[name="pago"]:checked').value; }
-
-function actualizarMetodo(){
-  document.querySelectorAll('.metodo').forEach(m=>m.classList.remove('sel'));
-  document.querySelector('input[name="pago"]:checked').closest('.metodo').classList.add('sel');
-  const esContra = metodoActual() === 'contraentrega';
-  document.getElementById('checkContraWrap').style.display = esContra ? '' : 'none';
-  document.getElementById('checkContra').checked = false;
-  document.getElementById('linea-contra').style.display = esContra ? '' : 'none';
-  actualizarTotal();
-  actualizarBoton();
-}
-METODO_INPUTS.forEach(r => r.addEventListener('change', actualizarMetodo));
-// Estado inicial
-actualizarMetodo();
+/* ---------- modo de pago: helpers usan MODO_PAGO ---------- */
+function metodoActual(){ return MODO_PAGO; }
 
 function toggleContraCheck(checked){
   actualizarBoton();
@@ -751,14 +1013,14 @@ function toggleContraCheck(checked){
 
 function actualizarBoton(){
   const c = calcular();
-  const esContra = metodoActual() === 'contraentrega';
+  const esContra = MODO_PAGO === 'contraentrega';
   const contraOk = !esContra || document.getElementById('checkContra').checked;
   document.getElementById('btnPedir').disabled = !c.n || !contraOk;
 }
 
 function actualizarTotal(){
   const c = calcular();
-  const esContra = metodoActual() === 'contraentrega';
+  const esContra = MODO_PAGO === 'contraentrega';
   const totalFinal = c.total + (esContra ? RECARGO_CE : 0);
   document.getElementById('total').textContent = fmt(totalFinal);
 }
@@ -774,7 +1036,21 @@ document.getElementById('btnPedir').onclick = async ()=>{
   if(!nombre || !tel || !ciudad || !dir){
     alert('Completa tus datos de envío para confirmar el pedido.'); return;
   }
+  // Validación celular Colombia (10 dígitos)
+  if(!/^\d{10}$/.test(tel.replace(/\D/g,''))){
+    alert('Ingresa un número de WhatsApp válido (10 dígitos, ej: 300 000 0000).'); return;
+  }
+  // Email solo obligatorio si va a pagar online
   const metodo  = metodoActual();
+  if(metodo === 'online'){
+    if(!correo || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(correo)){
+      alert('Ingresa un correo válido para el pago online.'); return;
+    }
+    if(WOMPI_PUB_KEY.includes('XXXX') || WORKER_URL.includes('TU-WORKER')){
+      alert('El pago online aún no está configurado. Por favor selecciona contraentrega.');
+      return;
+    }
+  }
   const esContra = metodo === 'contraentrega';
   const c = calcular();
   const recargo = esContra ? RECARGO_CE : 0;
@@ -812,7 +1088,8 @@ document.getElementById('btnPedir').onclick = async ()=>{
     }).catch(()=>{});
 
     if(esContra){
-      // Contraentrega: mostrar confirmación
+      // Contraentrega: cerrar modal y mostrar confirmación
+      cerrarCo();
       mostrarConfirmacionContra(nombre);
       carrito = []; pintarTodo();
     } else {
@@ -896,7 +1173,39 @@ function hideMun(){ document.getElementById('munSugg').style.display='none'; }
 window.addEventListener('pageshow', ()=>{
   const btn = document.getElementById('btnPedir');
   if(btn && btn.textContent === 'Enviando…'){ btn.textContent='Confirmar pedido'; btn.disabled=false; }
+  document.body.style.overflow = ""; // por si volvimos de Wompi con el body bloqueado
 });
 </script>
+
+<!-- ============ FAB CARRITO ============ -->
+<button class="fab" id="fab" onclick="abrirDrawer()">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+  Carrito
+  <span class="fab-badge" id="fabBadge">0</span>
+  <span class="fab-total" id="fabTotal" style="display:none"></span>
+</button>
+
+<!-- ============ MODAL PRODUCTO ============ -->
+<div class="prod-modal" id="prodModal" role="dialog" aria-modal="true">
+  <div class="prod-box">
+    <button class="prod-x" onclick="cerrarProducto()" aria-label="Cerrar">✕</button>
+    <div class="prod-vis" id="pmVis"></div>
+    <div class="prod-info">
+      <div class="tag" id="pmTag"></div>
+      <h3 id="pmNombre"></h3>
+      <div class="precio" id="pmPrecio"></div>
+      <p class="desc" id="pmDesc"></p>
+      <ul class="prod-feats" id="pmFeats"></ul>
+      <div class="prod-cta-row">
+        <button class="btn-add-modal" onclick="agregarDesdeModal()">Agregar al carrito</button>
+        <button class="btn-buy-modal" onclick="comprarAhora()">⚡ Comprar ahora</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ============ TOAST ============ -->
+<div class="toast" id="toast"><span id="toastTxt"></span></div>
+
 </body>
 </html>
