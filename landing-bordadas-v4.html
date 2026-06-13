@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Santo Cielo · Camisetas bordadas a hilo</title>
+<meta name="description" content="Camisetas bordadas a hilo, hechas en Colombia. Colección Mundial 2026 y bordados de siempre. Combo 2 × $125.000 con envío incluido.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --amarillo:#F2C200; --azul:#003893; --rojo:#CE1126;
+  --crema:#F6F2EA; --hueso:#FCFAF4; --tinta:#181410; --borde:#E3DACA;
+  --topo:#8B7F6A; --topo-claro:#A89B83;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Hanken Grotesk',sans-serif;background:var(--crema);color:var(--tinta);-webkit-font-smoothing:antialiased}
+img,svg{display:block;max-width:100%}
+button{font-family:inherit;cursor:pointer}
+
+.wrap{max-width:1020px;margin:0 auto;padding:0 22px}
+.eyebrow{font:600 10.5px 'Hanken Grotesk';letter-spacing:.34em;text-transform:uppercase;color:var(--topo-claro)}
+.puntada{border:none;border-top:2px dashed var(--borde)}
+
+.hilo{height:4px;display:grid;grid-template-columns:2fr 1fr 1fr}
+.hilo span:nth-child(1){background:var(--amarillo)}
+.hilo span:nth-child(2){background:var(--azul)}
+.hilo span:nth-child(3){background:var(--rojo)}
+
+/* ---------- header ---------- */
+header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdrop-filter:blur(12px);
+  border-bottom:1px solid var(--borde)}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:13px 18px;max-width:1020px;margin:0 auto}
+.logo{font:300 14px 'Inter',sans-serif;letter-spacing:.32em;text-transform:uppercase}
+.logo i{font-style:normal}
+.btn-carrito{position:relative;display:flex;align-items:center;gap:8px;font:600 11px 'Hanken Grotesk';
+  letter-spacing:.12em;text-transform:uppercase;background:var(--tinta);color:var(--crema);
+  border:none;border-radius:999px;padding:10px 16px;transition:transform .15s}
+.btn-carrito:active{transform:scale(.97)}
+.btn-carrito svg{width:15px;height:15px}
+.badge{background:var(--amarillo);color:var(--tinta);font-weight:700;font-size:11px;
+  min-width:19px;height:19px;border-radius:999px;display:inline-flex;align-items:center;justify-content:center;padding:0 5px}
+
+/* barra promo */
+.promo-bar{background:var(--tinta);color:var(--crema);text-align:center;font:600 11px 'Hanken Grotesk';
+  letter-spacing:.14em;text-transform:uppercase;padding:9px 14px}
+.promo-bar b{color:var(--amarillo);font-weight:700}
+
+/* ---------- HERO vitrina ---------- */
+.hero{padding:46px 0 42px;text-align:center;position:relative;overflow:hidden}
+.hero h1{font:500 clamp(42px,12vw,92px)/1 'Bodoni Moda',serif;margin-top:16px}
+.hero h1 em{font-style:italic;font-weight:400}
+.hero .sub{margin-top:14px;color:#6E6452;font-size:14.5px;max-width:420px;line-height:1.6;margin-left:auto;margin-right:auto;padding:0 26px}
+
+/* entrada del titular */
+.hero>*{position:relative}
+.hero .eyebrow,.hero h1,.hero .sub{animation:subir .7s ease backwards}
+.hero h1{animation-delay:.08s}
+.hero .sub{animation-delay:.16s}
+@keyframes subir{from{opacity:0;transform:translateY(14px)}}
+
+/* hilo cosido en vivo por la aguja del subrayado */
+.costura{width:min(460px,88vw);margin:20px auto 0;overflow:visible;display:block}
+.costura .hilo-p{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-dasharray:6 7}
+.costura .rev{fill:none;stroke:#fff;stroke-width:9;stroke-linecap:round}
+#aguja{opacity:0;transition:opacity .35s}
+#aguja.viva{opacity:1}
+
+/* vitrina rotativa */
+.vitrina{position:relative;width:min(330px,80vw);margin:8px auto 0;aspect-ratio:1/1.05}
+.aro{position:absolute;inset:6%;border-radius:50%;background:radial-gradient(circle,#fff 0%,var(--hueso) 58%,transparent 72%);
+  border:1px solid var(--borde)}
+.aro::after{content:"";position:absolute;inset:-9px;border-radius:50%;border:2px dashed var(--borde)}
+.vit-shirt{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(.92) translateY(8px);transition:opacity .55s ease,transform .55s ease;pointer-events:none}
+.vit-shirt.on{opacity:1;transform:none}
+.vit-shirt svg,.vit-shirt img{width:74%;filter:drop-shadow(0 18px 22px rgba(24,20,16,.18));
+  animation:flotar 4.6s ease-in-out infinite}
+@keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.vit-info{margin-top:6px}
+.vit-info .n{font:500 22px 'Bodoni Moda',serif}
+.vit-info .n em{font-style:italic}
+.vit-info .p{font:600 10.5px 'Hanken Grotesk';letter-spacing:.22em;text-transform:uppercase;color:var(--topo);margin-top:4px}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:14px}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--borde);border:none;padding:0;transition:all .3s}
+.dot.on{background:var(--tinta);transform:scale(1.3)}
+.hero-cta{margin-top:22px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
+  background:var(--tinta);color:#fff;border:none;border-radius:999px;padding:16px 34px}
+
+/* ---------- secciones de producto ---------- */
+.mundial{background:var(--hueso);border-bottom:1px solid var(--borde);padding:56px 0 64px}
+.catalogo{padding:56px 0 64px}
+.cab h2{font:500 clamp(30px,7.5vw,50px)/1.08 'Bodoni Moda',serif;margin-top:10px}
+.cab h2 em{font-style:italic;font-weight:400}
+.cab .nota-cab{font-size:13px;color:var(--topo);max-width:340px;line-height:1.6;margin-top:12px}
+.mundial .hilo{max-width:120px;margin-top:16px}
+
+.grid{margin-top:32px;display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:18px}}
+.grid.seis{grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){.grid.seis{grid-template-columns:repeat(3,1fr)}}
+.prod{background:#fff;border:1px solid var(--borde);display:flex;flex-direction:column;
+  opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.prod.in{opacity:1;transform:none}
+.prod .foto{background:var(--hueso);border-bottom:1px solid var(--borde);padding:18px 14px;
+  display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
+.prod .foto svg,.prod .foto img{width:90%}
+.prod .cuerpo{padding:13px 12px 14px;display:flex;flex-direction:column;flex:1}
+.prod h3{font:500 16px 'Bodoni Moda',serif}
+.prod .tag{font:600 9px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo-claro);margin-top:3px}
+.prod .precio{font:500 14.5px 'Bodoni Moda',serif;margin-top:8px}
+.prod .tallas{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
+.talla-unica{display:inline-flex;align-items:center;gap:5px;margin-top:10px;
+  font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;
+  color:var(--topo);border:none;background:none;padding:0;cursor:default}
+.talla-unica svg{width:13px;height:13px;color:var(--topo)}
+.agregar{margin-top:12px;font:600 10.5px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
+  background:var(--tinta);color:#fff;border:none;padding:12px 6px;transition:opacity .2s}
+.agregar:disabled{opacity:.3;cursor:not-allowed}
+.agregar.listo{background:#2E5B2E}
+
+/* combo callout */
+.combo-card{margin-top:18px;border:2px dashed var(--tinta);background:#fff;padding:18px 16px;
+  display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}
+.combo-card .tx b{font:500 19px 'Bodoni Moda',serif;display:block}
+.combo-card .tx span{font-size:12.5px;color:var(--topo)}
+.combo-card .pr{font:500 24px 'Bodoni Moda',serif}
+.combo-card .pr small{display:block;font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#2E5B2E}
+
+/* ---------- por qué bordada ---------- */
+.porque{background:var(--tinta);color:var(--crema);padding:60px 0}
+.porque .eyebrow{color:var(--amarillo)}
+.porque h2{font:500 clamp(28px,7vw,44px)/1.12 'Bodoni Moda',serif;color:#fff;margin-top:12px;max-width:520px}
+.porque h2 em{font-style:italic;font-weight:400}
+.razones{margin-top:34px;display:grid;gap:26px}
+@media(min-width:680px){.razones{grid-template-columns:repeat(3,1fr)}}
+.razon .icono{width:48px;height:48px;border-radius:50%;border:2px dashed rgba(242,194,0,.35);
+  display:flex;align-items:center;justify-content:center}
+.razon .icono svg{width:22px;height:22px}
+.razon h4{font:500 18px 'Bodoni Moda',serif;margin-top:14px}
+.razon p{font-size:13px;color:#B7AD9B;line-height:1.65;margin-top:7px}
+
+/* ---------- testimonios ---------- */
+.testimonios{padding:60px 0;border-bottom:1px solid var(--borde)}
+.testimonios h2{font:500 clamp(28px,7vw,44px)/1.12 'Bodoni Moda',serif;margin-top:10px}
+.testimonios h2 em{font-style:italic;font-weight:400}
+.testi-grid{margin-top:32px;display:grid;gap:16px}
+@media(min-width:680px){.testi-grid{grid-template-columns:repeat(3,1fr)}}
+.testi{background:#fff;border:1px solid var(--borde);padding:22px 20px 20px}
+.testi-top{display:flex;align-items:center;gap:12px}
+.testi-foto{width:46px;height:46px;border-radius:50%;background:var(--hueso);border:2px dashed var(--borde);
+  overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center}
+.testi-foto img{width:100%;height:100%;object-fit:cover}
+.testi-foto svg{width:22px;height:22px;color:var(--topo-claro)}
+.testi-nombre{font:500 15px 'Bodoni Moda',serif}
+.testi-ciudad{font:600 9px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--topo-claro);margin-top:2px}
+.testi-cuerpo{font-size:13.5px;color:var(--topo);line-height:1.65;margin-top:14px}
+.testi-estrellas{margin-top:12px;color:var(--amarillo);font-size:13px;letter-spacing:2px}
+
+/* ---------- guía de tallas ---------- */
+.tallas-sec{padding:58px 0}
+.tallas-sec h2{font:500 clamp(26px,6.5vw,40px)/1.12 'Bodoni Moda',serif;margin-top:10px}
+.tallas-sec h2 em{font-style:italic;font-weight:400}
+.tabla{margin-top:24px;width:100%;max-width:520px;border-collapse:collapse;background:#fff;border:1px solid var(--borde);font-size:13.5px}
+.tabla th{font:600 10px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:var(--topo);
+  padding:12px 14px;border-bottom:1px solid var(--borde);text-align:left;background:var(--hueso)}
+.tabla td{padding:12px 14px;border-bottom:1px solid var(--borde)}
+.tabla td b{font:500 14px 'Bodoni Moda',serif}
+.tabla tr:last-child td{border-bottom:none}
+
+/* ---------- checkout ---------- */
+.checkout{padding:58px 0 74px;background:var(--hueso);border-top:1px solid var(--borde)}
+.checkout h2{font:500 clamp(28px,7vw,44px)/1.1 'Bodoni Moda',serif;margin-top:10px}
+.checkout h2 em{font-style:italic;font-weight:400}
+.co-grid{margin-top:28px;display:grid;gap:20px}
+@media(min-width:840px){.co-grid{grid-template-columns:1fr 370px;align-items:start}}
+.panel-co{background:#fff;border:1px solid var(--borde);padding:24px 20px}
+.panel-co h3{font:500 21px 'Bodoni Moda',serif;margin-bottom:16px}
+.campo{margin-bottom:13px}
+.campo label{display:block;font:600 10px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo);margin-bottom:6px}
+.campo input{width:100%;border:1px solid var(--borde);border-radius:1px;background:var(--hueso);
+  padding:13px;font:400 15px 'Hanken Grotesk';color:var(--tinta)}
+.campo input:focus{outline:2px solid var(--amarillo);outline-offset:1px;border-color:var(--amarillo)}
+.metodos{display:grid;gap:10px;margin-top:4px}
+.metodo{display:flex;gap:12px;align-items:flex-start;border:1px solid var(--borde);
+  padding:14px;background:var(--hueso);cursor:pointer;transition:border-color .2s}
+.metodo input{margin-top:3px;accent-color:var(--tinta)}
+.metodo.sel{border-color:var(--tinta);background:#fff}
+.metodo b{font-size:14px}
+.metodo p{font-size:12px;color:var(--topo);margin-top:3px;line-height:1.5}
+.resumen-item{display:flex;justify-content:space-between;gap:10px;font-size:13.5px;padding:10px 0;border-bottom:2px dashed var(--borde)}
+.resumen-item button{background:none;border:none;color:var(--rojo);font-size:12px}
+.linea{display:flex;justify-content:space-between;font-size:13.5px;color:var(--topo);padding-top:10px}
+.linea.verde{color:#2E5B2E;font-weight:600}
+.total-row{display:flex;justify-content:space-between;font:500 20px 'Bodoni Moda',serif;padding-top:12px}
+.vacio{font-size:13px;color:var(--topo);padding:6px 0}
+.nudge{margin-top:12px;background:#FFF8E0;border:1px dashed var(--amarillo);font-size:12.5px;
+  padding:11px 12px;line-height:1.5;display:none}
+.nudge.show{display:block}
+.pedir{width:100%;margin-top:16px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
+  background:var(--tinta);color:#fff;border:none;padding:17px;transition:opacity .2s}
+.pedir:disabled{opacity:.3;cursor:not-allowed}
+.seguro{margin-top:12px;text-align:center;font-size:11.5px;color:var(--topo-claro)}
+.ok-msg{display:none;margin-top:14px;background:#EAF4EA;border:1px solid #BCD9BC;color:#2E5B2E;
+  font-size:13px;padding:13px;line-height:1.5}
+.ok-msg.show{display:block}
+
+/* ---------- drawer carrito ---------- */
+.velo{position:fixed;inset:0;background:rgba(24,20,16,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
+.velo.open{opacity:1;pointer-events:auto}
+.drawer{position:fixed;top:0;right:0;height:100dvh;width:min(380px,92vw);background:var(--crema);z-index:90;
+  transform:translateX(105%);transition:transform .35s cubic-bezier(.22,.8,.3,1);display:flex;flex-direction:column;
+  border-left:1px solid var(--borde)}
+.drawer.open{transform:none}
+.drawer-cab{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--borde)}
+.drawer-cab h3{font:500 22px 'Bodoni Moda',serif}
+.cerrar{background:none;border:none;font-size:22px;color:var(--topo);line-height:1}
+.drawer-items{flex:1;overflow-y:auto;padding:12px 18px}
+.d-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:2px dashed var(--borde)}
+.d-item .n{font:500 15px 'Bodoni Moda',serif}
+.d-item .t{font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo);margin-top:3px}
+.d-item .p{font:500 14px 'Bodoni Moda',serif;white-space:nowrap}
+.d-item button{background:none;border:none;color:var(--rojo);font-size:13px;margin-left:6px}
+.drawer-pie{border-top:1px solid var(--borde);padding:14px 18px 20px;background:var(--hueso)}
+.drawer-pie .linea{padding-top:6px}
+.drawer-total{display:flex;justify-content:space-between;font:500 19px 'Bodoni Moda',serif;margin:8px 0 12px}
+.ir-pagar{width:100%;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
+  background:var(--tinta);color:#fff;border:none;padding:16px}
+.ir-pagar:disabled{opacity:.3}
+
+footer{background:var(--tinta);color:#B7AD9B;padding:34px 0}
+footer .wrap{display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap;align-items:center}
+footer .logo{color:#fff;font-size:18px}
+footer small{font-size:11.5px;letter-spacing:.06em}
+
+@media (prefers-reduced-motion: reduce){
+  .prod{opacity:1;transform:none;transition:none}
+  .drawer{transition:none}
+  .vit-shirt svg,.vit-shirt img{animation:none}
+  .costura .rev{stroke-dashoffset:0!important}
+  #aguja{display:none}
+  .hero .eyebrow,.hero h1,.hero .sub{animation:none}
+}
+</style>
+</head>
+<body>
+
+<div class="promo-bar">Combo <b>2 × $125.000</b> · envío incluido 🇨🇴</div>
+
+<header>
+  <div class="nav">
+    <div class="logo">SANTO CIELO</div>
+    <button class="btn-carrito" id="abrirCarrito" aria-label="Abrir carrito">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      Carrito <span class="badge" id="badge">0</span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO VITRINA ============ -->
+<section class="hero" id="hero">
+
+  <div class="eyebrow">Bordado a hilo · Hecho en Colombia</div>
+  <h1>Lo que se borda,<br><em>permanece.</em></h1>
+  <p class="sub">Camisetas de algodón peinado con bordados de verdad. Relieve que se siente, color que no se va.</p>
+
+  <svg class="costura" viewBox="0 0 420 40" aria-hidden="true">
+    <defs>
+      <mask id="mk0"><path class="rev" d="M10 12 Q70 1 140 12 T270 12 T410 12"/></mask>
+      <mask id="mk1"><path class="rev" d="M10 20 Q70 9 140 20 T270 20 T410 20"/></mask>
+      <mask id="mk2"><path class="rev" d="M10 28 Q70 17 140 28 T270 28 T410 28"/></mask>
+    </defs>
+    <path class="hilo-p" stroke="var(--amarillo)" mask="url(#mk0)" d="M10 12 Q70 1 140 12 T270 12 T410 12"/>
+    <path class="hilo-p" stroke="var(--azul)"     mask="url(#mk1)" d="M10 20 Q70 9 140 20 T270 20 T410 20"/>
+    <path class="hilo-p" stroke="var(--rojo)"     mask="url(#mk2)" d="M10 28 Q70 17 140 28 T270 28 T410 28"/>
+    <g id="aguja">
+      <path id="hebra" d="M16 0 q 16 -14 34 -9" fill="none" stroke="var(--amarillo)" stroke-width="2" stroke-linecap="round" stroke-dasharray="4 5"/>
+      <line x1="-6" y1="0" x2="20" y2="0" stroke="#6E6452" stroke-width="2.4" stroke-linecap="round"/>
+      <circle cx="16" cy="0" r="2.6" fill="var(--crema)" stroke="#6E6452" stroke-width="1.4"/>
+    </g>
+  </svg>
+
+  <div class="vitrina" id="vitrina">
+    <div class="aro"></div>
+  </div>
+  <div class="vit-info">
+    <div class="n" id="vitNombre"></div>
+    <div class="p" id="vitPrecio"></div>
+  </div>
+  <div class="dots" id="dots"></div>
+
+  <button class="hero-cta" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'})">Ver la colección</button>
+</section>
+
+<!-- ============ COLECCIÓN MUNDIAL ============ -->
+<section class="mundial" id="mundial">
+  <div class="wrap">
+    <div class="cab">
+      <div class="eyebrow">Edición limitada</div>
+      <h2>Colección <em>Mundial</em> 2026</h2>
+      <div class="hilo"><span></span><span></span><span></span></div>
+      <p class="nota-cab">Cuatro diseños con el tricolor bordado, producidos por tandas mientras ruede el balón. Cuando se acaban, se acaban.</p>
+    </div>
+    <div class="grid" id="gridMundial"></div>
+    <div class="combo-card">
+      <div class="tx"><b>Arma tu combo</b><span>Cualquier par de camisetas, de cualquier colección.</span></div>
+      <div class="pr">$125.000<small>Envío incluido</small></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CATÁLOGO ============ -->
+<section class="catalogo" id="catalogo">
+  <div class="wrap">
+    <div class="cab">
+      <div class="eyebrow">Bordados de siempre</div>
+      <h2>El <em>catálogo</em></h2>
+      <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para todos los días, no solo los de partido.</p>
+    </div>
+    <div class="grid seis" id="gridCatalogo"></div>
+  </div>
+</section>
+
+<!-- ============ POR QUÉ BORDADA ============ -->
+<section class="porque">
+  <div class="wrap">
+    <div class="eyebrow">La diferencia</div>
+    <h2>Por qué bordada y <em>no estampada</em></h2>
+    <div class="razones">
+      <div class="razon">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C200" stroke-width="2" stroke-linecap="round"><path d="M12 2v8l4 4"/><circle cx="12" cy="14" r="8"/></svg></div>
+        <h4>El hilo no se borra</h4><p>Un estampado se cuartea con las lavadas. El bordado conserva su color y su forma, año tras año.</p>
+      </div>
+      <div class="razon">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C200" stroke-width="2" stroke-linecap="round"><path d="M6 3v18"/><path d="M18 3v18"/><path d="M6 8c3-2 5 2 6 0s3-2 6 0"/><path d="M6 16c3-2 5 2 6 0s3-2 6 0"/></svg></div>
+        <h4>Relieve que se nota</h4><p>El diseño tiene textura real. Se siente al tacto y se ve premium de cerca, nada de calcomanías.</p>
+      </div>
+      <div class="razon">
+        <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C200" stroke-width="2" stroke-linecap="round"><path d="M3 12h18"/><path d="M12 3v18"/><circle cx="12" cy="12" r="9"/><path d="M8 7l1 .5"/><path d="M15 7l1 .5"/></svg></div>
+        <h4>Hecha en Colombia</h4><p>Confección y bordado locales, en tandas pequeñas y con control de calidad pieza por pieza.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ TESTIMONIOS ============ -->
+<section class="testimonios">
+  <div class="wrap">
+    <div class="eyebrow">Lo que dicen</div>
+    <h2>Quienes ya la <em>tienen</em></h2>
+    <div class="testi-grid">
+
+      <div class="testi">
+        <div class="testi-top">
+          <div class="testi-foto">
+            <!-- reemplazar con <img src="foto.jpg" alt="Camila"> -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div>
+            <div class="testi-nombre">Camila Restrepo</div>
+            <div class="testi-ciudad">Medellín</div>
+          </div>
+        </div>
+        <div class="testi-cuerpo">Pedí la Clásica Blanca y la Orquídea. Se nota que es bordado de verdad, no esa cosa plástica que se despega. Ya las lavé como cuatro veces y están igualitas.</div>
+        <div class="testi-estrellas">★★★★★</div>
+      </div>
+
+      <div class="testi">
+        <div class="testi-top">
+          <div class="testi-foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div>
+            <div class="testi-nombre">Andrés Mercado</div>
+            <div class="testi-ciudad">Barranquilla</div>
+          </div>
+        </div>
+        <div class="testi-cuerpo">La tela es gruesa pero no da calor, que en Barranquilla es lo que importa. El bordado del tricolor queda brutal, todo el mundo me pregunta dónde la compré.</div>
+        <div class="testi-estrellas">★★★★★</div>
+      </div>
+
+      <div class="testi">
+        <div class="testi-top">
+          <div class="testi-foto">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
+          </div>
+          <div>
+            <div class="testi-nombre">Valentina Duque</div>
+            <div class="testi-ciudad">Bogotá</div>
+          </div>
+        </div>
+        <div class="testi-cuerpo">Compré el combo para regalar y me quedé con una. La de Carnaval es espectacular, tiene como seis colores y todos bordados. Llegó rápido y bien empacada.</div>
+        <div class="testi-estrellas">★★★★★</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ GUÍA DE TALLAS ============ -->
+<section class="tallas-sec" id="tallas">
+  <div class="wrap">
+    <div class="eyebrow">Guía de tallas</div>
+    <h2>Talla <em>única</em></h2>
+    <table class="tabla">
+      <thead><tr><th>Talla</th><th>Ancho pecho</th><th>Largo</th></tr></thead>
+      <tbody>
+        <tr><td><b>Única</b></td><td>52 cm</td><td>72 cm</td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:12.5px;color:var(--topo);margin-top:12px;line-height:1.6">Corte oversize que se adapta cómodo a la mayoría de cuerpos. Si usas entre S y L, te queda perfecto.</p>
+  </div>
+</section>
+
+<!-- ============ CHECKOUT ============ -->
+<section class="checkout" id="checkout">
+  <div class="wrap">
+    <div class="eyebrow">Tu pedido</div>
+    <h2>Confirmar <em>pedido</em></h2>
+    <div class="co-grid">
+
+      <div class="panel-co">
+        <h3>Datos de envío</h3>
+        <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" autocomplete="name" placeholder="Tu nombre"></div>
+        <div class="campo"><label for="tel">WhatsApp</label><input id="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000"></div>
+        <div class="campo"><label for="correo">Correo electrónico</label><input id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com"></div>
+        <div class="campo" style="position:relative">
+          <label for="ciudad">Ciudad / Municipio</label>
+          <input id="ciudad" autocomplete="off" placeholder="Escribe tu ciudad" oninput="filtrarMun(this.value)" onfocus="filtrarMun(this.value)" onblur="setTimeout(()=>hideMun(),200)">
+          <div id="munSugg" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--borde);border-top:none;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
+        </div>
+        <div class="campo">
+          <label for="depto">Departamento</label>
+          <input id="depto" autocomplete="off" placeholder="Se autocompleta con la ciudad" readonly style="background:var(--hueso);color:var(--topo);cursor:default">
+        </div>
+        <div class="campo"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Calle, número, barrio"></div>
+
+        <h3 style="margin-top:24px">Método de pago</h3>
+        <div class="metodos">
+          <label class="metodo sel">
+            <input type="radio" name="pago" value="contraentrega" checked>
+            <span><b>Pago contra entrega</b><p>Pagas en efectivo cuando recibes tus camisetas. Se añade un recargo de $5.000 por costos de la transportadora.</p></span>
+          </label>
+          <label class="metodo">
+            <input type="radio" name="pago" value="online">
+            <span><b>Pago online</b><p>Tarjeta, PSE o Nequi a través de pasarela segura. Procesamos tu pedido de inmediato.</p></span>
+          </label>
+        </div>
+
+        <div id="checkContraWrap" style="margin-top:14px;background:var(--hueso);border:1px solid var(--borde);padding:12px 14px;font-size:12.5px;color:var(--topo);line-height:1.6;border-radius:2px">
+          <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer">
+            <input type="checkbox" id="checkContra" onchange="toggleContraCheck(this.checked)" style="margin-top:3px;flex-shrink:0">
+            <span>Acepto el recargo de <b>$5.000</b> por contraentrega y me comprometo a estar disponible para recibir mi pedido.</span>
+          </label>
+        </div>
+      </div>
+
+      <div class="panel-co">
+        <h3>Resumen</h3>
+        <div id="resumen"><div class="vacio">Tu carrito está vacío. Elige modelo arriba ↑</div></div>
+        <div id="lineas"></div>
+        <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
+        <div class="total-row"><span>Total</span><span id="total">$0</span></div>
+        <div class="nudge" id="nudge">💡 Agrega otra camiseta y arma el <b>combo: 2 × $125.000 con envío incluido</b>.</div>
+        <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
+        <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
+        <div class="ok-msg" id="okMsg">¡Pedido recibido! Te escribiremos por WhatsApp para confirmar el envío. ✦</div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="logo">SANTO CIELO</div>
+    <small>© 2026 · Hecho y bordado en Colombia · Envíos nacionales</small>
+  </div>
+</footer>
+
+<!-- ============ DRAWER CARRITO ============ -->
+<div class="velo" id="velo"></div>
+<aside class="drawer" id="drawer" aria-label="Carrito de compras">
+  <div class="drawer-cab">
+    <h3>Tu carrito</h3>
+    <button class="cerrar" id="cerrarCarrito" aria-label="Cerrar carrito">✕</button>
+  </div>
+  <div class="drawer-items" id="drawerItems"></div>
+  <div class="drawer-pie">
+    <div id="drawerLineas"></div>
+    <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
+    <div class="nudge" id="nudgeDrawer">💡 Agrega otra y arma el <b>combo: 2 × $125.000, envío incluido</b>.</div>
+    <button class="ir-pagar" id="irPagar" disabled>Ir a pagar</button>
+  </div>
+</aside>
+
+<script>
+/* =====================================================
+   CONFIGURACIÓN — edita aquí
+===================================================== */
+/* ── PENDIENTE: reemplaza estos valores antes de publicar ── */
+const WEBHOOK_URL   = "https://TU-N8N.com/webhook/pedido-santo-cielo"; // ← URL de tu webhook n8n
+const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← URL de tu Cloudflare Worker (firma Wompi)
+const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
+const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
+
+const PRECIO_UNIDAD = 75000;   // precio por camiseta
+const ENVIO         = 10000;   // envío para compras sin combo
+const PRECIO_COMBO  = 125000;  // 2 camisetas, envío incluido
+
+/* Modelos: pon la ruta de tus PNG en "img" y reemplazan la silueta. */
+const MODELOS = [
+  // ---- Colección Mundial (4) ----
+  {id:"clasica",  coleccion:"mundial",  nombre:"Clásica Blanca",  tag:"Tricolor al pecho",  color:"#F2EFE6", motivo:"bandera", img:""},
+  {id:"tribuna",  coleccion:"mundial",  nombre:"Negra Tribuna",   tag:"Tricolor en manga",  color:"#23252B", motivo:"bandera", img:""},
+  {id:"seleccion",coleccion:"mundial",  nombre:"Azul Selección",  tag:"Bordado grande",     color:"#1F3B7A", motivo:"bandera", img:""},
+  {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:""},
+  // ---- Catálogo (6) ----
+  {id:"orquidea", coleccion:"catalogo", nombre:"Orquídea",        tag:"Flor nacional",      color:"#F2EFE6", motivo:"flor",    img:""},
+  {id:"condor",   coleccion:"catalogo", nombre:"Cóndor",          tag:"Bordado al pecho",   color:"#3A3F35", motivo:"ave",     img:""},
+  {id:"cafetal",  coleccion:"catalogo", nombre:"Cafetal",         tag:"Rama de café",       color:"#E7DFCB", motivo:"flor",    img:""},
+  {id:"caribe",   coleccion:"catalogo", nombre:"Caribe",          tag:"Palmera bordada",    color:"#7FA8B8", motivo:"flor",    img:""},
+  {id:"carnaval", coleccion:"catalogo", nombre:"Carnaval",        tag:"Bordado multicolor", color:"#2B2530", motivo:"flor",    img:""},
+  {id:"acordeon", coleccion:"catalogo", nombre:"Vallenata",       tag:"Acordeón a hilo",    color:"#A8493F", motivo:"ave",     img:""}
+];
+const TALLAS = ["TU"];
+
+/* ===================================================== */
+const fmt = n => "$" + n.toLocaleString("es-CO");
+
+function motivoSVG(tipo){
+  if(tipo === "bandera") return `<g transform="translate(96,104)">
+    <rect width="48" height="16" fill="#F2C200" rx="2"/><rect y="16" width="48" height="8" fill="#003893"/>
+    <rect y="24" width="48" height="8" fill="#CE1126"/>
+    <rect width="48" height="32" fill="none" stroke="rgba(0,0,0,.3)" stroke-width="1.5" stroke-dasharray="3 2" rx="2"/></g>`;
+  if(tipo === "flor") return `<g transform="translate(120,120)" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2" stroke-dasharray="3 2">
+    <circle r="7"/><circle cx="0" cy="-14" r="7"/><circle cx="13" cy="-5" r="7"/><circle cx="8" cy="12" r="7"/><circle cx="-8" cy="12" r="7"/><circle cx="-13" cy="-5" r="7"/></g>`;
+  return `<g transform="translate(120,118)" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2" stroke-dasharray="3 2">
+    <path d="M-22 6 Q-8 -16 0 -4 Q8 -16 22 6"/><path d="M-6 8 Q0 14 6 8"/></g>`;
+}
+function camisetaSVG(m){
+  const cuello = (m.color === "#F2EFE6" || m.color === "#E7DFCB") ? "#181410" : "#F6F2EA";
+  return `<svg viewBox="0 0 240 240" aria-hidden="true">
+    <path d="M78 38 L46 56 L20 96 L52 116 L58 100 L58 206 Q120 220 182 206 L182 100 L188 116 L220 96 L194 56 L162 38 Q146 56 120 56 Q94 56 78 38 Z"
+      fill="${m.color}" stroke="rgba(0,0,0,.18)" stroke-width="2"/>
+    <path d="M84 40 Q120 66 156 40" fill="none" stroke="${cuello}" stroke-width="5" stroke-linecap="round" opacity=".7"/>
+    ${motivoSVG(m.motivo)}
+  </svg>`;
+}
+const visual = m => m.img ? `<img src="${m.img}" alt="${m.nombre}" loading="lazy">` : camisetaSVG(m);
+
+/* ---------- HERO: vitrina rotativa (modelos Mundial) ---------- */
+const heroModelos = MODELOS.filter(m=>m.coleccion==="mundial");
+const vitrina = document.getElementById("vitrina");
+const dotsBox = document.getElementById("dots");
+heroModelos.forEach((m,i)=>{
+  const d = document.createElement("div");
+  d.className = "vit-shirt"; d.innerHTML = visual(m);
+  vitrina.appendChild(d);
+  const dot = document.createElement("button");
+  dot.className = "dot"; dot.setAttribute("aria-label", m.nombre);
+  dot.onclick = ()=>{ vIdx = i; pintarVitrina(); reiniciarTimer(); };
+  dotsBox.appendChild(dot);
+});
+let vIdx = 0, vTimer = null;
+const REDUCIR = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const HILOS = ["#F2C200","#003893","#CE1126"];
+
+function pintarVitrina(){
+  document.querySelectorAll(".vit-shirt").forEach((s,i)=>s.classList.toggle("on", i===vIdx));
+  document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on", i===vIdx));
+  const m = heroModelos[vIdx];
+  document.getElementById("vitNombre").innerHTML = m.nombre.replace(/ (\S+)$/," <em>$1</em>");
+  document.getElementById("vitPrecio").textContent = fmt(PRECIO_UNIDAD) + " · " + m.tag;
+}
+function reiniciarTimer(){
+  clearInterval(vTimer);
+  vTimer = setInterval(()=>{ vIdx = (vIdx+1)%heroModelos.length; pintarVitrina(); }, 3200);
+}
+pintarVitrina(); reiniciarTimer();
+
+/* ---------- HERO: aguja que cose el subrayado ---------- */
+(function(){
+  const revs  = [...document.querySelectorAll(".costura .rev")];
+  const aguja = document.getElementById("aguja");
+  const hebra = document.getElementById("hebra");
+  revs.forEach(p=>{
+    const L = p.getTotalLength();
+    p.style.strokeDasharray = L; p.style.strokeDashoffset = L; p.dataset.l = L;
+  });
+  if(REDUCIR){ revs.forEach(p=>p.style.strokeDashoffset = 0); return; }
+
+  const ease = t => t < .5 ? 2*t*t : 1 - Math.pow(-2*t+2, 2)/2;
+  function coser(i, fin){
+    const p = revs[i], L = +p.dataset.l, dur = 1250;
+    hebra.setAttribute("stroke", HILOS[i]);
+    let t0 = null;
+    function paso(ts){
+      if(!t0) t0 = ts;
+      const t = Math.min(1, (ts-t0)/dur), e = ease(t);
+      p.style.strokeDashoffset = L*(1-e);
+      const a = p.getPointAtLength(L*e);
+      const b = p.getPointAtLength(Math.min(L, L*e + 1.5));
+      const ang = Math.atan2(b.y-a.y, b.x-a.x) * 180/Math.PI;
+      aguja.setAttribute("transform", `translate(${a.x} ${a.y}) rotate(${ang})`);
+      if(t < 1) requestAnimationFrame(paso); else fin && fin();
+    }
+    requestAnimationFrame(paso);
+  }
+  setTimeout(()=>{
+    aguja.classList.add("viva");
+    coser(0, ()=> coser(1, ()=> coser(2, ()=> aguja.classList.remove("viva"))));
+  }, 450);
+})();
+
+/* marquee removed */
+
+/* ---------- grids ---------- */
+function cardHTML(m){
+  return `<div class="prod" data-id="${m.id}">
+    <div class="foto">${visual(m)}</div>
+    <div class="cuerpo">
+      <h3>${m.nombre}</h3>
+      <div class="tag">${m.tag}</div>
+      <div class="precio">${fmt(PRECIO_UNIDAD)}</div>
+      <div class="tallas"><span class="talla-unica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Talla única</span></div>
+      <button class="agregar">Agregar</button>
+    </div>
+  </div>`;
+}
+document.getElementById("gridMundial").innerHTML  = MODELOS.filter(m=>m.coleccion==="mundial").map(cardHTML).join("");
+document.getElementById("gridCatalogo").innerHTML = MODELOS.filter(m=>m.coleccion==="catalogo").map(cardHTML).join("");
+
+const io = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
+}),{threshold:.12});
+document.querySelectorAll(".prod").forEach((c,i)=>{ c.style.transitionDelay = ((i%4)*90)+"ms"; io.observe(c); });
+
+/* ---------- carrito ---------- */
+let carrito = [];
+document.querySelectorAll(".prod").forEach(card=>{
+  const btn = card.querySelector(".agregar");
+  let talla = "TU";
+  btn.onclick = ()=>{
+    const m = MODELOS.find(x=>x.id===card.dataset.id);
+    carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla, precio_unidad:PRECIO_UNIDAD});
+    btn.textContent = "Agregada ✓"; btn.classList.add("listo");
+    setTimeout(()=>{ btn.textContent = "Agregar"; btn.classList.remove("listo"); }, 1400);
+    pintarTodo();
+    abrirDrawer();
+  };
+});
+
+/* lógica de precios: pares a precio combo, envío incluido si hay combo */
+function calcular(){
+  const n = carrito.length;
+  const combos = Math.floor(n/2);
+  const sueltas = n % 2;
+  const productos = combos*PRECIO_COMBO + sueltas*PRECIO_UNIDAD;
+  const envio = (n === 0) ? 0 : (combos > 0 ? 0 : ENVIO);
+  const sinPromo = n*PRECIO_UNIDAD + (n>0 ? ENVIO : 0);
+  const ahorro = sinPromo - (productos + envio);
+  return {n, combos, sueltas, productos, envio, total: productos + envio, ahorro};
+}
+
+function lineasHTML(c){
+  if(!c.n) return "";
+  let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos)}</span></div>`;
+  h += `<div class="linea"><span>Envío</span><span>${c.envio===0 ? "Incluido" : fmt(c.envio)}</span></div>`;
+  if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorras con el combo</span><span>−${fmt(c.ahorro)}</span></div>`;
+  return h;
+}
+
+/* ---------- drawer ---------- */
+const drawer = document.getElementById("drawer");
+const velo = document.getElementById("velo");
+function abrirDrawer(){ drawer.classList.add("open"); velo.classList.add("open"); }
+function cerrarDrawer(){ drawer.classList.remove("open"); velo.classList.remove("open"); }
+document.getElementById("abrirCarrito").onclick = abrirDrawer;
+document.getElementById("cerrarCarrito").onclick = cerrarDrawer;
+velo.onclick = cerrarDrawer;
+document.getElementById("irPagar").onclick = ()=>{
+  cerrarDrawer();
+  document.getElementById("checkout").scrollIntoView({behavior:"smooth"});
+};
+
+function pintarTodo(){
+  const c = calcular();
+  document.getElementById("badge").textContent = c.n;
+
+  const itemHTML = (it,i)=>`
+    <div class="d-item">
+      <div><div class="n">${it.nombre}</div><div class="t">Talla única</div></div>
+      <div class="p">${fmt(PRECIO_UNIDAD)}<button onclick="quitar(${i})" aria-label="Quitar">✕</button></div>
+    </div>`;
+
+  // drawer
+  document.getElementById("drawerItems").innerHTML = c.n
+    ? carrito.map(itemHTML).join("")
+    : `<div class="vacio" style="padding:14px 0">Tu carrito está vacío.</div>`;
+  document.getElementById("drawerLineas").innerHTML = lineasHTML(c);
+  document.getElementById("drawerTotal").textContent = fmt(c.total);
+  document.getElementById("irPagar").disabled = !c.n;
+  document.getElementById("nudgeDrawer").classList.toggle("show", c.sueltas === 1);
+
+  // resumen checkout
+  document.getElementById("resumen").innerHTML = c.n
+    ? carrito.map((it,i)=>`
+      <div class="resumen-item">
+        <span>${it.nombre} · Talla única</span>
+        <span><button onclick="quitar(${i})" aria-label="Quitar">✕</button></span>
+      </div>`).join("")
+    : `<div class="vacio">Tu carrito está vacío. Elige modelo y talla arriba ↑</div>`;
+  document.getElementById("lineas").innerHTML = lineasHTML(c);
+  document.getElementById("total").textContent = fmt(c.total);
+  document.getElementById("btnPedir").disabled = !c.n;
+  document.getElementById("nudge").classList.toggle("show", c.sueltas === 1);
+}
+function quitar(i){ carrito.splice(i,1); pintarTodo(); }
+pintarTodo();
+
+document.querySelectorAll(".metodo input").forEach(r=>{
+  r.addEventListener("change", ()=>{
+    document.querySelectorAll(".metodo").forEach(m=>m.classList.remove("sel"));
+    r.closest(".metodo").classList.add("sel");
+  });
+});
+
+/* ---------- método de pago: mostrar/ocultar checkbox y recargo ---------- */
+const METODO_INPUTS = document.querySelectorAll('input[name="pago"]');
+function metodoActual(){ return document.querySelector('input[name="pago"]:checked').value; }
+
+function actualizarMetodo(){
+  document.querySelectorAll('.metodo').forEach(m=>m.classList.remove('sel'));
+  document.querySelector('input[name="pago"]:checked').closest('.metodo').classList.add('sel');
+  const esContra = metodoActual() === 'contraentrega';
+  document.getElementById('checkContraWrap').style.display = esContra ? '' : 'none';
+  document.getElementById('checkContra').checked = false;
+  document.getElementById('linea-contra').style.display = esContra ? '' : 'none';
+  actualizarTotal();
+  actualizarBoton();
+}
+METODO_INPUTS.forEach(r => r.addEventListener('change', actualizarMetodo));
+// Estado inicial
+actualizarMetodo();
+
+function toggleContraCheck(checked){
+  actualizarBoton();
+}
+
+function actualizarBoton(){
+  const c = calcular();
+  const esContra = metodoActual() === 'contraentrega';
+  const contraOk = !esContra || document.getElementById('checkContra').checked;
+  document.getElementById('btnPedir').disabled = !c.n || !contraOk;
+}
+
+function actualizarTotal(){
+  const c = calcular();
+  const esContra = metodoActual() === 'contraentrega';
+  const totalFinal = c.total + (esContra ? RECARGO_CE : 0);
+  document.getElementById('total').textContent = fmt(totalFinal);
+}
+
+/* ---------- envío del pedido ---------- */
+document.getElementById('btnPedir').onclick = async ()=>{
+  const nombre  = document.getElementById('nombre').value.trim();
+  const tel     = document.getElementById('tel').value.trim();
+  const correo  = document.getElementById('correo').value.trim();
+  const ciudad  = document.getElementById('ciudad').value.trim();
+  const depto   = document.getElementById('depto').value.trim();
+  const dir     = document.getElementById('dir').value.trim();
+  if(!nombre || !tel || !ciudad || !dir){
+    alert('Completa tus datos de envío para confirmar el pedido.'); return;
+  }
+  const metodo  = metodoActual();
+  const esContra = metodo === 'contraentrega';
+  const c = calcular();
+  const recargo = esContra ? RECARGO_CE : 0;
+  const totalFinal = c.total + recargo;
+  const referencia = (esContra ? 'CE-' : 'SP-') + Date.now();
+  const productos  = carrito.map(it => `${it.nombre} x1`).join(', ');
+
+  const payload = {
+    referencia,
+    nombre,
+    correo,
+    celular: tel,
+    direccion: dir,
+    ciudad,
+    departamento: depto,
+    productos,
+    total: totalFinal,
+    total_fmt: fmt(totalFinal),
+    tipo: esContra ? 'Contraentrega' : 'Pago anticipado',
+    estado: 'Pendiente',
+    fecha: new Date().toLocaleString('es-CO'),
+    fuente: 'landing-santocielo'
+  };
+
+  const btn = document.getElementById('btnPedir');
+  btn.disabled = true; btn.textContent = 'Enviando…';
+
+  try{
+    // 1. Enviar a n8n (no bloqueante)
+    fetch(WEBHOOK_URL, {
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      keepalive: true,
+      body: JSON.stringify(payload)
+    }).catch(()=>{});
+
+    if(esContra){
+      // Contraentrega: mostrar confirmación
+      mostrarConfirmacionContra(nombre);
+      carrito = []; pintarTodo();
+    } else {
+      // Pago online: pedir firma y redirigir a Wompi
+      const totalCentavos = totalFinal * 100;
+      const redirectUrl   = window.location.origin + window.location.pathname;
+      const res = await fetch(WORKER_URL, {
+        method:'POST',
+        headers:{'Content-Type':'application/json'},
+        body: JSON.stringify({ referencia, monto: totalCentavos, moneda:'COP' })
+      });
+      const { firma } = await res.json();
+      const params = new URLSearchParams({
+        'public-key': WOMPI_PUB_KEY,
+        'currency': 'COP',
+        'amount-in-cents': totalCentavos,
+        'reference': referencia,
+        'signature:integrity': firma,
+        'redirect-url': redirectUrl,
+        'customer-data:email': correo,
+        'customer-data:full-name': nombre,
+        'customer-data:phone-number': tel,
+        'customer-data:phone-number-prefix': '+57'
+      });
+      window.location.href = 'https://checkout.wompi.co/p/?' + params.toString();
+    }
+  } catch(err){
+    btn.disabled = false;
+    btn.textContent = 'Confirmar pedido';
+    alert('Error al procesar el pedido. Por favor intenta de nuevo.');
+  }
+};
+
+function mostrarConfirmacionContra(nombre){
+  const overlay = document.createElement('div');
+  overlay.style.cssText = 'position:fixed;inset:0;background:rgba(24,20,16,.82);z-index:900;display:flex;align-items:center;justify-content:center;padding:20px';
+  overlay.innerHTML = `
+    <div style="background:#fff;max-width:400px;width:100%;padding:36px 28px;text-align:center;">
+      <div style="font-size:48px;margin-bottom:12px">🎉</div>
+      <h2 style="font:500 26px 'Bodoni Moda',serif;margin:0 0 10px;color:var(--tinta)">¡Pedido recibido!</h2>
+      <p style="font-size:13.5px;color:var(--topo);line-height:1.7;margin:0 0 20px">Hola <b>${nombre}</b>, recibimos tu pedido. En breve te llegará un mensaje de WhatsApp para confirmar la entrega.</p>
+      <div style="background:var(--hueso);border:1px solid var(--borde);padding:14px 16px;text-align:left;margin-bottom:22px">
+        <div style="font:600 9px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--topo-claro);margin-bottom:8px">¿Qué sigue?</div>
+        <div style="font-size:13px;color:var(--topo);line-height:1.9">
+          📱 Te escribimos por WhatsApp para confirmar<br>
+          ✅ Confirma que recibirás el pedido<br>
+          📦 Despachamos en 1 día hábil<br>
+          🚚 Llega en 2–4 días hábiles
+        </div>
+      </div>
+      <button onclick="this.closest('div[style*=fixed]').remove()" style="background:var(--tinta);color:var(--crema);border:none;padding:13px 32px;font:700 13px 'Hanken Grotesk';letter-spacing:.08em;text-transform:uppercase;cursor:pointer;width:100%">Entendido ✓</button>
+    </div>`;
+  document.body.appendChild(overlay);
+}
+
+/* Autocompletado municipios Colombia */
+const MUNICIPIOS_DEP = {"Abejorral":"Antioquia","Abriaquí":"Antioquia","Acacías":"Meta","Acandí":"Chocó","Acevedo":"Huila","Achí":"Bolívar","Agrado":"Huila","Agua de Dios":"Cundinamarca","Aguachica":"Cesar","Aguada":"Santander","Aguazul":"Casanare","Agustín Codazzi":"Cesar","Aipe":"Huila","Albán":"Cundinamarca","Albania":"Caquetá","Albania (La Guajira)":"La Guajira","Albania (Santander)":"Santander","Alcalá":"Valle del Cauca","Aldana":"Nariño","Alejandría":"Antioquia","Algarrobo":"Magdalena","Algeciras":"Huila","Almaguer":"Cauca","Almeida":"Boyacá","Alpujarra":"Tolima","Altamira":"Huila","Alto Baudó":"Chocó","Altos del Rosario":"Bolívar","Alvarado":"Tolima","Amagá":"Antioquia","Amalfi":"Antioquia","Ambalema":"Tolima","Ancuya":"Nariño","Andalucía":"Valle del Cauca","Andes":"Antioquia","Angelópolis":"Antioquia","Angostura":"Antioquia","Anorí":"Antioquia","Anserma":"Caldas","Ansermanuevo":"Valle del Cauca","Anza":"Antioquia","Anzoátegui":"Tolima","Apartadó":"Antioquia","Apía":"Risaralda","Apulo":"Cundinamarca","Aquitania":"Boyacá","Aracataca":"Magdalena","Aranzazu":"Caldas","Aratoca":"Santander","Arauca":"Arauca","Arauquita":"Arauca","Arcabuco":"Boyacá","Arenal":"Bolívar","Arjona":"Bolívar","Armenia":"Quindío","Armero":"Tolima","Arroyohondo":"Bolívar","Astrea":"Cesar","Ataco":"Tolima","Atrato":"Chocó","Ayapel":"Córdoba","Bagadó":"Chocó","Bahía Solano":"Chocó","Bajo Baudó":"Chocó","Balboa":"Risaralda","Balboa (Cauca)":"Cauca","Barbacoas":"Nariño","Barbosa":"Santander","Barbosa (Antioquia)":"Antioquia","Baranoa":"Atlántico","Barranca de Upía":"Meta","Barrancabermeja":"Santander","Barrancas":"La Guajira","Barranco de Loba":"Bolívar","Barranquilla":"Atlántico","Becerril":"Cesar","Bogotá D.C.":"Bogotá D.C.","Bello":"Antioquia","Bucaramanga":"Santander","Buenaventura":"Valle del Cauca","Buga":"Valle del Cauca","Cali":"Valle del Cauca","Cartagena":"Bolívar","Cúcuta":"Norte de Santander","Ibagué":"Tolima","Manizales":"Caldas","Medellín":"Antioquia","Montería":"Córdoba","Neiva":"Huila","Palmira":"Valle del Cauca","Pasto":"Nariño","Pereira":"Risaralda","Popayán":"Cauca","Santa Marta":"Magdalena","Sincelejo":"Sucre","Soledad":"Atlántico","Tunja":"Boyacá","Valledupar":"Cesar","Villavicencio":"Meta","Zipaquirá":"Cundinamarca"};
+const MUNICIPIOS_ALL = ["Abejorral","Abriaquí","Acacías","Acandí","Acevedo","Achí","Agrado","Agua de Dios","Aguachica","Aguada","Aguazul","Agustín Codazzi","Aipe","Albán","Albania","Albania (La Guajira)","Albania (Santander)","Alcalá","Aldana","Alejandría","Algarrobo","Algeciras","Almaguer","Almeida","Alpujarra","Altamira","Alto Baudó","Altos del Rosario","Alvarado","Amagá","Amalfi","Ambalema","Ancuya","Andalucía","Andes","Angelópolis","Angostura","Anorí","Anserma","Ansermanuevo","Anza","Anzoátegui","Apartadó","Apía","Apulo","Aquitania","Aracataca","Aranzazu","Aratoca","Arauca","Arauquita","Arcabuco","Arenal","Arjona","Armenia","Armero","Arroyohondo","Astrea","Ataco","Atrato","Ayapel","Bagadó","Bahía Solano","Bajo Baudó","Balboa","Balboa (Cauca)","Barbacoas","Barbosa","Barbosa (Antioquia)","Baranoa","Barranca de Upía","Barrancabermeja","Barrancas","Barranco de Loba","Barranquilla","Becerril","Bogotá D.C.","Bello","Bucaramanga","Buenaventura","Buga","Cali","Cartagena","Cúcuta","Ibagué","Manizales","Medellín","Montería","Neiva","Palmira","Pasto","Pereira","Popayán","Santa Marta","Sincelejo","Soledad","Tunja","Valledupar","Villavicencio","Zipaquirá"];
+
+function filtrarMun(val){
+  const sugg = document.getElementById('munSugg');
+  if(!val || val.length < 2){ sugg.style.display='none'; return; }
+  const q = val.toLowerCase();
+  const filtered = MUNICIPIOS_ALL.filter(m => m.toLowerCase().includes(q)).slice(0,7);
+  if(!filtered.length){ sugg.style.display='none'; return; }
+  sugg.innerHTML = filtered.map(m =>
+    `<div onclick="selectMun('${m.replace(/'/g,"\'")}\`)" style="padding:9px 14px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:1px solid var(--borde);color:var(--tinta)"
+      onmouseover="this.style.background='var(--hueso)'" onmouseout="this.style.background=''">${m}</div>`
+  ).join('');
+  sugg.style.display='block';
+}
+function selectMun(m){
+  document.getElementById('ciudad').value = m;
+  document.getElementById('munSugg').style.display='none';
+  const dep = MUNICIPIOS_DEP[m] || '';
+  document.getElementById('depto').value = dep;
+}
+function hideMun(){ document.getElementById('munSugg').style.display='none'; }
+
+/* Restaurar botón si volvemos de Wompi */
+window.addEventListener('pageshow', ()=>{
+  const btn = document.getElementById('btnPedir');
+  if(btn && btn.textContent === 'Enviando…'){ btn.textContent='Confirmar pedido'; btn.disabled=false; }
+});
+</script>
+</body>
+</html>
