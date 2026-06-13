@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Santo Cielo · Camisetas bordadas a hilo</title>
-<meta name="description" content="Camisetas bordadas a hilo, hechas en Colombia. Talla única, envío gratis en compras desde $100.000.">
+<meta name="description" content="Camisetas bordadas a hilo, hechas en Colombia. Talla única, envío gratis en todos los pedidos.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300&family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Hanken+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
@@ -87,6 +87,27 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .dot.on{background:var(--tinta);transform:scale(1.3)}
 .hero-cta{margin-top:22px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
   background:var(--tinta);color:#fff;border:none;border-radius:999px;padding:16px 34px}
+
+/* ── Sello promo Las Colombianas ── */
+.sello-colombianas{display:inline-flex;flex-direction:column;align-items:center;gap:7px;
+  margin:0 auto 22px;padding:15px 28px;background:#fff;border:1px solid var(--borde);
+  position:relative;text-decoration:none;color:inherit;cursor:pointer;
+  transition:transform .25s cubic-bezier(.22,.8,.3,1),box-shadow .25s}
+.sello-colombianas:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(24,20,16,.08)}
+.sello-colombianas::before,.sello-colombianas::after{content:"";position:absolute;left:0;right:0;height:1.5px;
+  background:linear-gradient(to right,var(--amarillo) 0 33.33%,var(--azul) 33.33% 66.66%,var(--rojo) 66.66% 100%)}
+.sello-colombianas::before{top:-1px}
+.sello-colombianas::after{bottom:-1px}
+.sello-eyebrow{font:600 8.5px 'Hanken Grotesk';letter-spacing:.32em;text-transform:uppercase;color:var(--topo-claro)}
+.sello-nombre{font:400 italic 22px 'Bodoni Moda',serif;line-height:1;color:var(--tinta)}
+.sello-detalle{font:500 12px 'Hanken Grotesk';color:var(--topo);letter-spacing:.04em;display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}
+.sello-detalle .sep{color:var(--borde)}
+.sello-precio{display:inline-block;padding:0 7px;background:#FFF8E0;border-bottom:1.5px solid var(--amarillo);font-weight:700;color:var(--tinta)}
+@media(max-width:420px){
+  .sello-colombianas{padding:13px 18px}
+  .sello-nombre{font-size:20px}
+  .sello-detalle{font-size:11.5px;gap:5px}
+}
 
 /* ---------- secciones de producto ---------- */
 .mundial{background:var(--hueso);border-bottom:1px solid var(--borde);padding:56px 0 64px}
@@ -284,20 +305,12 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .drawer.open{transform:none}
 .drawer-cab{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;border-bottom:1px solid var(--borde)}
 
-/* ── Bloque envío gratis (variante 1) ── */
-.envio-block{padding:11px 18px 13px;background:#FFF8E0;border-bottom:1px dashed var(--amarillo);transition:background .3s,border-color .3s}
-.envio-block.unlocked{background:#EAF4EA;border-bottom:1px solid #BCD9BC}
-.envio-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;gap:10px}
-.envio-left{display:flex;align-items:center;gap:7px;font:500 11.5px 'Hanken Grotesk';color:var(--tinta);line-height:1.3}
-.envio-left b{font-weight:700}
-.envio-left svg{width:14px;height:14px;flex-shrink:0;color:var(--tinta);transition:color .3s}
-.envio-block.unlocked .envio-left{color:#2E5B2E}
-.envio-block.unlocked .envio-left svg{color:#2E5B2E}
-.envio-frac{font:600 9.5px 'Hanken Grotesk';letter-spacing:.06em;color:var(--topo-claro);white-space:nowrap;flex-shrink:0}
-.envio-block.unlocked .envio-frac{color:#2E5B2E}
-.envio-bar{height:5px;background:rgba(24,20,16,.08);border-radius:99px;overflow:hidden}
-.envio-bar-fill{height:100%;background:var(--amarillo);border-radius:99px;width:0%;transition:width .6s cubic-bezier(.22,.8,.3,1),background .3s}
-.envio-block.unlocked .envio-bar-fill{background:#2E5B2E}
+/* ── Bloque envío gratis (confirmación) ── */
+.envio-block{padding:11px 18px;background:#EAF4EA;border-bottom:1px solid #BCD9BC;
+  display:flex;align-items:center;justify-content:center}
+.envio-left{display:flex;align-items:center;gap:8px;font:600 10px 'Hanken Grotesk';
+  letter-spacing:.16em;text-transform:uppercase;color:#2E5B2E}
+.envio-left svg{width:13px;height:13px;color:#2E5B2E;flex-shrink:0}
 .drawer-cab h3{font:500 22px 'Bodoni Moda',serif}
 .cerrar{background:none;border:none;font-size:22px;color:var(--topo);line-height:1}
 .drawer-items{flex:1;overflow-y:auto;padding:12px 18px}
@@ -341,7 +354,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 </head>
 <body>
 
-<div class="promo-bar">Envío <b>GRATIS</b> en compras desde <b>$100.000</b> 🇨🇴</div>
+<div class="promo-bar">Envío <b>GRATIS</b> en toda Colombia 🇨🇴</div>
 
 <header>
   <div class="nav">
@@ -356,7 +369,12 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 <!-- ============ HERO VITRINA ============ -->
 <section class="hero" id="hero">
 
-  <div class="eyebrow">Bordado a hilo · Hecho en Colombia</div>
+  <a href="#mundial" class="sello-colombianas" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'});return false;">
+    <div class="sello-eyebrow">Edición Limitada</div>
+    <div class="sello-nombre">Las Colombianas</div>
+    <div class="sello-detalle">Lleva 2 camisetas <span class="sep">·</span> <span class="sello-precio">$135.000</span> <span class="sep">·</span> envío incluido</div>
+  </a>
+
   <h1>Lo que se borda,<br><em>permanece.</em></h1>
   <p class="sub">Camisetas de algodón peinado con bordados de verdad. Relieve que se siente, color que no se va.</p>
 
@@ -388,30 +406,30 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <button class="hero-cta" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'})">Ver la colección</button>
 </section>
 
-<!-- ============ COLECCIÓN MUNDIAL ============ -->
+<!-- ============ LAS COLOMBIANAS ============ -->
 <section class="mundial" id="mundial">
   <div class="wrap">
     <div class="cab">
       <div class="eyebrow">Edición limitada</div>
-      <h2>Colección <em>Mundial</em> 2026</h2>
+      <h2>Las <em>Colombianas</em></h2>
       <div class="hilo"><span></span><span></span><span></span></div>
-      <p class="nota-cab">Cuatro diseños con el tricolor bordado, producidos por tandas mientras ruede el balón. Cuando se acaban, se acaban.</p>
+      <p class="nota-cab">Cuatro diseños con el tricolor bordado, producidos en tandas pequeñas. Cuando se acaban, se acaban.</p>
     </div>
     <div class="grid" id="gridMundial"></div>
     <div class="combo-card">
-      <div class="tx"><b>Arma tu combo</b><span>Cualquier par de camisetas, de cualquier colección.</span></div>
-      <div class="pr">$125.000<small>Envío incluido</small></div>
+      <div class="tx"><b>Combo de 2</b><span>Cualquier par de camisetas, mezcla las colecciones a tu gusto.</span></div>
+      <div class="pr">$135.000<small>Envío gratis</small></div>
     </div>
   </div>
 </section>
 
-<!-- ============ CATÁLOGO ============ -->
+<!-- ============ LAS BÁSICAS ============ -->
 <section class="catalogo" id="catalogo">
   <div class="wrap">
     <div class="cab">
       <div class="eyebrow">Bordados de siempre</div>
-      <h2>El <em>catálogo</em></h2>
-      <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para todos los días, no solo los de partido.</p>
+      <h2>Las <em>Básicas</em></h2>
+      <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
     </div>
     <div class="grid seis" id="gridCatalogo"></div>
   </div>
@@ -552,7 +570,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <!-- Resumen compacto dentro del modal -->
     <div id="lineas" style="margin-top:4px"></div>
     <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
-    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Combo de <b>2 × $125.000</b>: la opción más completa.</div>
+    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Suma otra camiseta y arma el combo: 2 × $135.000.</div>
     <div class="total-row" style="margin:8px 0 16px"><span>Total a pagar</span><span id="total">$0</span></div>
     <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
     <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
@@ -576,20 +594,16 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <button class="cerrar" id="cerrarCarrito" aria-label="Cerrar carrito">✕</button>
   </div>
   <div class="envio-block" id="envioBlock" style="display:none">
-    <div class="envio-top">
-      <span class="envio-left">
-        <svg id="envioIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        <span id="envioMsg">Te faltan <b>$25.000</b> para envío gratis</span>
-      </span>
-      <span class="envio-frac" id="envioFrac">$0 / $100k</span>
-    </div>
-    <div class="envio-bar"><div class="envio-bar-fill" id="envioBarFill"></div></div>
+    <span class="envio-left">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      <span>Envío gratis incluido</span>
+    </span>
   </div>
   <div class="drawer-items" id="drawerItems"></div>
   <div class="drawer-pie">
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
-    <div class="nudge" id="nudgeDrawer">💡 Combo de <b>2 × $125.000</b>: la opción más completa.</div>
+    <div class="nudge" id="nudgeDrawer">💡 Suma otra camiseta y arma el combo: 2 × $135.000.</div>
     <div class="acciones-pago">
       <button class="btn-pago-online" id="btnPagoOnline" disabled>⚡ Pagar ahora</button>
       <button class="btn-pago-contra" id="btnPagoContra" disabled>📦 Pagar contra entrega <small>(+$5.000)</small></button>
@@ -608,10 +622,11 @@ const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← UR
 const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
-const PRECIO_UNIDAD  = 75000;   // precio por camiseta
-const ENVIO          = 10000;   // costo de envío si no llega al umbral
-const PRECIO_COMBO   = 125000;  // 2 camisetas como combo
-const UMBRAL_ENVIO   = 100000;  // envío gratis a partir de este subtotal
+const PRECIO_COLOMBIANAS = 85000;   // Las Colombianas
+const PRECIO_BASICAS     = 89000;   // Las Básicas
+const PRECIO_COMBO       = 135000;  // cualquier par de camisetas
+// Envío siempre incluido — no hay costo de envío
+const precioModelo = m => m.coleccion === "mundial" ? PRECIO_COLOMBIANAS : PRECIO_BASICAS;
 
 /* Modelos: pon la ruta de tus PNG en "img" y reemplazan la silueta. */
 const MODELOS = [
@@ -620,10 +635,10 @@ const MODELOS = [
    desc:"La camiseta base de la colección: blanco hueso con el tricolor bordado al pecho. Versátil y atemporal.",
    feats:["100% algodón peinado","Bordado a hilo, no estampado","Talla única, corte oversize"]},
   {id:"tribuna",  coleccion:"mundial",  nombre:"Negra Tribuna",   tag:"Tricolor en manga",  color:"#23252B", motivo:"bandera", img:"",
-   desc:"Negra profunda con el tricolor bordado en la manga. Pensada para llevar a partido y a la calle.",
+   desc:"Negra profunda con el tricolor bordado en la manga. Pensada para llevar a todas partes.",
    feats:["Algodón premium 180g","Bordado discreto en manga izquierda","Corte ligeramente oversize"]},
   {id:"seleccion",coleccion:"mundial",  nombre:"Azul Selección",  tag:"Bordado grande",     color:"#1F3B7A", motivo:"bandera", img:"",
-   desc:"Azul intenso con bordado grande al centro. La más vistosa de la colección, perfecta para días de selección.",
+   desc:"Azul intenso con bordado grande al centro. La más vistosa de la colección, llena de carácter.",
    feats:["Tela gruesa con caída","Bordado de 18 cm","Cuello reforzado"]},
   {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:"",
    desc:"Inspirada en los uniformes noventeros. Color ladrillo con escudo vintage bordado.",
@@ -696,7 +711,7 @@ function pintarVitrina(){
   document.querySelectorAll(".dot").forEach((d,i)=>d.classList.toggle("on", i===vIdx));
   const m = heroModelos[vIdx];
   document.getElementById("vitNombre").innerHTML = m.nombre.replace(/ (\S+)$/," <em>$1</em>");
-  document.getElementById("vitPrecio").textContent = fmt(PRECIO_UNIDAD) + " · " + m.tag;
+  document.getElementById("vitPrecio").textContent = fmt(precioModelo(m)) + " · " + m.tag;
 }
 function reiniciarTimer(){
   clearInterval(vTimer);
@@ -747,7 +762,7 @@ function cardHTML(m){
     <div class="cuerpo">
       <h3>${m.nombre}</h3>
       <div class="tag">${m.tag}</div>
-      <div class="precio">${fmt(PRECIO_UNIDAD)}</div>
+      <div class="precio">${fmt(precioModelo(m))}</div>
       <div class="tallas"><span class="talla-unica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Talla única</span></div>
       <div class="acciones">
         <button class="btn-ver" onclick="abrirProducto('${m.id}')">Ver más</button>
@@ -771,7 +786,7 @@ let modeloActivo = null; // para el modal de producto
 function agregarAlCarrito(modeloId){
   const m = MODELOS.find(x=>x.id===modeloId);
   if(!m) return;
-  carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla:"TU", precio_unidad:PRECIO_UNIDAD});
+  carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla:"TU", precio_unidad:precioModelo(m)});
   pintarTodo();
   bumpBadge();
 }
@@ -795,7 +810,7 @@ function abrirProducto(modeloId){
   document.getElementById("pmVis").innerHTML = visual(m);
   document.getElementById("pmTag").textContent = m.tag;
   document.getElementById("pmNombre").textContent = m.nombre;
-  document.getElementById("pmPrecio").textContent = fmt(PRECIO_UNIDAD);
+  document.getElementById("pmPrecio").textContent = fmt(precioModelo(m));
   document.getElementById("pmDesc").textContent = m.desc || "";
   document.getElementById("pmFeats").innerHTML = (m.feats||[]).map(f=>`<li>${f}</li>`).join("");
   document.getElementById("prodModal").classList.add("on");
@@ -869,22 +884,35 @@ function mostrarToast(txt){
 /* lógica de precios: pares a precio combo, envío incluido si hay combo */
 function calcular(){
   const n = carrito.length;
-  const combos = Math.floor(n/2);
+
+  // Combo aplica a CUALQUIER par (mezcla de colecciones permitida)
+  const combos  = Math.floor(n / 2);
   const sueltas = n % 2;
-  const productos = combos*PRECIO_COMBO + sueltas*PRECIO_UNIDAD;
-  // Envío gratis si subtotal de productos llega al umbral
-  const envioGratis = productos >= UMBRAL_ENVIO;
-  const envio = (n === 0) ? 0 : (envioGratis ? 0 : ENVIO);
-  // Ahorro: compara contra precio unidad x cantidad + envío SIEMPRE
-  const sinPromo = n*PRECIO_UNIDAD + (n>0 ? ENVIO : 0);
-  const ahorro = Math.max(0, sinPromo - (productos + envio));
-  return {n, combos, sueltas, productos, envio, envioGratis, total: productos + envio, ahorro};
+
+  // Precio sin promo: suma del precio real de cada camiseta
+  const precioSinPromo = carrito.reduce((s, it) => s + precioModelo(it), 0);
+
+  // Precio CON promo: cada par cuesta $135k; las sueltas pagan su precio normal
+  // Si hay impar, la "suelta" es la más barata (criterio: si hay alguna Colombiana suelta, esa va a $85k; si no, una Básica)
+  // Simplificación: ordenamos por precio descendente, las primeras 2*combos van en combos, el sobrante a precio normal
+  const preciosOrdenados = carrito.map(precioModelo).sort((a,b) => b - a);
+  const enCombos   = preciosOrdenados.slice(0, combos * 2);
+  const enSueltas  = preciosOrdenados.slice(combos * 2);
+  const productos  = combos * PRECIO_COMBO + enSueltas.reduce((s,p) => s+p, 0);
+
+  const ahorro = Math.max(0, precioSinPromo - productos);
+
+  // ¿Está cerca de armar otro combo? (número impar de items)
+  const cercaCombo = sueltas === 1;
+
+  // Envío siempre incluido
+  return {n, combos, sueltas, productos, envio: 0, envioGratis: true, total: productos, ahorro, cercaCombo};
 }
 
 function lineasHTML(c){
   if(!c.n) return "";
   let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos)}</span></div>`;
-  h += `<div class="linea${c.envioGratis ? ' verde' : ''}"><span>Envío</span><span>${c.envioGratis ? "Gratis ✓" : fmt(c.envio)}</span></div>`;
+  h += `<div class="linea verde"><span>Envío</span><span>Gratis ✓</span></div>`;
   if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorras con el combo</span><span>−${fmt(c.ahorro)}</span></div>`;
   return h;
 }
@@ -952,7 +980,7 @@ function pintarTodo(){
   const itemHTML = (it,i)=>`
     <div class="d-item">
       <div><div class="n">${it.nombre}</div><div class="t">Talla única</div></div>
-      <div class="p">${fmt(PRECIO_UNIDAD)}<button onclick="quitar(${i})" aria-label="Quitar">✕</button></div>
+      <div class="p">${fmt(precioModelo(it))}<button onclick="quitar(${i})" aria-label="Quitar">✕</button></div>
     </div>`;
 
   // drawer
@@ -963,28 +991,11 @@ function pintarTodo(){
   document.getElementById("drawerTotal").textContent = fmt(c.total);
   document.getElementById("btnPagoOnline").disabled = !c.n;
   document.getElementById("btnPagoContra").disabled = !c.n;
-  document.getElementById("nudgeDrawer").classList.toggle("show", c.sueltas === 1);
+  document.getElementById("nudgeDrawer").classList.toggle("show", c.cercaCombo);
 
   // bloque envío gratis: solo aparece si hay items
   const eb = document.getElementById("envioBlock");
-  if(c.n === 0){
-    eb.style.display = "none";
-  } else {
-    eb.style.display = "";
-    const pct = Math.min(100, Math.round((c.productos / UMBRAL_ENVIO) * 100));
-    document.getElementById("envioBarFill").style.width = pct + "%";
-    const faltan = Math.max(0, UMBRAL_ENVIO - c.productos);
-    if(c.envioGratis){
-      eb.classList.add("unlocked");
-      document.getElementById("envioIcon").innerHTML = '<polyline points="20 6 9 17 4 12"/>';
-      document.getElementById("envioMsg").innerHTML = "¡Envío gratis desbloqueado!";
-    } else {
-      eb.classList.remove("unlocked");
-      document.getElementById("envioIcon").innerHTML = '<rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>';
-      document.getElementById("envioMsg").innerHTML = `Te faltan <b>${fmt(faltan)}</b> para envío gratis`;
-    }
-    document.getElementById("envioFrac").textContent = fmt(c.productos) + " / $100k";
-  }
+  eb.style.display = c.n === 0 ? "none" : "";
 
   // modal checkout
   document.getElementById("lineas").innerHTML = lineasHTML(c);
@@ -993,13 +1004,13 @@ function pintarTodo(){
     mini.innerHTML = c.n
       ? carrito.map((it,i)=>`<div style="display:flex;justify-content:space-between;align-items:center;gap:10px;padding:4px 0">
           <span><strong>${it.nombre}</strong> · Talla única</span>
-          <span style="display:flex;align-items:center;gap:8px">${fmt(PRECIO_UNIDAD)}<button onclick="quitar(${i})" aria-label="Quitar" style="background:none;border:none;color:var(--rojo);cursor:pointer;font-size:13px">✕</button></span>
+          <span style="display:flex;align-items:center;gap:8px">${fmt(precioModelo(it))}<button onclick="quitar(${i})" aria-label="Quitar" style="background:none;border:none;color:var(--rojo);cursor:pointer;font-size:13px">✕</button></span>
         </div>`).join("")
       : '<span style="color:var(--topo-claro)">Tu carrito está vacío.</span>';
   }
   actualizarTotal();
   actualizarBoton();
-  document.getElementById("nudge").classList.toggle("show", c.sueltas === 1);
+  document.getElementById("nudge").classList.toggle("show", c.cercaCombo);
 }
 function quitar(i){ carrito.splice(i,1); pintarTodo(); }
 pintarTodo();
