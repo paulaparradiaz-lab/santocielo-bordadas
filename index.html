@@ -489,7 +489,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   /* ── header / nav ── */
   .nav{padding:11px 16px;gap:8px}
   .logo{font-size:13px;letter-spacing:.28em}
-  .btn-carrito{padding:9px 13px;font-size:10px}
+  .btn-carrito{margin-left:auto;padding:9px 13px;font-size:10px}
   .btn-carrito svg{width:13px;height:13px}
   .badge{min-width:17px;height:17px;font-size:10px}
 
@@ -841,7 +841,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
     <div class="acciones-pago">
-      <button class="btn-pago-online" id="btnPagoOnline" disabled>⚡ Pagar ahora</button>
+      <button class="btn-pago-online" id="btnPagoOnline" disabled>Pagar ahora</button>
       <button class="btn-pago-contra" id="btnPagoContra" disabled>📦 Pagar contra entrega <small>(+$5.000)</small></button>
       <button class="btn-seguir" id="btnSeguir" onclick="cerrarDrawer()">+ Seguir comprando</button>
     </div>
@@ -1173,7 +1173,7 @@ function abrirCo(esContra){
   // Texto del botón Confirmar
   document.getElementById("btnPedir").textContent = esContra
     ? 'Confirmar pedido'
-    : '⚡ Pagar ahora · Wompi';
+    : 'Pagar ahora · Wompi';
   // Mostrar modal
   const modal = document.getElementById("coModal");
   modal.classList.add("on");
@@ -1432,7 +1432,7 @@ window.addEventListener('pageshow', ()=>{
       <ul class="prod-feats" id="pmFeats"></ul>
       <div class="prod-cta-row">
         <button class="btn-add-modal" onclick="agregarDesdeModal()">Agregar al carrito</button>
-        <button class="btn-buy-modal" onclick="comprarAhora()">⚡ Comprar ahora</button>
+        <button class="btn-buy-modal" onclick="comprarAhora()">Comprar ahora</button>
       </div>
     </div>
   </div>
