@@ -372,7 +372,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <a href="#mundial" class="sello-colombianas" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'});return false;">
     <div class="sello-eyebrow">Edición Limitada</div>
     <div class="sello-nombre">Las Colombianas</div>
-    <div class="sello-detalle">Lleva 2 camisetas <span class="sep">·</span> <span class="sello-precio">$135.000</span> <span class="sep">·</span> envío incluido</div>
+    <div class="sello-detalle">Combo de 2 <span class="sep">·</span> <span class="sello-precio">desde $135.000</span> <span class="sep">·</span> envío incluido</div>
   </a>
 
   <h1>Lo que se borda,<br><em>permanece.</em></h1>
@@ -417,8 +417,8 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     </div>
     <div class="grid" id="gridMundial"></div>
     <div class="combo-card">
-      <div class="tx"><b>Combo de 2</b><span>Cualquier par de camisetas, mezcla las colecciones a tu gusto.</span></div>
-      <div class="pr">$135.000<small>Envío gratis</small></div>
+      <div class="tx"><b>Combo de 2</b><span>2 Colombianas $135.000 · 1 + 1 $145.000 · 2 de siempre $155.000. Mezcla las colecciones a tu gusto.</span></div>
+      <div class="pr">desde<br>$135.000<small>Envío gratis</small></div>
     </div>
   </div>
 </section>
@@ -570,7 +570,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <!-- Resumen compacto dentro del modal -->
     <div id="lineas" style="margin-top:4px"></div>
     <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
-    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Suma otra camiseta y arma el combo: 2 × $135.000.</div>
+    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Suma otra y arma el combo de 2: desde $135.000 con envío incluido.</div>
     <div class="total-row" style="margin:8px 0 16px"><span>Total a pagar</span><span id="total">$0</span></div>
     <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
     <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
@@ -603,7 +603,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <div class="drawer-pie">
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
-    <div class="nudge" id="nudgeDrawer">💡 Suma otra camiseta y arma el combo: 2 × $135.000.</div>
+    <div class="nudge" id="nudgeDrawer">💡 Suma otra y arma el combo de 2: desde $135.000 con envío incluido.</div>
     <div class="acciones-pago">
       <button class="btn-pago-online" id="btnPagoOnline" disabled>⚡ Pagar ahora</button>
       <button class="btn-pago-contra" id="btnPagoContra" disabled>📦 Pagar contra entrega <small>(+$5.000)</small></button>
@@ -622,9 +622,12 @@ const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← UR
 const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
-const PRECIO_COLOMBIANAS = 85000;   // Las Colombianas
-const PRECIO_BASICAS     = 89000;   // Las Básicas
-const PRECIO_COMBO       = 135000;  // cualquier par de camisetas
+const PRECIO_COLOMBIANAS = 85000;   // Las Colombianas (unidad)
+const PRECIO_BASICAS     = 99000;   // Las de siempre (unidad)
+// Combos de 2 — el precio depende de la composición del par:
+const COMBO_CC = 135000;  // 2 Colombianas
+const COMBO_CB = 145000;  // 1 Colombiana + 1 de las de siempre
+const COMBO_BB = 155000;  // 2 de las de siempre
 // Envío siempre incluido — no hay costo de envío
 const precioModelo = m => m.coleccion === "mundial" ? PRECIO_COLOMBIANAS : PRECIO_BASICAS;
 
@@ -881,28 +884,40 @@ function mostrarToast(txt){
   toastTimer = setTimeout(()=>t.classList.remove("on"), 2200);
 }
 
-/* lógica de precios: pares a precio combo, envío incluido si hay combo */
+/* lógica de precios: combos de 2 según composición, envío siempre incluido */
 function calcular(){
   const n = carrito.length;
 
-  // Combo aplica a CUALQUIER par (mezcla de colecciones permitida)
-  const combos  = Math.floor(n / 2);
-  const sueltas = n % 2;
+  // Contamos por colección
+  const C = carrito.filter(it => it.coleccion === "mundial").length; // Colombianas
+  const B = n - C;                                                   // de siempre (catálogo)
 
-  // Precio sin promo: suma del precio real de cada camiseta
-  const precioSinPromo = carrito.reduce((s, it) => s + precioModelo(it), 0);
+  // Precio sin promo: cada camiseta a su precio de unidad
+  const precioSinPromo = C * PRECIO_COLOMBIANAS + B * PRECIO_BASICAS;
 
-  // Precio CON promo: cada par cuesta $135k; las sueltas pagan su precio normal
-  // Si hay impar, la "suelta" es la más barata (criterio: si hay alguna Colombiana suelta, esa va a $85k; si no, una Básica)
-  // Simplificación: ordenamos por precio descendente, las primeras 2*combos van en combos, el sobrante a precio normal
-  const preciosOrdenados = carrito.map(precioModelo).sort((a,b) => b - a);
-  const enCombos   = preciosOrdenados.slice(0, combos * 2);
-  const enSueltas  = preciosOrdenados.slice(combos * 2);
-  const productos  = combos * PRECIO_COMBO + enSueltas.reduce((s,p) => s+p, 0);
+  // Buscamos el emparejamiento que deja el menor total para la clienta.
+  // Probamos cada cantidad posible de pares mixtos (1 Colombiana + 1 de siempre);
+  // el resto se empareja entre sí (CC y BB) y queda máximo una suelta.
+  let mejor = {productos: Infinity, cb:0, cc:0, bb:0, sueltaC:0, sueltaB:0};
+  for(let cb = 0; cb <= Math.min(C, B); cb++){
+    const cRest = C - cb, bRest = B - cb;
+    const cc = Math.floor(cRest / 2);
+    const bb = Math.floor(bRest / 2);
+    const sueltaC = cRest % 2;
+    const sueltaB = bRest % 2;
+    const productos = cb*COMBO_CB + cc*COMBO_CC + bb*COMBO_BB
+                    + sueltaC*PRECIO_COLOMBIANAS + sueltaB*PRECIO_BASICAS;
+    if(productos < mejor.productos){
+      mejor = {productos, cb, cc, bb, sueltaC, sueltaB};
+    }
+  }
 
-  const ahorro = Math.max(0, precioSinPromo - productos);
+  const productos = n ? mejor.productos : 0;
+  const combos    = mejor.cb + mejor.cc + mejor.bb;
+  const sueltas   = mejor.sueltaC + mejor.sueltaB;
+  const ahorro    = Math.max(0, precioSinPromo - productos);
 
-  // ¿Está cerca de armar otro combo? (número impar de items)
+  // ¿Está a una prenda de armar otro combo? (queda una suelta)
   const cercaCombo = sueltas === 1;
 
   // Envío siempre incluido
