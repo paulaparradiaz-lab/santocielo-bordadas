@@ -227,33 +227,26 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 .cab .nota-cab{font-size:13px;color:var(--topo);max-width:340px;line-height:1.6;margin-top:12px}
 .mundial .hilo{max-width:120px;margin-top:16px}
 
-.grid{margin-top:32px;display:grid;gap:14px;grid-template-columns:repeat(2,1fr)}
-@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:18px}}
+.grid{margin-top:32px;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
+@media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:16px}}
 .grid.seis{grid-template-columns:repeat(2,1fr)}
 @media(min-width:760px){.grid.seis{grid-template-columns:repeat(3,1fr)}}
-.prod{background:#fff;border:1px solid var(--borde);display:flex;flex-direction:column;
-  opacity:0;transform:translateY(22px);transition:opacity .6s ease,transform .6s ease}
+.prod{background:#fff;border-radius:16px;padding:10px 10px 12px;display:flex;flex-direction:column;
+  box-shadow:0 1px 2px rgba(24,20,16,.04),0 6px 20px rgba(24,20,16,.06);
+  opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
 .prod.in{opacity:1;transform:none}
-.prod .foto{background:var(--hueso);border-bottom:1px solid var(--borde);padding:18px 14px;
-  display:flex;align-items:center;justify-content:center;aspect-ratio:1/1}
-.prod .foto svg,.prod .foto img{width:90%}
-.prod .cuerpo{padding:13px 12px 14px;display:flex;flex-direction:column;flex:1}
-.prod h3{font:500 16px 'Bodoni Moda',serif}
-.prod .tag{font:600 9px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo-claro);margin-top:3px}
-.prod .precio{font:500 14.5px 'Hanken Grotesk',sans-serif;margin-top:8px}
-.prod .tallas{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
-.talla-unica{display:inline-flex;align-items:center;gap:5px;margin-top:10px;
-  font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;
-  color:var(--topo);border:none;background:none;padding:0;cursor:default}
-.talla-unica svg{width:13px;height:13px;color:var(--topo)}
-.acciones{margin-top:12px;display:flex;gap:6px}
-.btn-ver{flex:1;font:600 10px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
-  background:#fff;color:var(--tinta);border:1px solid var(--tinta);padding:11px 6px;cursor:pointer;
-  transition:all .2s}
-.btn-ver:hover{background:var(--tinta);color:#fff}
-.btn-add{width:42px;background:var(--tinta);color:#fff;border:none;font-size:18px;line-height:1;cursor:pointer;
-  transition:transform .15s}
-.btn-add:hover{transform:scale(1.05)}
+.prod .foto{background:var(--hueso);border-radius:10px;padding:14px 10px;
+  display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;cursor:pointer}
+.prod .foto svg,.prod .foto img{width:88%}
+.prod .cuerpo{padding:10px 2px 0;display:flex;flex-direction:column;flex:1}
+.prod h3{font:500 15px 'Bodoni Moda',serif;color:var(--tinta);cursor:pointer}
+.prod h3:hover{opacity:.75}
+.prod .meta-row{display:flex;justify-content:space-between;align-items:center;margin-top:5px}
+.prod .precio{font:500 13.5px 'Hanken Grotesk',sans-serif;color:var(--tinta)}
+.btn-add{margin-top:11px;width:100%;background:var(--tinta);color:var(--crema);border:none;
+  border-radius:9px;padding:11px;font:600 10.5px 'Hanken Grotesk';letter-spacing:.13em;
+  text-transform:uppercase;cursor:pointer;transition:opacity .18s}
+.btn-add:hover{opacity:.82}
 .btn-add.listo{background:#2E5B2E}
 
 /* ── FAB carrito flotante ── */
@@ -869,20 +862,14 @@ function cardHTML(m){
       onclick="cambiarColor('${m.id}','${c.id}',this)"></button>`
   ).join("");
   return `<div class="prod" data-id="${m.id}">
-    <div class="foto" id="foto-${m.id}" onclick="abrirProducto('${m.id}')" style="cursor:pointer">${visual(m, c0)}</div>
+    <div class="foto" id="foto-${m.id}" onclick="abrirProducto('${m.id}')">${visual(m, c0)}</div>
     <div class="cuerpo">
-      <h3>${m.nombre}</h3>
-      <div class="tag">${m.tag}</div>
-      <div class="precio">${fmt(precioModelo(m))}</div>
-      <div class="color-sel">
-        ${colorBtns}
-        <span class="color-label" id="clabel-${m.id}">${c0.label}</span>
+      <h3 onclick="abrirProducto('${m.id}')">${m.nombre}</h3>
+      <div class="meta-row">
+        <div class="precio" id="precio-${m.id}">${fmt(precioModelo(m))}</div>
+        <div class="color-sel">${colorBtns}</div>
       </div>
-      <div class="tallas"><span class="talla-unica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Talla única</span></div>
-      <div class="acciones">
-        <button class="btn-ver" onclick="abrirProducto('${m.id}')">Ver más</button>
-        <button class="btn-add" onclick="agregarRapido('${m.id}', this)" aria-label="Agregar al carrito">+</button>
-      </div>
+      <button class="btn-add" onclick="agregarRapido('${m.id}', this)" aria-label="Agregar al carrito">Agregar</button>
     </div>
   </div>`;
 }
@@ -900,11 +887,8 @@ function cambiarColor(modeloId, colorId, btn){
   // Actualizar botones
   document.querySelectorAll(`.color-btn[data-mid="${modeloId}"]`).forEach(b=>b.classList.remove("sel"));
   btn.classList.add("sel");
-  // Actualizar label
   const m = MODELOS.find(x=>x.id===modeloId);
   const c = colorData(m, colorId);
-  const lbl = document.getElementById(`clabel-${modeloId}`);
-  if(lbl) lbl.textContent = c.label;
   // Actualizar foto
   const fotoEl = document.getElementById(`foto-${modeloId}`);
   if(fotoEl) fotoEl.innerHTML = visual(m, c);
