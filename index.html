@@ -199,6 +199,19 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 .toast::before{content:"✓";color:var(--amarillo);font-weight:700}
 
+/* ── Selector de color en la card ── */
+.color-sel{display:flex;gap:9px;margin-top:10px;align-items:center}
+.color-btn{width:24px;height:24px;border-radius:50%;border:none;cursor:pointer;
+  transition:transform .15s;padding:0;position:relative;outline:none;flex-shrink:0}
+.color-btn::after{content:"";position:absolute;inset:0;border-radius:50%;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='rgba(0,0,0,0)' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E") center/65% no-repeat;
+  transition:opacity .15s;opacity:0}
+.color-btn.sel{transform:scale(1.15)}
+.color-btn.sel::after{opacity:1}
+.color-btn[data-cid="blanca"].sel::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23181410' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E")}
+.color-btn[data-cid="negra"].sel::after{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E")}
+.color-label{font:600 9.5px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:var(--topo);margin-left:2px}
+
 /* combos: ahora reutiliza el bloque .promos-activas (ver más abajo) */
 
 /* ---------- por qué bordada ---------- */
@@ -380,7 +393,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <a href="#mundial" class="sello-colombianas" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'});return false;">
     <div class="sello-eyebrow">Edición Limitada</div>
     <div class="sello-nombre">Las Colombianas</div>
-    <div class="sello-detalle">Cuatro diseños <span class="sep">·</span> tricolor bordado <span class="sep">·</span> envío incluido</div>
+    <div class="sello-detalle">Croquis · Colombianísima <span class="sep">·</span> blanca o negra <span class="sep">·</span> envío incluido</div>
   </a>
 
   <h1>Lo que se borda,<br><em>permanece.</em></h1>
@@ -421,7 +434,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
       <div class="eyebrow">Edición limitada</div>
       <h2>Las <em>Colombianas</em></h2>
       <div class="hilo"><span></span><span></span><span></span></div>
-      <p class="nota-cab">Cuatro diseños con el tricolor bordado, producidos en tandas pequeñas. Cuando se acaban, se acaban.</p>
+      <p class="nota-cab">Dos modelos, dos colores. Croquis ($85.000) y Colombianísima ($95.000), cada una disponible en blanca o negra. Producidas en tandas pequeñas — cuando se acaban, se acaban.</p>
     </div>
     <div class="grid" id="gridMundial"></div>
   </div>
@@ -627,49 +640,56 @@ const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← UR
 const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
-const PRECIO_COLOMBIANAS = 85000;   // Las Colombianas (unidad)
-const PRECIO_BASICAS     = 99000;   // Las Atemporales (unidad)
-// Combos de 2 — el precio depende de la composición del par:
-const COMBO_CC = 135000;  // 2 Colombianas
-const COMBO_CB = 145000;  // 1 Colombiana + 1 de las de siempre
-const COMBO_BB = 155000;  // 2 de las de siempre
-// Envío siempre incluido — no hay costo de envío
-const precioModelo = m => m.coleccion === "mundial" ? PRECIO_COLOMBIANAS : PRECIO_BASICAS;
+// Descuentos por cantidad — se aplican al total del carrito
+const DESCUENTO_2 = 35000;  // descuento al llevar 2 camisas
+const DESCUENTO_3 = 60000;  // descuento al llevar 3 o más camisas
+const precioModelo = m => m.precio_base || 85000;
+// Obtener el color activo de una card
+function colorActivo(modeloId){
+  const sel = document.querySelector(`.color-btn.sel[data-mid="${modeloId}"]`);
+  if(sel) return sel.dataset.cid;
+  return "blanca"; // default
+}
+function colorData(m, cid){ return m.colores.find(c=>c.id===cid) || m.colores[0]; }
 
-/* Modelos: pon la ruta de tus PNG en "img" y reemplazan la silueta. */
+/* Modelos: cada uno tiene "colores" con blanca/negra. Pon la ruta de la foto en img. */
 const MODELOS = [
-  // ---- Las Colombianas (4) ----
-  {id:"clasica",  coleccion:"mundial",  nombre:"Clásica Blanca",  tag:"Tricolor al pecho",  color:"#F2EFE6", motivo:"bandera", img:"",
-   desc:"La camiseta base de la colección: blanco hueso con el tricolor bordado al pecho. Versátil y atemporal.",
-   feats:["100% algodón peinado","Bordado a hilo, no estampado","Talla única, corte oversize"]},
-  {id:"tribuna",  coleccion:"mundial",  nombre:"Negra Tribuna",   tag:"Tricolor en manga",  color:"#23252B", motivo:"bandera", img:"",
-   desc:"Negra profunda con el tricolor bordado en la manga. Pensada para llevar a todas partes.",
-   feats:["Algodón premium 180g","Bordado discreto en manga izquierda","Corte ligeramente oversize"]},
-  {id:"seleccion",coleccion:"mundial",  nombre:"Azul Selección",  tag:"Bordado grande",     color:"#1F3B7A", motivo:"bandera", img:"",
-   desc:"Azul intenso con bordado grande al centro. La más vistosa de la colección, llena de carácter.",
-   feats:["Tela gruesa con caída","Bordado de 18 cm","Cuello reforzado"]},
-  {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:"",
-   desc:"Inspirada en los uniformes noventeros. Color ladrillo con escudo vintage bordado.",
-   feats:["Algodón con look envejecido","Escudo bordado en relieve","Edición limitada de la colección"]},
-  // ---- Las Atemporales (6) ----
-  {id:"orquidea", coleccion:"catalogo", nombre:"Orquídea",        tag:"Flor nacional",      color:"#F2EFE6", motivo:"flor",    img:"",
-   desc:"La flor nacional bordada en hilo morado y verde. Un clásico que nunca pasa de moda.",
-   feats:["Bordado a color en 4 hilos","Tela hueso de algodón fino","Talla única oversize"]},
-  {id:"condor",   coleccion:"catalogo", nombre:"Cóndor",          tag:"Bordado al pecho",   color:"#3A3F35", motivo:"ave",     img:"",
-   desc:"Verde oliva con el cóndor andino bordado al pecho. Sobrio y con carácter.",
-   feats:["Tono militar atenuado","Bordado con sombras","Tela de algodón pesado"]},
-  {id:"cafetal",  coleccion:"catalogo", nombre:"Cafetal",         tag:"Rama de café",       color:"#E7DFCB", motivo:"flor",    img:"",
-   desc:"Beige cremoso con una rama de café bordada con sus frutos rojos. Aroma de Eje Cafetero.",
-   feats:["Color crema natural","Detalle de frutos en rojo","Bordado en relieve"]},
-  {id:"caribe",   coleccion:"catalogo", nombre:"Caribe",          tag:"Palmera bordada",    color:"#7FA8B8", motivo:"flor",    img:"",
-   desc:"Azul Caribe con una palmera bordada en hilo verde y café. Fresca para clima cálido.",
-   feats:["Tela ligera, ideal para costa","Palmera bordada de 10 cm","Color azul mar suave"]},
-  {id:"carnaval", coleccion:"catalogo", nombre:"Carnaval",        tag:"Bordado multicolor", color:"#2B2530", motivo:"flor",    img:"",
-   desc:"Negra con bordado multicolor inspirado en el Carnaval de Barranquilla. La más vibrante.",
-   feats:["6 hilos de colores diferentes","Bordado de 14 cm","Pieza limitada"]},
-  {id:"acordeon", coleccion:"catalogo", nombre:"Vallenata",       tag:"Acordeón a hilo",    color:"#A8493F", motivo:"ave",     img:"",
-   desc:"Color ladrillo con un acordeón bordado en hilo crema. Homenaje al vallenato de toda la vida.",
-   feats:["Color tierra cálido","Acordeón bordado en detalle","Algodón con cuerpo"]}
+  // ---- Las Colombianas ----
+  {id:"colombiana", coleccion:"mundial", precio_base:85000,
+   nombre:"Croquis", tag:"Mapa bordado en trazo", motivo:"bandera",
+   desc:"El mapa de Colombia bordado en trazo fino con los tres colores de la bandera. Solo el contorno, limpio y preciso — como un croquis de verdad.",
+   feats:["Bordado tricolor a hilo","Contorno del mapa, sin relleno","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"colombianisima", coleccion:"mundial", precio_base:95000,
+   nombre:"Colombianísima", tag:"Mapa bordado y relleno", motivo:"bandera",
+   desc:"El mapa de Colombia bordado y relleno con los tres colores de la bandera. Más presencia, más peso, más Colombia.",
+   feats:["Bordado tricolor a hilo","Mapa completo relleno","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  // ---- Las Atemporales ----
+  {id:"orquidea", coleccion:"catalogo", precio_base:99000, nombre:"Orquídea", tag:"Flor nacional", motivo:"flor",
+   desc:"La orquídea, flor nacional de Colombia, bordada a hilo en morado y verde. Un diseño delicado que nunca pasa de moda.",
+   feats:["Bordado en 4 hilos de color","Detalle floral al pecho","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"condor", coleccion:"catalogo", precio_base:99000, nombre:"Cóndor", tag:"Bordado al pecho", motivo:"ave",
+   desc:"El cóndor de los Andes bordado al pecho con hilo en relieve. Sobrio, con carácter, para todos los días.",
+   feats:["Bordado con efecto de sombra","Cóndor andino al pecho","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"cafetal", coleccion:"catalogo", precio_base:99000, nombre:"Cafetal", tag:"Rama de café", motivo:"flor",
+   desc:"Una rama de café con sus frutos rojos bordada a hilo. Un guiño al Eje Cafetero y a lo que Colombia le da al mundo.",
+   feats:["Bordado en relieve","Rama con frutos en rojo","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"caribe", coleccion:"catalogo", precio_base:99000, nombre:"Caribe", tag:"Palmera bordada", motivo:"flor",
+   desc:"Una palmera bordada en hilo verde y café, con todo el espíritu de la costa. Ligera, fresca, para clima cálido.",
+   feats:["Bordado en hilo bicolor","Palmera al pecho","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"carnaval", coleccion:"catalogo", precio_base:99000, nombre:"Carnaval", tag:"Bordado multicolor", motivo:"flor",
+   desc:"Inspirada en el Carnaval de Barranquilla. Un bordado en seis hilos de colores que se roba la mirada.",
+   feats:["6 hilos de colores distintos","Bordado festivo al pecho","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]},
+  {id:"acordeon", coleccion:"catalogo", precio_base:99000, nombre:"Vallenata", tag:"Acordeón a hilo", motivo:"ave",
+   desc:"Un acordeón bordado en hilo crema, homenaje al vallenato y a la música que viene de la tierra.",
+   feats:["Bordado en hilo crema","Acordeón con detalle","Talla única, corte oversize"],
+   colores:[{id:"blanca",label:"Blanca",color:"#F2EFE6",img:""},{id:"negra",label:"Negra",color:"#23252B",img:""}]}
 ];
 const TALLAS = ["TU"];
 
@@ -686,16 +706,24 @@ function motivoSVG(tipo){
   return `<g transform="translate(120,118)" fill="none" stroke="rgba(0,0,0,.35)" stroke-width="2" stroke-dasharray="3 2">
     <path d="M-22 6 Q-8 -16 0 -4 Q8 -16 22 6"/><path d="M-6 8 Q0 14 6 8"/></g>`;
 }
-function camisetaSVG(m){
-  const cuello = (m.color === "#F2EFE6" || m.color === "#E7DFCB") ? "#181410" : "#F6F2EA";
+function visualPlaceholder(m, c){
+  const esOscura = c.color === "#23252B";
+  const txt = esOscura ? "rgba(255,255,255,.18)" : "rgba(0,0,0,.13)";
+  return `<div style="width:90%;aspect-ratio:3/4;background:${c.color};display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;border-radius:2px;border:1.5px dashed ${txt}">
+    <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="${txt}" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+    <span style="font:600 8.5px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:${txt}">Foto próximamente</span>
+  </div>`;
+}
+function camisetaConColor(m, c){
+  const cuello = c.color === "#F2EFE6" ? "#181410" : "#F6F2EA";
   return `<svg viewBox="0 0 240 240" aria-hidden="true">
     <path d="M78 38 L46 56 L20 96 L52 116 L58 100 L58 206 Q120 220 182 206 L182 100 L188 116 L220 96 L194 56 L162 38 Q146 56 120 56 Q94 56 78 38 Z"
-      fill="${m.color}" stroke="rgba(0,0,0,.18)" stroke-width="2"/>
+      fill="${c.color}" stroke="rgba(0,0,0,.18)" stroke-width="2"/>
     <path d="M84 40 Q120 66 156 40" fill="none" stroke="${cuello}" stroke-width="5" stroke-linecap="round" opacity=".7"/>
     ${motivoSVG(m.motivo)}
   </svg>`;
 }
-const visual = m => m.img ? `<img src="${m.img}" alt="${m.nombre}" loading="lazy">` : camisetaSVG(m);
+const visual = (m, c) => c.img ? `<img src="${c.img}" alt="${m.nombre} ${c.label}" loading="lazy">` : visualPlaceholder(m, c);
 
 /* ---------- HERO: vitrina rotativa (modelos Mundial) ---------- */
 const heroModelos = MODELOS.filter(m=>m.coleccion==="mundial");
@@ -703,7 +731,7 @@ const vitrina = document.getElementById("vitrina");
 const dotsBox = document.getElementById("dots");
 heroModelos.forEach((m,i)=>{
   const d = document.createElement("div");
-  d.className = "vit-shirt"; d.innerHTML = visual(m);
+  d.className = "vit-shirt"; d.innerHTML = visual(m, m.colores[0]);
   vitrina.appendChild(d);
   const dot = document.createElement("button");
   dot.className = "dot"; dot.setAttribute("aria-label", m.nombre);
@@ -765,12 +793,22 @@ pintarVitrina(); reiniciarTimer();
 
 /* ---------- grids ---------- */
 function cardHTML(m){
+  const c0 = m.colores[0];
+  const colorBtns = m.colores.map((c,i)=>
+    `<button class="color-btn${i===0?' sel':''}" data-mid="${m.id}" data-cid="${c.id}"
+      style="background:${c.color}" title="${c.label}"
+      onclick="cambiarColor('${m.id}','${c.id}',this)"></button>`
+  ).join("");
   return `<div class="prod" data-id="${m.id}">
-    <div class="foto" onclick="abrirProducto('${m.id}')" style="cursor:pointer">${visual(m)}</div>
+    <div class="foto" id="foto-${m.id}" onclick="abrirProducto('${m.id}')" style="cursor:pointer">${visual(m, c0)}</div>
     <div class="cuerpo">
       <h3>${m.nombre}</h3>
       <div class="tag">${m.tag}</div>
       <div class="precio">${fmt(precioModelo(m))}</div>
+      <div class="color-sel">
+        ${colorBtns}
+        <span class="color-label" id="clabel-${m.id}">${c0.label}</span>
+      </div>
       <div class="tallas"><span class="talla-unica"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>Talla única</span></div>
       <div class="acciones">
         <button class="btn-ver" onclick="abrirProducto('${m.id}')">Ver más</button>
@@ -788,6 +826,21 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{
 }),{threshold:.12});
 document.querySelectorAll(".prod").forEach((c,i)=>{ c.style.transitionDelay = ((i%4)*90)+"ms"; io.observe(c); });
 
+/* ---- Cambiar color en card ---- */
+function cambiarColor(modeloId, colorId, btn){
+  // Actualizar botones
+  document.querySelectorAll(`.color-btn[data-mid="${modeloId}"]`).forEach(b=>b.classList.remove("sel"));
+  btn.classList.add("sel");
+  // Actualizar label
+  const m = MODELOS.find(x=>x.id===modeloId);
+  const c = colorData(m, colorId);
+  const lbl = document.getElementById(`clabel-${modeloId}`);
+  if(lbl) lbl.textContent = c.label;
+  // Actualizar foto
+  const fotoEl = document.getElementById(`foto-${modeloId}`);
+  if(fotoEl) fotoEl.innerHTML = visual(m, c);
+}
+
 /* ---------- carrito ---------- */
 let carrito = [];
 let modeloActivo = null; // para el modal de producto
@@ -795,7 +848,9 @@ let modeloActivo = null; // para el modal de producto
 function agregarAlCarrito(modeloId){
   const m = MODELOS.find(x=>x.id===modeloId);
   if(!m) return;
-  carrito.push({id:m.id, nombre:m.nombre, coleccion:m.coleccion, talla:"TU", precio_unidad:precioModelo(m)});
+  const cid = colorActivo(modeloId);
+  const c = colorData(m, cid);
+  carrito.push({id:m.id, nombre:m.nombre, tag:c.label, colorId:cid, coleccion:m.coleccion, talla:"TU", precio_unidad:precioModelo(m)});
   pintarTodo();
   bumpBadge();
 }
@@ -816,9 +871,11 @@ function abrirProducto(modeloId){
   const m = MODELOS.find(x=>x.id===modeloId);
   if(!m) return;
   modeloActivo = m;
-  document.getElementById("pmVis").innerHTML = visual(m);
+  const cid = colorActivo(modeloId);
+  const c = colorData(m, cid);
+  document.getElementById("pmVis").innerHTML = visual(m, c);
   document.getElementById("pmTag").textContent = m.tag;
-  document.getElementById("pmNombre").textContent = m.nombre;
+  document.getElementById("pmNombre").textContent = m.nombre + " — " + c.label;
   document.getElementById("pmPrecio").textContent = fmt(precioModelo(m));
   document.getElementById("pmDesc").textContent = m.desc || "";
   document.getElementById("pmFeats").innerHTML = (m.feats||[]).map(f=>`<li>${f}</li>`).join("");
@@ -890,68 +947,51 @@ function mostrarToast(txt){
   toastTimer = setTimeout(()=>t.classList.remove("on"), 2200);
 }
 
-/* lógica de precios: combos de 2 según composición, envío siempre incluido */
+/* lógica de precios: descuento por cantidad (2 o más = $35.000, 3 o más = $60.000) */
 function calcular(){
   const n = carrito.length;
 
-  // Contamos por colección
-  const C = carrito.filter(it => it.coleccion === "mundial").length; // Colombianas
-  const B = n - C;                                                   // de siempre (catálogo)
+  // Precio sin promo: suma de unidades
+  const precioSinPromo = carrito.reduce((acc, it) => acc + precioModelo(it), 0);
 
-  // Precio sin promo: cada camiseta a su precio de unidad
-  const precioSinPromo = C * PRECIO_COLOMBIANAS + B * PRECIO_BASICAS;
+  // Descuento según cantidad
+  let descuento = 0;
+  if(n >= 3) descuento = DESCUENTO_3;
+  else if(n >= 2) descuento = DESCUENTO_2;
 
-  // Buscamos el emparejamiento que deja el menor total para la clienta.
-  // Probamos cada cantidad posible de pares mixtos (1 Colombiana + 1 de siempre);
-  // el resto se empareja entre sí (CC y BB) y queda máximo una suelta.
-  let mejor = {productos: Infinity, cb:0, cc:0, bb:0, sueltaC:0, sueltaB:0};
-  for(let cb = 0; cb <= Math.min(C, B); cb++){
-    const cRest = C - cb, bRest = B - cb;
-    const cc = Math.floor(cRest / 2);
-    const bb = Math.floor(bRest / 2);
-    const sueltaC = cRest % 2;
-    const sueltaB = bRest % 2;
-    const productos = cb*COMBO_CB + cc*COMBO_CC + bb*COMBO_BB
-                    + sueltaC*PRECIO_COLOMBIANAS + sueltaB*PRECIO_BASICAS;
-    if(productos < mejor.productos){
-      mejor = {productos, cb, cc, bb, sueltaC, sueltaB};
-    }
-  }
+  const productos = n ? precioSinPromo - descuento : 0;
+  const ahorro    = descuento;
 
-  const productos = n ? mejor.productos : 0;
-  const combos    = mejor.cb + mejor.cc + mejor.bb;
-  const sueltas   = mejor.sueltaC + mejor.sueltaB;
-  const ahorro    = Math.max(0, precioSinPromo - productos);
-
-  // ¿Está a una prenda de armar otro combo? (queda una suelta)
-  const cercaCombo = sueltas === 1;
+  // ¿Está a una prenda de acceder al siguiente descuento?
+  const cercaCombo = n === 1; // con 1 camisa, le falta 1 para el descuento de 2
 
   // Envío siempre incluido
-  return {n, combos, sueltas, productos, envio: 0, envioGratis: true, total: productos, ahorro, cercaCombo,
-          cc: mejor.cc, cb: mejor.cb, bb: mejor.bb};
+  return {n, productos, envio: 0, envioGratis: true, total: productos, ahorro, cercaCombo, precioSinPromo};
 }
 
 function lineasHTML(c){
   if(!c.n) return "";
-  let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos + c.ahorro)}</span></div>`;
-  if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorro por promociones</span><span>−${fmt(c.ahorro)}</span></div>`;
+  let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.precioSinPromo)}</span></div>`;
+  if(c.ahorro > 0) h += `<div class="linea verde"><span>Descuento (${c.n} camisas)</span><span>−${fmt(c.ahorro)}</span></div>`;
   h += `<div class="linea verde"><span>Envío</span><span>Gratis ✓</span></div>`;
   return h;
 }
 
-/* Bloque "Promociones": informativo, igual para todos (precio normal tachado → combo) */
+/* Bloque "Promociones": banner verde con descuentos por cantidad */
 function promosHTML(){
-  const fila = (nombre, antes, ahora) =>
-    `<div class="promo-fila"><span class="promo-n">${nombre}</span>`+
-    `<span class="promo-precio"><s class="promo-antes">${fmt(antes)}</s><span class="promo-ah">${fmt(ahora)}</span></span></div>`;
   return `<div class="promos-cab">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
-      Lleva 2 y ahorra
+      Descuentos por cantidad
     </div>
-    ${fila("2 Colombianas",              2*PRECIO_COLOMBIANAS,            COMBO_CC)}
-    ${fila("1 Colombiana + 1 Atemporal", PRECIO_COLOMBIANAS+PRECIO_BASICAS, COMBO_CB)}
-    ${fila("2 Atemporales",              2*PRECIO_BASICAS,               COMBO_BB)}
-    <div class="promo-pie">Mezcla las colecciones · envío gratis ✓</div>`;
+    <div class="promo-fila">
+      <span class="promo-n">2 camisas</span>
+      <span class="promo-precio"><span class="promo-ah">Descuento de ${fmt(DESCUENTO_2)}</span></span>
+    </div>
+    <div class="promo-fila">
+      <span class="promo-n">3 camisas</span>
+      <span class="promo-precio"><span class="promo-ah">Descuento de ${fmt(DESCUENTO_3)}</span></span>
+    </div>
+    <div class="promo-pie">Mezcla los modelos · envío gratis ✓</div>`;
 }
 
 /* ---------- drawer ---------- */
@@ -1016,7 +1056,7 @@ function pintarTodo(){
 
   const itemHTML = (it,i)=>`
     <div class="d-item">
-      <div><div class="n">${it.nombre}</div><div class="t">Talla única</div></div>
+      <div><div class="n">${it.nombre}</div><div class="t">${it.tag || 'Talla única'}</div></div>
       <div class="p">${fmt(precioModelo(it))}<button onclick="quitar(${i})" aria-label="Quitar">✕</button></div>
     </div>`;
 
@@ -1105,7 +1145,7 @@ document.getElementById('btnPedir').onclick = async ()=>{
   const recargo = esContra ? RECARGO_CE : 0;
   const totalFinal = c.total + recargo;
   const referencia = (esContra ? 'CE-' : 'SP-') + Date.now();
-  const productos  = carrito.map(it => `${it.nombre} x1`).join(', ');
+  const productos  = carrito.map(it => `${it.nombre} (${it.tag || 'Talla única'}) x1`).join(', ');
 
   const payload = {
     referencia,
