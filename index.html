@@ -229,8 +229,6 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 
 .grid{margin-top:32px;display:grid;gap:12px;grid-template-columns:repeat(2,1fr)}
 @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:16px}}
-.grid.seis{grid-template-columns:repeat(2,1fr)}
-@media(min-width:760px){.grid.seis{grid-template-columns:repeat(3,1fr)}}
 .prod{background:#fff;border-radius:16px;padding:10px 10px 12px;display:flex;flex-direction:column;
   box-shadow:0 1px 2px rgba(24,20,16,.04),0 6px 20px rgba(24,20,16,.06);
   opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
@@ -475,6 +473,100 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   #aguja{display:none}
   .hero-eyebrow,.hero-texto h1,.hero-texto .sub,.hero-pills,.hero-cta,.sello-colombianas{animation:none}
 }
+
+/* ============================================================
+   MÓVIL — estilo Shopify (≤ 480px)
+   Un solo breakpoint, quirúrgico, nunca toca desktop
+   ============================================================ */
+@media(max-width:480px){
+
+  /* ── padding lateral global: 16px como Shopify ── */
+  .wrap{padding:0 16px}
+
+  /* ── promo bar ── */
+  .promo-bar{font-size:10px;padding:7px 12px}
+
+  /* ── header / nav ── */
+  .nav{padding:11px 16px;gap:8px}
+  .logo{font-size:13px;letter-spacing:.28em}
+  .btn-carrito{padding:9px 13px;font-size:10px}
+  .btn-carrito svg{width:13px;height:13px}
+  .badge{min-width:17px;height:17px;font-size:10px}
+
+  /* ── hero texto ── */
+  .hero-texto{padding:40px 16px 32px}
+  .hero-eyebrow{font-size:8.5px;letter-spacing:.28em;margin-bottom:14px}
+  .hero-texto h1{font-size:clamp(36px,10vw,48px);line-height:1.02}
+  .hero-texto .sub{font-size:13px;margin-top:16px}
+
+  /* pills: máximo dos por fila, sin que rompan feo */
+  .hero-pills{gap:6px;margin-top:18px}
+  .hero-pill{font-size:8px;padding:6px 11px}
+  .hero-cta{margin-top:24px;padding:15px 32px;font-size:10.5px}
+
+  /* ── foto hero: ratio 3/4 en móvil, no 1/1 ── */
+  .hero-foto{min-height:300px}
+
+  /* ── métricas: 2×2 en lugar de 4×1 ── */
+  .hero-metricas .wrap{
+    grid-template-columns:repeat(2,1fr)
+  }
+  .metrica{padding:16px 18px}
+  .metrica:nth-child(1){border-right:1px solid rgba(255,255,255,.07)}
+  .metrica:nth-child(2){border-right:none}
+  .metrica:nth-child(3){border-right:1px solid rgba(255,255,255,.07);border-top:1px solid rgba(255,255,255,.07)}
+  .metrica:nth-child(4){border-right:none;border-top:1px solid rgba(255,255,255,.07)}
+  .metrica-num{font-size:19px}
+  .metrica-label{font-size:8px;letter-spacing:.16em}
+  .hero-metricas .metrica:first-child{padding-left:18px}
+  .hero-metricas .metrica:last-child{padding-right:18px}
+
+  /* ── secciones catálogo ── */
+  .mundial{padding:40px 0 48px}
+  .catalogo{padding:40px 0 48px}
+  .cab h2{font-size:clamp(26px,8vw,36px)}
+  .cab .nota-cab{font-size:12.5px;max-width:none}
+
+  /* ── grid cards: 2 columnas con gap ajustado ── */
+  .grid{gap:10px;margin-top:24px}
+
+  /* ── card (estética B) ── */
+  .prod{border-radius:14px;padding:9px 9px 11px}
+  .prod .foto{border-radius:9px;padding:12px 8px}
+  .prod .cuerpo{padding:8px 2px 0}
+  .prod h3{font-size:14px}
+  .prod .precio{font-size:12.5px}
+  .prod .meta-row{margin-top:4px}
+  .btn-add{margin-top:9px;padding:10px;font-size:9.5px;border-radius:8px}
+
+  /* swatches un poco más pequeños en móvil angosto */
+  .color-btn{width:20px;height:20px}
+
+  /* ── sección "por qué bordada" ── */
+  .porque{padding:44px 0}
+  .razones{gap:22px;margin-top:26px}
+
+  /* ── testimonios ── */
+  .testimonios{padding:44px 0}
+  .testi-grid{gap:12px;margin-top:24px}
+  .testi{padding:18px 16px 16px}
+
+  /* ── tallas ── */
+  .tallas-sec{padding:40px 0}
+  .tabla{font-size:12.5px}
+
+  /* ── drawer carrito ── */
+  .drawer{width:100%;max-width:100%;border-radius:0}
+
+  /* ── FAB carrito ── */
+  .fab{bottom:14px;right:14px;padding:12px 15px;font-size:10.5px}
+
+  /* ── footer ── */
+  footer{padding:24px 0}
+  footer .wrap{flex-direction:column;align-items:flex-start;gap:8px}
+  footer .logo{font-size:15px}
+  footer small{font-size:10.5px}
+}
 </style>
 </head>
 <body>
@@ -574,7 +666,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
       <h2>Las <em>Atemporales</em></h2>
       <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
     </div>
-    <div class="grid seis" id="gridCatalogo"></div>
+    <div class="grid" id="gridCatalogo"></div>
     <div class="promos-activas promos-seccion" id="promosSeccion"></div>
   </div>
 </section>
