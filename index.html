@@ -302,11 +302,13 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 /* Promociones (carrito) — informativo */
 .promos-activas{margin:0 18px 4px;border:1px solid var(--borde);background:#fff}
 .promos-cab{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--borde);
-  font:600 9.5px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:var(--topo)}
-.promos-cab svg{width:14px;height:14px}
+  font:600 10px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--tinta)}
+.promos-cab svg{width:15px;height:15px}
 .promo-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px dashed var(--borde)}
 .promo-n{font-size:13px;font-weight:500;color:var(--tinta)}
-.promo-ah{font:500 15px 'Bodoni Moda',serif;color:var(--tinta);white-space:nowrap}
+.promo-precio{text-align:right;white-space:nowrap}
+.promo-antes{font-size:12px;color:var(--topo-claro);text-decoration:line-through;margin-right:6px}
+.promo-ah{font:500 16px 'Bodoni Moda',serif;color:var(--tinta)}
 .promo-pie{padding:9px 12px;text-align:center;background:var(--hueso);
   font:600 9.5px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
 .pedir{width:100%;margin-top:16px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
@@ -954,16 +956,19 @@ function lineasHTML(c){
   return h;
 }
 
-/* Bloque "Promociones": informativo, igual para todos (las promos vigentes) */
+/* Bloque "Promociones": informativo, igual para todos (precio normal tachado → combo) */
 function promosHTML(){
+  const fila = (nombre, antes, ahora) =>
+    `<div class="promo-fila"><span class="promo-n">${nombre}</span>`+
+    `<span class="promo-precio"><s class="promo-antes">${fmt(antes)}</s><span class="promo-ah">${fmt(ahora)}</span></span></div>`;
   return `<div class="promos-cab">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
-      Promociones · Combo de 2
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
+      Lleva 2 y ahorra
     </div>
-    <div class="promo-fila"><span class="promo-n">2 Colombianas</span><span class="promo-ah">$135.000</span></div>
-    <div class="promo-fila"><span class="promo-n">1 Colombiana + 1 Atemporal</span><span class="promo-ah">$145.000</span></div>
-    <div class="promo-fila"><span class="promo-n">2 Atemporales</span><span class="promo-ah">$155.000</span></div>
-    <div class="promo-pie">Envío gratis en todos los combos ✓</div>`;
+    ${fila("2 Colombianas",              2*PRECIO_COLOMBIANAS,            COMBO_CC)}
+    ${fila("1 Colombiana + 1 Atemporal", PRECIO_COLOMBIANAS+PRECIO_BASICAS, COMBO_CB)}
+    ${fila("2 Atemporales",              2*PRECIO_BASICAS,               COMBO_BB)}
+    <div class="promo-pie">Mezcla las colecciones · envío gratis ✓</div>`;
 }
 
 /* ---------- drawer ---------- */
