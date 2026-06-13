@@ -102,7 +102,6 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .sello-nombre{font:400 italic 22px 'Bodoni Moda',serif;line-height:1;color:var(--tinta)}
 .sello-detalle{font:500 12px 'Hanken Grotesk';color:var(--topo);letter-spacing:.04em;display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:center}
 .sello-detalle .sep{color:var(--borde)}
-.sello-precio{display:inline-block;padding:0 7px;background:#FFF8E0;border-bottom:1.5px solid var(--amarillo);font-weight:700;color:var(--tinta)}
 @media(max-width:420px){
   .sello-colombianas{padding:13px 18px}
   .sello-nombre{font-size:20px}
@@ -200,13 +199,22 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 .toast::before{content:"✓";color:var(--amarillo);font-weight:700}
 
-/* combo callout */
-.combo-card{margin-top:18px;border:2px dashed var(--tinta);background:#fff;padding:18px 16px;
-  display:flex;align-items:center;gap:14px;justify-content:space-between;flex-wrap:wrap}
-.combo-card .tx b{font:500 19px 'Bodoni Moda',serif;display:block}
-.combo-card .tx span{font-size:12.5px;color:var(--topo)}
-.combo-card .pr{font:500 24px 'Bodoni Moda',serif}
-.combo-card .pr small{display:block;font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:#2E5B2E}
+/* combos: tabla de promociones */
+.combos{margin-top:26px;background:#fff;border:1px solid var(--borde)}
+.combos-cab{padding:13px 18px;text-align:center;border-bottom:1px solid var(--borde);
+  font:600 10px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--topo)}
+.combos-cab b{color:var(--tinta);font-weight:700}
+.combos-fila{display:flex;align-items:center;justify-content:space-between;gap:14px;
+  padding:15px 20px;border-bottom:1px dashed var(--borde)}
+.combos-fila .que{font:500 14.5px 'Hanken Grotesk';color:var(--tinta);line-height:1.35}
+.combos-fila .val{font:500 21px 'Bodoni Moda',serif;color:var(--tinta);white-space:nowrap}
+.combos-pie{padding:11px 16px;text-align:center;background:var(--hueso);
+  font:600 10px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
+@media(max-width:420px){
+  .combos-fila{padding:13px 16px}
+  .combos-fila .que{font-size:13px}
+  .combos-fila .val{font-size:19px}
+}
 
 /* ---------- por qué bordada ---------- */
 .porque{background:var(--tinta);color:var(--crema);padding:60px 0}
@@ -291,6 +299,16 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .nudge{margin-top:12px;background:#FFF8E0;border:1px dashed var(--amarillo);font-size:12.5px;
   padding:11px 12px;line-height:1.5;display:none}
 .nudge.show{display:block}
+/* Promociones (carrito) — informativo */
+.promos-activas{margin:0 18px 4px;border:1px solid var(--borde);background:#fff}
+.promos-cab{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--borde);
+  font:600 9.5px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:var(--topo)}
+.promos-cab svg{width:14px;height:14px}
+.promo-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px dashed var(--borde)}
+.promo-n{font-size:13px;font-weight:500;color:var(--tinta)}
+.promo-ah{font:500 15px 'Bodoni Moda',serif;color:var(--tinta);white-space:nowrap}
+.promo-pie{padding:9px 12px;text-align:center;background:var(--hueso);
+  font:600 9.5px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
 .pedir{width:100%;margin-top:16px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
   background:var(--tinta);color:#fff;border:none;padding:17px;transition:opacity .2s}
 .pedir:disabled{opacity:.3;cursor:not-allowed}
@@ -372,7 +390,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <a href="#mundial" class="sello-colombianas" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'});return false;">
     <div class="sello-eyebrow">Edición Limitada</div>
     <div class="sello-nombre">Las Colombianas</div>
-    <div class="sello-detalle">Combo de 2 <span class="sep">·</span> <span class="sello-precio">desde $135.000</span> <span class="sep">·</span> envío incluido</div>
+    <div class="sello-detalle">Cuatro diseños <span class="sep">·</span> tricolor bordado <span class="sep">·</span> envío incluido</div>
   </a>
 
   <h1>Lo que se borda,<br><em>permanece.</em></h1>
@@ -416,22 +434,25 @@ footer small{font-size:11.5px;letter-spacing:.06em}
       <p class="nota-cab">Cuatro diseños con el tricolor bordado, producidos en tandas pequeñas. Cuando se acaban, se acaban.</p>
     </div>
     <div class="grid" id="gridMundial"></div>
-    <div class="combo-card">
-      <div class="tx"><b>Combo de 2</b><span>2 Colombianas $135.000 · 1 + 1 $145.000 · 2 de siempre $155.000. Mezcla las colecciones a tu gusto.</span></div>
-      <div class="pr">desde<br>$135.000<small>Envío gratis</small></div>
-    </div>
   </div>
 </section>
 
-<!-- ============ LAS BÁSICAS ============ -->
+<!-- ============ LAS ATEMPORALES ============ -->
 <section class="catalogo" id="catalogo">
   <div class="wrap">
     <div class="cab">
       <div class="eyebrow">Bordados de siempre</div>
-      <h2>Las <em>Básicas</em></h2>
+      <h2>Las <em>Atemporales</em></h2>
       <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
     </div>
     <div class="grid seis" id="gridCatalogo"></div>
+    <div class="combos">
+      <div class="combos-cab"><b>Combo de 2</b> · mezcla las colecciones a tu gusto</div>
+      <div class="combos-fila"><span class="que">2 Colombianas</span><span class="val">$135.000</span></div>
+      <div class="combos-fila"><span class="que">1 Colombiana + 1 Atemporal</span><span class="val">$145.000</span></div>
+      <div class="combos-fila"><span class="que">2 Atemporales</span><span class="val">$155.000</span></div>
+      <div class="combos-pie">Envío gratis en todos los combos ✓</div>
+    </div>
   </div>
 </section>
 
@@ -570,7 +591,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <!-- Resumen compacto dentro del modal -->
     <div id="lineas" style="margin-top:4px"></div>
     <div id="linea-contra" style="display:none" class="linea"><span>Recargo contraentrega</span><span>+ $5.000</span></div>
-    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Suma otra y arma el combo de 2: desde $135.000 con envío incluido.</div>
+    <div class="nudge" id="nudge" style="margin-bottom:4px">💡 Suma una más y arma el combo de 2, con envío gratis.</div>
     <div class="total-row" style="margin:8px 0 16px"><span>Total a pagar</span><span id="total">$0</span></div>
     <button class="pedir" id="btnPedir" disabled>Confirmar pedido</button>
     <div class="seguro">🔒 Datos protegidos · Confirmamos por WhatsApp</div>
@@ -600,10 +621,10 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     </span>
   </div>
   <div class="drawer-items" id="drawerItems"></div>
+  <div class="promos-activas" id="drawerPromos" style="display:none"></div>
   <div class="drawer-pie">
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
-    <div class="nudge" id="nudgeDrawer">💡 Suma otra y arma el combo de 2: desde $135.000 con envío incluido.</div>
     <div class="acciones-pago">
       <button class="btn-pago-online" id="btnPagoOnline" disabled>⚡ Pagar ahora</button>
       <button class="btn-pago-contra" id="btnPagoContra" disabled>📦 Pagar contra entrega <small>(+$5.000)</small></button>
@@ -623,7 +644,7 @@ const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
 const PRECIO_COLOMBIANAS = 85000;   // Las Colombianas (unidad)
-const PRECIO_BASICAS     = 99000;   // Las de siempre (unidad)
+const PRECIO_BASICAS     = 99000;   // Las Atemporales (unidad)
 // Combos de 2 — el precio depende de la composición del par:
 const COMBO_CC = 135000;  // 2 Colombianas
 const COMBO_CB = 145000;  // 1 Colombiana + 1 de las de siempre
@@ -646,7 +667,7 @@ const MODELOS = [
   {id:"retro",    coleccion:"mundial",  nombre:"Retro 90",        tag:"Escudo vintage",     color:"#C8503A", motivo:"bandera", img:"",
    desc:"Inspirada en los uniformes noventeros. Color ladrillo con escudo vintage bordado.",
    feats:["Algodón con look envejecido","Escudo bordado en relieve","Edición limitada de la colección"]},
-  // ---- Las Clásicas (6) ----
+  // ---- Las Atemporales (6) ----
   {id:"orquidea", coleccion:"catalogo", nombre:"Orquídea",        tag:"Flor nacional",      color:"#F2EFE6", motivo:"flor",    img:"",
    desc:"La flor nacional bordada en hilo morado y verde. Un clásico que nunca pasa de moda.",
    feats:["Bordado a color en 4 hilos","Tela hueso de algodón fino","Talla única oversize"]},
@@ -921,15 +942,28 @@ function calcular(){
   const cercaCombo = sueltas === 1;
 
   // Envío siempre incluido
-  return {n, combos, sueltas, productos, envio: 0, envioGratis: true, total: productos, ahorro, cercaCombo};
+  return {n, combos, sueltas, productos, envio: 0, envioGratis: true, total: productos, ahorro, cercaCombo,
+          cc: mejor.cc, cb: mejor.cb, bb: mejor.bb};
 }
 
 function lineasHTML(c){
   if(!c.n) return "";
-  let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos)}</span></div>`;
+  let h = `<div class="linea"><span>Camisetas (${c.n})</span><span>${fmt(c.productos + c.ahorro)}</span></div>`;
+  if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorro por promociones</span><span>−${fmt(c.ahorro)}</span></div>`;
   h += `<div class="linea verde"><span>Envío</span><span>Gratis ✓</span></div>`;
-  if(c.ahorro > 0) h += `<div class="linea verde"><span>Ahorras con el combo</span><span>−${fmt(c.ahorro)}</span></div>`;
   return h;
+}
+
+/* Bloque "Promociones": informativo, igual para todos (las promos vigentes) */
+function promosHTML(){
+  return `<div class="promos-cab">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
+      Promociones · Combo de 2
+    </div>
+    <div class="promo-fila"><span class="promo-n">2 Colombianas</span><span class="promo-ah">$135.000</span></div>
+    <div class="promo-fila"><span class="promo-n">1 Colombiana + 1 Atemporal</span><span class="promo-ah">$145.000</span></div>
+    <div class="promo-fila"><span class="promo-n">2 Atemporales</span><span class="promo-ah">$155.000</span></div>
+    <div class="promo-pie">Envío gratis en todos los combos ✓</div>`;
 }
 
 /* ---------- drawer ---------- */
@@ -1003,11 +1037,12 @@ function pintarTodo(){
     ? carrito.map(itemHTML).join("")
     : `<div class="vacio" style="padding:14px 0">Tu carrito está vacío.</div>`;
   document.getElementById("drawerLineas").innerHTML = lineasHTML(c);
+  const dp = document.getElementById("drawerPromos");
+  dp.innerHTML = promosHTML();
+  dp.style.display = c.n ? "" : "none";
   document.getElementById("drawerTotal").textContent = fmt(c.total);
   document.getElementById("btnPagoOnline").disabled = !c.n;
   document.getElementById("btnPagoContra").disabled = !c.n;
-  document.getElementById("nudgeDrawer").classList.toggle("show", c.cercaCombo);
-
   // bloque envío gratis: solo aparece si hay items
   const eb = document.getElementById("envioBlock");
   eb.style.display = c.n === 0 ? "none" : "";
