@@ -129,7 +129,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .prod .cuerpo{padding:13px 12px 14px;display:flex;flex-direction:column;flex:1}
 .prod h3{font:500 16px 'Bodoni Moda',serif}
 .prod .tag{font:600 9px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo-claro);margin-top:3px}
-.prod .precio{font:500 14.5px 'Bodoni Moda',serif;margin-top:8px}
+.prod .precio{font:500 14.5px 'Hanken Grotesk',sans-serif;margin-top:8px}
 .prod .tallas{display:flex;gap:5px;margin-top:10px;flex-wrap:wrap}
 .talla-unica{display:inline-flex;align-items:center;gap:5px;margin-top:10px;
   font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;
@@ -157,7 +157,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
   display:inline-flex;align-items:center;justify-content:center;font:700 11px 'Hanken Grotesk';
   letter-spacing:0;padding:0 5px;transition:transform .3s cubic-bezier(.34,1.56,.64,1)}
 .fab-badge.bump{transform:scale(1.55)}
-.fab-total{font:500 13px 'Bodoni Moda',serif;letter-spacing:0;text-transform:none;opacity:.95}
+.fab-total{font:500 13px 'Hanken Grotesk',sans-serif;letter-spacing:0;text-transform:none;opacity:.95}
 
 /* ── Modal de producto ── */
 .prod-modal{position:fixed;inset:0;z-index:200;background:rgba(24,20,16,.72);display:flex;
@@ -178,7 +178,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .prod-x:hover{color:var(--tinta)}
 .prod-info .tag{font:600 9.5px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;color:var(--amarillo)}
 .prod-info h3{font:500 26px 'Bodoni Moda',serif;line-height:1.15}
-.prod-info .precio{font:500 22px 'Bodoni Moda',serif}
+.prod-info .precio{font:500 22px 'Hanken Grotesk',sans-serif}
 .prod-info .desc{font-size:13.5px;color:var(--topo);line-height:1.65}
 .prod-feats{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:6px}
 .prod-feats li{font-size:12.5px;color:var(--topo);padding-left:20px;position:relative;line-height:1.5}
@@ -199,22 +199,7 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .toast.on{transform:translateX(-50%) translateY(0);opacity:1}
 .toast::before{content:"✓";color:var(--amarillo);font-weight:700}
 
-/* combos: tabla de promociones */
-.combos{margin-top:26px;background:#fff;border:1px solid var(--borde)}
-.combos-cab{padding:13px 18px;text-align:center;border-bottom:1px solid var(--borde);
-  font:600 10px 'Hanken Grotesk';letter-spacing:.2em;text-transform:uppercase;color:var(--topo)}
-.combos-cab b{color:var(--tinta);font-weight:700}
-.combos-fila{display:flex;align-items:center;justify-content:space-between;gap:14px;
-  padding:15px 20px;border-bottom:1px dashed var(--borde)}
-.combos-fila .que{font:500 14.5px 'Hanken Grotesk';color:var(--tinta);line-height:1.35}
-.combos-fila .val{font:500 21px 'Bodoni Moda',serif;color:var(--tinta);white-space:nowrap}
-.combos-pie{padding:11px 16px;text-align:center;background:var(--hueso);
-  font:600 10px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
-@media(max-width:420px){
-  .combos-fila{padding:13px 16px}
-  .combos-fila .que{font-size:13px}
-  .combos-fila .val{font-size:19px}
-}
+/* combos: ahora reutiliza el bloque .promos-activas (ver más abajo) */
 
 /* ---------- por qué bordada ---------- */
 .porque{background:var(--tinta);color:var(--crema);padding:60px 0}
@@ -294,23 +279,26 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .resumen-item button{background:none;border:none;color:var(--rojo);font-size:12px}
 .linea{display:flex;justify-content:space-between;font-size:13.5px;color:var(--topo);padding-top:10px}
 .linea.verde{color:#2E5B2E;font-weight:600}
-.total-row{display:flex;justify-content:space-between;font:500 20px 'Bodoni Moda',serif;padding-top:12px}
+.total-row{display:flex;justify-content:space-between;font:500 20px 'Hanken Grotesk',sans-serif;padding-top:12px}
 .vacio{font-size:13px;color:var(--topo);padding:6px 0}
 .nudge{margin-top:12px;background:#FFF8E0;border:1px dashed var(--amarillo);font-size:12.5px;
   padding:11px 12px;line-height:1.5;display:none}
 .nudge.show{display:block}
-/* Promociones (carrito) — informativo */
-.promos-activas{margin:0 18px 4px;border:1px solid var(--borde);background:#fff}
-.promos-cab{display:flex;align-items:center;gap:7px;padding:9px 12px;border-bottom:1px solid var(--borde);
-  font:600 10px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:var(--tinta)}
+/* Promociones (bloque de cupón verde, compartido por carrito y sección) */
+.promos-activas{border:1.5px dashed #93C16B;background:#F4F8EC}
+.promos-drawer{margin:0 18px 4px}
+.promos-seccion{margin:30px auto 0;max-width:520px}
+.promos-cab{display:flex;align-items:center;gap:7px;padding:10px 12px;background:#EAF3DE;border-bottom:1.5px dashed #C2DEA1;
+  font:700 10px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#2E5B2E}
 .promos-cab svg{width:15px;height:15px}
-.promo-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-bottom:1px dashed var(--borde)}
+.promo-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;background:#F4F8EC;border-bottom:1px dashed #C2DEA1}
+.promo-fila:last-of-type{border-bottom:none}
 .promo-n{font-size:13px;font-weight:500;color:var(--tinta)}
 .promo-precio{text-align:right;white-space:nowrap}
 .promo-antes{font-size:12px;color:var(--topo-claro);text-decoration:line-through;margin-right:6px}
-.promo-ah{font:500 16px 'Bodoni Moda',serif;color:var(--tinta)}
-.promo-pie{padding:9px 12px;text-align:center;background:var(--hueso);
-  font:600 9.5px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
+.promo-ah{font:500 16px 'Hanken Grotesk',sans-serif;color:var(--tinta)}
+.promo-pie{padding:9px 12px;text-align:center;background:#EAF3DE;border-top:1.5px dashed #C2DEA1;
+  font:700 9.5px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
 .pedir{width:100%;margin-top:16px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
   background:var(--tinta);color:#fff;border:none;padding:17px;transition:opacity .2s}
 .pedir:disabled{opacity:.3;cursor:not-allowed}
@@ -337,11 +325,11 @@ header{position:sticky;top:0;z-index:60;background:rgba(246,242,234,.92);backdro
 .d-item{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 0;border-bottom:2px dashed var(--borde)}
 .d-item .n{font:500 15px 'Bodoni Moda',serif}
 .d-item .t{font:600 9.5px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;color:var(--topo);margin-top:3px}
-.d-item .p{font:500 14px 'Bodoni Moda',serif;white-space:nowrap}
+.d-item .p{font:500 14px 'Hanken Grotesk',sans-serif;white-space:nowrap}
 .d-item button{background:none;border:none;color:var(--rojo);font-size:13px;margin-left:6px}
 .drawer-pie{border-top:1px solid var(--borde);padding:14px 18px 20px;background:var(--hueso)}
 .drawer-pie .linea{padding-top:6px}
-.drawer-total{display:flex;justify-content:space-between;font:500 19px 'Bodoni Moda',serif;margin:8px 0 12px}
+.drawer-total{display:flex;justify-content:space-between;font:500 19px 'Hanken Grotesk',sans-serif;margin:8px 0 12px}
 .acciones-pago{display:flex;flex-direction:column;gap:8px}
 .btn-pago-online,.btn-pago-contra{width:100%;font:600 12px 'Hanken Grotesk';letter-spacing:.16em;
   text-transform:uppercase;border:none;padding:15px 10px;cursor:pointer;transition:opacity .2s,background .2s;
@@ -448,13 +436,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
       <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
     </div>
     <div class="grid seis" id="gridCatalogo"></div>
-    <div class="combos">
-      <div class="combos-cab"><b>Combo de 2</b> · mezcla las colecciones a tu gusto</div>
-      <div class="combos-fila"><span class="que">2 Colombianas</span><span class="val">$135.000</span></div>
-      <div class="combos-fila"><span class="que">1 Colombiana + 1 Atemporal</span><span class="val">$145.000</span></div>
-      <div class="combos-fila"><span class="que">2 Atemporales</span><span class="val">$155.000</span></div>
-      <div class="combos-pie">Envío gratis en todos los combos ✓</div>
-    </div>
+    <div class="promos-activas promos-seccion" id="promosSeccion"></div>
   </div>
 </section>
 
@@ -623,7 +605,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     </span>
   </div>
   <div class="drawer-items" id="drawerItems"></div>
-  <div class="promos-activas" id="drawerPromos" style="display:none"></div>
+  <div class="promos-activas promos-drawer" id="drawerPromos" style="display:none"></div>
   <div class="drawer-pie">
     <div id="drawerLineas"></div>
     <div class="drawer-total"><span>Total</span><span id="drawerTotal">$0</span></div>
@@ -799,6 +781,7 @@ function cardHTML(m){
 }
 document.getElementById("gridMundial").innerHTML  = MODELOS.filter(m=>m.coleccion==="mundial").map(cardHTML).join("");
 document.getElementById("gridCatalogo").innerHTML = MODELOS.filter(m=>m.coleccion==="catalogo").map(cardHTML).join("");
+document.getElementById("promosSeccion").innerHTML = promosHTML();
 
 const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
@@ -962,7 +945,7 @@ function promosHTML(){
     `<div class="promo-fila"><span class="promo-n">${nombre}</span>`+
     `<span class="promo-precio"><s class="promo-antes">${fmt(antes)}</s><span class="promo-ah">${fmt(ahora)}</span></span></div>`;
   return `<div class="promos-cab">
-      <svg viewBox="0 0 24 24" fill="none" stroke="var(--amarillo)" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
       Lleva 2 y ahorra
     </div>
     ${fila("2 Colombianas",              2*PRECIO_COLOMBIANAS,            COMBO_CC)}
