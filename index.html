@@ -197,16 +197,28 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 @media(max-width:720px){
   .hero-foto{border-left:none;border-top:1px solid rgba(255,255,255,.07);min-height:360px}
 }
-/* imagen real ocupa todo el panel */
-.hero-foto > img{
+/* slider track */
+.hero-slider{
   position:absolute;inset:0;
-  width:100%;height:100%;object-fit:cover;object-position:center top;
-  display:block
+  display:flex;width:200%;height:100%;
+  transition:transform .7s cubic-bezier(.4,0,.2,1)
 }
-/* placeholder gris hasta tener foto */
-.hero-foto-placeholder{
-  position:absolute;inset:0;background:#252830
+.hero-slider.slide-1{transform:translateX(-50%)}
+.hero-slider img{
+  width:50%;height:100%;object-fit:cover;object-position:center top;
+  display:block;flex-shrink:0
 }
+/* dots indicadores */
+.slider-dots{
+  position:absolute;bottom:14px;left:50%;transform:translateX(-50%);
+  display:flex;gap:6px;z-index:4
+}
+.slider-dot{
+  width:6px;height:6px;border-radius:50%;
+  background:rgba(255,255,255,.35);border:none;padding:0;cursor:pointer;
+  transition:background .3s,width .3s;
+}
+.slider-dot.on{background:#fff;width:18px;border-radius:99px}
 
 /* ── franja métricas oscura ── */
 .hero-metricas{background:#1A1714;border-top:1px solid rgba(255,255,255,.07)}
@@ -627,9 +639,16 @@ footer small{font-size:11.5px;letter-spacing:.06em}
       <button class="hero-cta" onclick="document.getElementById('mundial').scrollIntoView({behavior:'smooth'})">Ver la colección</button>
     </div>
 
-    <!-- panel derecho: imagen a sangre total, sin overlay -->
+    <!-- panel derecho: slider de dos fotos -->
     <div class="hero-foto" id="heroFoto">
-      <img src="img/hero.jpg" alt="Las Colombianas 2026 — Santo Cielo">
+      <div class="hero-slider" id="heroSlider">
+        <img src="img/hero.jpg"  alt="Las Colombianas 2026 — Santo Cielo">
+        <img src="img/hero2.jpg" alt="Las Colombianas 2026 — Santo Cielo">
+      </div>
+      <div class="slider-dots">
+        <button class="slider-dot on"  id="dot0" aria-label="Foto 1" onclick="goSlide(0)"></button>
+        <button class="slider-dot"     id="dot1" aria-label="Foto 2" onclick="goSlide(1)"></button>
+      </div>
     </div>
 
   </div>
@@ -1013,6 +1032,24 @@ const ioMetricas = new IntersectionObserver(es=>es.forEach(e=>{
   ioMetricas.unobserve(el);
 }),{threshold:.5});
 document.querySelectorAll(".metrica-num[data-val]").forEach(el=>ioMetricas.observe(el));
+
+/* ── slider hero ── */
+let sliderCur = 0;
+const SLIDE_INTERVAL = 5000;
+function goSlide(n){
+  sliderCur = n;
+  const slider = document.getElementById("heroSlider");
+  slider.classList.toggle("slide-1", n === 1);
+  document.getElementById("dot0").classList.toggle("on", n === 0);
+  document.getElementById("dot1").classList.toggle("on", n === 1);
+  resetSliderTimer();
+}
+let sliderTimer;
+function resetSliderTimer(){
+  clearInterval(sliderTimer);
+  sliderTimer = setInterval(()=>goSlide((sliderCur+1)%2), SLIDE_INTERVAL);
+}
+resetSliderTimer();
 
 /* ---- Cambiar color en card ---- */
 function cambiarColor(modeloId, colorId, btn){
