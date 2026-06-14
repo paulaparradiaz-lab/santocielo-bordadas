@@ -58,18 +58,29 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 @keyframes subir{from{opacity:0;transform:translateY(14px)}}
 @keyframes flotar{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
+/* ── tricolor se dibuja de izquierda a derecha ── */
+@keyframes traza{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-tricolor{height:3px;display:flex;width:100%;overflow:hidden}
+.hero-tricolor span{transform-origin:left}
+.hero-tricolor span:nth-child(1){flex:2;background:var(--amarillo);animation:traza .6s cubic-bezier(.22,.8,.3,1) .05s backwards}
+.hero-tricolor span:nth-child(2){flex:1;background:var(--azul);animation:traza .6s cubic-bezier(.22,.8,.3,1) .18s backwards}
+.hero-tricolor span:nth-child(3){flex:1;background:var(--rojo);animation:traza .6s cubic-bezier(.22,.8,.3,1) .28s backwards}
+
+/* ── pulso suave en el CTA ── */
+@keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(242,194,0,.45)}60%{box-shadow:0 0 0 10px rgba(242,194,0,0)}}
+
+/* ── fade-up para secciones al hacer scroll ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.reveal{opacity:0}
+.reveal.visible{animation:fadeUp .65s cubic-bezier(.22,.8,.3,1) forwards}
+.reveal-d1{animation-delay:.08s}
+.reveal-d2{animation-delay:.18s}
+.reveal-d3{animation-delay:.28s}
+
 .hero{
   padding:0;position:relative;overflow:hidden;
   background:#181410;
 }
-
-/* línea tricolor superior */
-.hero-tricolor{height:3px;display:flex;width:100%}
-.hero-tricolor span:nth-child(1){flex:2;background:var(--amarillo)}
-.hero-tricolor span:nth-child(2){flex:1;background:var(--azul)}
-.hero-tricolor span:nth-child(3){flex:1;background:var(--rojo)}
-
-/* grid principal 50/50 a sangre total */
 .hero-inner{
   display:grid;grid-template-columns:1fr 1fr;
   min-height:580px;
@@ -148,7 +159,7 @@ header{position:sticky;top:0;z-index:60;background:#181410;
   background:var(--amarillo);color:#181410;border:none;border-radius:999px;
   padding:17px 38px;cursor:pointer;align-self:flex-start;
   transition:transform .18s,opacity .18s;
-  animation:subir .6s ease .36s backwards
+  animation:subir .6s ease .36s backwards, pulso 2.4s ease 1.8s infinite
 }
 .hero-cta:hover{transform:translateY(-2px);opacity:.9}
 .hero-cta:active{transform:scale(.97)}
@@ -231,8 +242,10 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 @media(min-width:760px){.grid{grid-template-columns:repeat(4,1fr);gap:16px}}
 .prod{background:#fff;border-radius:16px;padding:10px 10px 12px;display:flex;flex-direction:column;
   box-shadow:0 1px 2px rgba(24,20,16,.04),0 6px 20px rgba(24,20,16,.06);
-  opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease}
+  opacity:0;transform:translateY(18px);transition:opacity .55s ease,transform .55s ease,box-shadow .25s ease}
 .prod.in{opacity:1;transform:none}
+.prod:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(24,20,16,.13)}
+.prod:hover .btn-add{background:#2a2520}
 .prod .foto{background:var(--hueso);border-radius:10px;padding:14px 10px;
   display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;cursor:pointer}
 .prod .foto svg,.prod .foto img{width:88%}
@@ -496,7 +509,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   /* ── hero texto ── */
   .hero-texto{padding:40px 16px 32px}
   .hero-eyebrow{font-size:8.5px;letter-spacing:.28em;margin-bottom:14px}
-  .hero-texto h1{font-size:clamp(36px,10vw,48px);line-height:1.02}
+  .hero-texto h1{font-size:clamp(32px,9vw,44px);line-height:1.08}
   .hero-texto .sub{font-size:13px;margin-top:16px}
 
   /* pills: máximo dos por fila, sin que rompan feo */
@@ -599,11 +612,11 @@ footer small{font-size:11.5px;letter-spacing:.06em}
     <!-- panel izquierdo: texto sobre negro -->
     <div class="hero-texto">
 
-      <div class="hero-eyebrow">Bordadas a hilo · Hechas en Colombia</div>
+      <div class="hero-eyebrow">Edición limitada · Las Colombianas 2026</div>
 
-      <h1>Lo que se borda,<span class="acento">permanece.</span></h1>
+      <h1>Lleva los colores<span class="acento">bordados.</span></h1>
 
-      <p class="sub">Algodón peinado con bordados de verdad. Relieve que se siente, color que no se va.</p>
+      <p class="sub">Amarillo, azul y rojo en hilo de verdad. Para cuando Colombia juega, y para todos los días después.</p>
 
       <div class="hero-pills">
         <span class="hero-pill">Envío gratis</span>
@@ -616,8 +629,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 
     <!-- panel derecho: imagen a sangre total, sin overlay -->
     <div class="hero-foto" id="heroFoto">
-      <!-- reemplaza este div con <img src="tu-foto.jpg" alt="..."> cuando tengas la foto -->
-      <div class="hero-foto-placeholder"></div>
+      <img src="img/hero.jpg" alt="Las Colombianas 2026 — Santo Cielo">
     </div>
 
   </div>
@@ -626,7 +638,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
   <div class="hero-metricas">
     <div class="wrap">
       <div class="metrica">
-        <div class="metrica-num">100%</div>
+        <div class="metrica-num" data-val="100" data-suf="%">100%</div>
         <div class="metrica-label">Algodón peinado</div>
       </div>
       <div class="metrica">
@@ -649,10 +661,10 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 <section class="mundial" id="mundial">
   <div class="wrap">
     <div class="cab">
-      <div class="eyebrow">Edición limitada</div>
-      <h2>Las <em>Colombianas</em></h2>
+      <div class="eyebrow reveal">Edición limitada</div>
+      <h2 class="reveal reveal-d1">Las <em>Colombianas</em></h2>
       <div class="hilo"><span></span><span></span><span></span></div>
-      <p class="nota-cab">Dos modelos, dos colores. Croquis ($85.000) y Colombianísima ($95.000), cada una disponible en blanca o negra. Producidas en tandas pequeñas — cuando se acaban, se acaban.</p>
+      <p class="nota-cab reveal reveal-d2">Dos modelos, dos colores. Croquis ($85.000) y Colombianísima ($95.000), cada una disponible en blanca o negra. Producidas en tandas pequeñas — cuando se acaban, se acaban.</p>
     </div>
     <div class="grid" id="gridMundial"></div>
   </div>
@@ -662,9 +674,9 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 <section class="catalogo" id="catalogo">
   <div class="wrap">
     <div class="cab">
-      <div class="eyebrow">Bordados de siempre</div>
-      <h2>Las <em>Atemporales</em></h2>
-      <p class="nota-cab">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
+      <div class="eyebrow reveal">Bordados de siempre</div>
+      <h2 class="reveal reveal-d1">Las <em>Atemporales</em></h2>
+      <p class="nota-cab reveal reveal-d2">Seis diseños permanentes, bordados con la misma mano. Para llevar todos los días.</p>
     </div>
     <div class="grid" id="gridCatalogo"></div>
     <div class="promos-activas promos-seccion" id="promosSeccion"></div>
@@ -674,8 +686,8 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 <!-- ============ POR QUÉ BORDADA ============ -->
 <section class="porque">
   <div class="wrap">
-    <div class="eyebrow">La diferencia</div>
-    <h2>Por qué bordada y <em>no estampada</em></h2>
+    <div class="eyebrow reveal">La diferencia</div>
+    <h2 class="reveal reveal-d1">Por qué bordada y <em>no estampada</em></h2>
     <div class="razones">
       <div class="razon">
         <div class="icono"><svg viewBox="0 0 24 24" fill="none" stroke="#F2C200" stroke-width="2" stroke-linecap="round"><path d="M12 2v8l4 4"/><circle cx="12" cy="14" r="8"/></svg></div>
@@ -696,8 +708,8 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 <!-- ============ TESTIMONIOS ============ -->
 <section class="testimonios">
   <div class="wrap">
-    <div class="eyebrow">Lo que dicen</div>
-    <h2>Quienes ya la <em>tienen</em></h2>
+    <div class="eyebrow reveal">Lo que dicen</div>
+    <h2 class="reveal reveal-d1">Quienes ya la <em>tienen</em></h2>
     <div class="testi-grid">
 
       <div class="testi">
@@ -973,6 +985,34 @@ const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
 }),{threshold:.12});
 document.querySelectorAll(".prod").forEach((c,i)=>{ c.style.transitionDelay = ((i%4)*90)+"ms"; io.observe(c); });
+
+/* ── reveal de secciones al hacer scroll ── */
+const ioReveal = new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){ e.target.classList.add("visible"); ioReveal.unobserve(e.target); }
+}),{threshold:.15});
+document.querySelectorAll(".reveal").forEach(el=>ioReveal.observe(el));
+
+/* ── contador animado en las métricas ── */
+function animarContador(el, valorFinal, duracion, sufijo){
+  let inicio = null;
+  function step(ts){
+    if(!inicio) inicio = ts;
+    const progreso = Math.min((ts - inicio) / duracion, 1);
+    const ease = 1 - Math.pow(1 - progreso, 3);
+    el.textContent = Math.round(ease * valorFinal) + (sufijo||"");
+    if(progreso < 1) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+const ioMetricas = new IntersectionObserver(es=>es.forEach(e=>{
+  if(!e.isIntersecting) return;
+  const el = e.target;
+  const raw = el.dataset.val;
+  const sufijo = el.dataset.suf || "";
+  if(raw) animarContador(el, parseFloat(raw), 1200, sufijo);
+  ioMetricas.unobserve(el);
+}),{threshold:.5});
+document.querySelectorAll(".metrica-num[data-val]").forEach(el=>ioMetricas.observe(el));
 
 /* ---- Cambiar color en card ---- */
 function cambiarColor(modeloId, colorId, btn){
