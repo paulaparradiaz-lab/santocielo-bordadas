@@ -214,11 +214,25 @@ header{position:sticky;top:0;z-index:60;background:#181410;
   display:flex;gap:6px;z-index:4
 }
 .slider-dot{
-  width:6px;height:6px;border-radius:50%;
-  background:rgba(255,255,255,.35);border:none;padding:0;cursor:pointer;
+  width:9px;height:9px;border-radius:50%;
+  background:rgba(255,255,255,.40);border:none;padding:0;cursor:pointer;
   transition:background .3s,width .3s;
 }
-.slider-dot.on{background:#fff;width:18px;border-radius:99px}
+.slider-dot.on{background:#fff;width:24px;border-radius:99px}
+/* flechas de navegación táctiles */
+.slider-arrow{
+  position:absolute;top:50%;transform:translateY(-50%);
+  width:42px;height:42px;border-radius:50%;z-index:5;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(20,20,24,.40);
+  -webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px);
+  border:1px solid rgba(255,255,255,.30);
+  color:#fff;font-size:22px;line-height:1;padding:0 0 3px;
+  cursor:pointer;transition:background .25s
+}
+.slider-arrow:hover{background:rgba(20,20,24,.62)}
+.slider-arrow.prev{left:12px}
+.slider-arrow.next{right:12px}
 
 /* ── franja métricas oscura ── */
 .hero-metricas{background:#1A1714;border-top:1px solid rgba(255,255,255,.07)}
@@ -645,6 +659,8 @@ footer small{font-size:11.5px;letter-spacing:.06em}
         <img src="img/hero.jpg"  alt="Las Colombianas 2026 — Santo Cielo">
         <img src="img/hero2.jpg" alt="Las Colombianas 2026 — Santo Cielo">
       </div>
+      <button class="slider-arrow prev" aria-label="Foto anterior" onclick="step(-1)">‹</button>
+      <button class="slider-arrow next" aria-label="Foto siguiente" onclick="step(1)">›</button>
       <div class="slider-dots">
         <button class="slider-dot on"  id="dot0" aria-label="Foto 1" onclick="goSlide(0)"></button>
         <button class="slider-dot"     id="dot1" aria-label="Foto 2" onclick="goSlide(1)"></button>
@@ -1035,7 +1051,7 @@ document.querySelectorAll(".metrica-num[data-val]").forEach(el=>ioMetricas.obser
 
 /* ── slider hero ── */
 let sliderCur = 0;
-const SLIDE_INTERVAL = 5000;
+const SLIDE_INTERVAL = 3000;
 function goSlide(n){
   sliderCur = n;
   const slider = document.getElementById("heroSlider");
@@ -1044,12 +1060,28 @@ function goSlide(n){
   document.getElementById("dot1").classList.toggle("on", n === 1);
   resetSliderTimer();
 }
+/* avanzar/retroceder (con solo 2 fotos, ambos alternan) */
+function step(dir){ goSlide((sliderCur + dir + 2) % 2); }
 let sliderTimer;
 function resetSliderTimer(){
   clearInterval(sliderTimer);
   sliderTimer = setInterval(()=>goSlide((sliderCur+1)%2), SLIDE_INTERVAL);
 }
 resetSliderTimer();
+
+/* swipe táctil: deslizar la foto con el dedo */
+(function(){
+  const foto = document.getElementById("heroFoto");
+  if(!foto) return;
+  let x0 = null;
+  foto.addEventListener("touchstart", e=>{ x0 = e.changedTouches[0].screenX; }, {passive:true});
+  foto.addEventListener("touchend", e=>{
+    if(x0 === null) return;
+    const dx = e.changedTouches[0].screenX - x0;
+    if(Math.abs(dx) > 40) step(dx < 0 ? 1 : -1); // izq = siguiente, der = anterior
+    x0 = null;
+  }, {passive:true});
+})();
 
 /* ---- Cambiar color en card ---- */
 function cambiarColor(modeloId, colorId, btn){
