@@ -721,55 +721,197 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 </section>
 
 <!-- ============ TESTIMONIOS ============ -->
-<section class="testimonios">
-  <div class="wrap">
-    <div class="eyebrow reveal">Lo que dicen</div>
-    <h2 class="reveal reveal-d1">Quienes ya la <em>tienen</em></h2>
-    <div class="testi-grid">
+<style>
+.testi-section{
+  background:var(--hueso);
+  padding:72px 0;
+  border-top:1px solid var(--borde);
+  border-bottom:1px solid var(--borde);
+  overflow:hidden;
+}
+.testi-section .testi-header{text-align:center;margin-bottom:48px}
+.testi-section .testi-header h2{font:500 clamp(28px,4vw,42px)/1.08 'Bodoni Moda',serif;margin-top:10px;color:var(--tinta)}
+.testi-section .testi-header p{font-size:14px;color:var(--topo);max-width:400px;margin:10px auto 0;line-height:1.65}
+.sc-testi-label{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(242,194,0,.12);color:#7A5C00;
+  font:700 10px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
+  padding:5px 13px;border-radius:999px;border:1px solid rgba(242,194,0,.3);
+}
+.sc-testi-label-dot{width:6px;height:6px;border-radius:50%;background:var(--amarillo);display:inline-block}
+.testi-columns{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:14px;
+  height:560px;overflow:hidden;position:relative;
+  mask-image:linear-gradient(to bottom,transparent 0%,black 12%,black 88%,transparent 100%);
+  -webkit-mask-image:linear-gradient(to bottom,transparent 0%,black 12%,black 88%,transparent 100%);
+  padding:0 22px;
+}
+@media(max-width:720px){
+  .testi-columns{grid-template-columns:1fr;height:420px;padding:0 16px}
+  .testi-col-2,.testi-col-3{display:none}
+}
+.testi-col{display:flex;flex-direction:column;gap:12px;will-change:transform}
+.testi-col-1{animation:scUp 20s linear infinite}
+.testi-col-2{animation:scUp 28s linear infinite}
+.testi-col-3{animation:scUp 15s linear infinite}
+@keyframes scUp{0%{transform:translateY(0)}100%{transform:translateY(-50%)}}
+.tcard{
+  background:#fff;border:1px solid var(--borde);border-radius:10px;
+  padding:20px;flex-shrink:0;
+  box-shadow:0 1px 4px rgba(24,20,16,.04),0 4px 16px rgba(24,20,16,.05);
+}
+.tcard.acc-amarillo{border-top:3px solid var(--amarillo)}
+.tcard.acc-azul{border-top:3px solid var(--azul)}
+.tcard.acc-rojo{border-top:3px solid var(--rojo)}
+.tcard-stars{font-size:12px;color:#B8860B;letter-spacing:2px;margin-bottom:10px}
+.tcard-quote{font-size:13px;line-height:1.65;color:var(--tinta);margin-bottom:14px}
+.tcard-author{display:flex;align-items:center;gap:9px}
+.tcard-avatar{
+  width:34px;height:34px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font:700 11px 'Hanken Grotesk';flex-shrink:0;
+}
+.tcard-avatar.av-amarillo{background:rgba(242,194,0,.18);color:#7A5C00}
+.tcard-avatar.av-azul{background:rgba(0,56,147,.12);color:#003893}
+.tcard-avatar.av-rojo{background:rgba(206,17,38,.10);color:#CE1126}
+.tcard-name{font:700 12.5px 'Hanken Grotesk';color:var(--tinta)}
+.tcard-role{font-size:11px;color:var(--topo-claro);margin-top:1px}
+.testi-trust{
+  display:flex;justify-content:center;align-items:center;gap:28px;flex-wrap:wrap;
+  margin-top:36px;padding-top:28px;border-top:2px dashed var(--borde);
+  padding-left:22px;padding-right:22px;
+}
+.testi-trust-item{display:flex;align-items:center;gap:7px;font:600 12px 'Hanken Grotesk';color:var(--topo)}
+.testi-trust-dot{width:6px;height:6px;border-radius:50%}
 
-      <div class="testi">
-        <div class="testi-top">
-          <div class="testi-foto">
-            <!-- reemplazar con <img src="foto.jpg" alt="Camila"> -->
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
-          </div>
-          <div>
-            <div class="testi-nombre">Camila Restrepo</div>
-            <div class="testi-ciudad">Medellín</div>
-          </div>
-        </div>
-        <div class="testi-cuerpo">Pedí la Clásica Blanca y la Orquídea. Se nota que es bordado de verdad, no esa cosa plástica que se despega. Ya las lavé como cuatro veces y están igualitas.</div>
-        <div class="testi-estrellas">★★★★★</div>
+/* ============ COBERTURA NACIONAL ============ */
+.cob-section{
+  background:var(--tinta);
+  overflow:hidden;position:relative;
+  border-top:1px solid rgba(255,255,255,.05);
+}
+.cob-section::before{
+  content:'';position:absolute;inset:0;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  pointer-events:none;z-index:0;
+}
+.cob-inner{
+  max-width:1020px;margin:0 auto;
+  display:grid;grid-template-columns:1fr 1fr;
+  min-height:520px;position:relative;z-index:1;
+  padding:0 22px;
+}
+@media(max-width:720px){
+  .cob-inner{grid-template-columns:1fr}
+  .cob-left{border-right:none;border-bottom:1px solid rgba(255,255,255,.07);padding:48px 0 32px}
+  .cob-right{padding:28px 0 48px}
+}
+.cob-left{
+  padding:64px 48px 64px 0;
+  display:flex;flex-direction:column;justify-content:center;
+  border-right:1px solid rgba(255,255,255,.07);
+}
+.cob-hilo{height:3px;display:flex;max-width:90px;margin-bottom:24px;overflow:hidden}
+.cob-hilo span:nth-child(1){flex:2;background:var(--amarillo)}
+.cob-hilo span:nth-child(2){flex:1;background:var(--azul)}
+.cob-hilo span:nth-child(3){flex:1;background:var(--rojo)}
+.cob-label{
+  display:inline-flex;align-items:center;gap:7px;
+  background:rgba(255,255,255,.08);color:rgba(255,255,255,.65);
+  font:700 10px 'Hanken Grotesk';letter-spacing:.16em;text-transform:uppercase;
+  padding:5px 13px;border-radius:999px;border:1px solid rgba(255,255,255,.12);
+  margin-bottom:20px;width:fit-content;
+}
+.cob-label-dot{width:6px;height:6px;border-radius:50%;background:var(--amarillo);display:inline-block;animation:cobBlink 2s ease-in-out infinite}
+@keyframes cobBlink{0%,100%{opacity:1}50%{opacity:.3}}
+.cob-title{
+  font:500 clamp(26px,3vw,40px)/1.1 'Bodoni Moda',serif;
+  color:#F6F2EA;margin-bottom:14px;letter-spacing:-.01em;
+}
+.cob-title span{color:var(--amarillo);font-style:italic}
+.cob-desc{font-size:13.5px;color:rgba(255,255,255,.5);line-height:1.72;margin-bottom:32px;max-width:360px}
+.cob-stats{
+  display:grid;grid-template-columns:1fr 1fr;gap:1px;
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:10px;overflow:hidden;
+}
+.cob-stat{background:rgba(255,255,255,.03);padding:18px 20px;transition:background .2s}
+.cob-stat:hover{background:rgba(255,255,255,.07)}
+.cob-stat-val{font:500 clamp(20px,2.5vw,28px)/1 'Bodoni Moda',serif;color:#F6F2EA;margin-bottom:5px}
+.cob-stat-val.am{color:var(--amarillo)}
+.cob-stat-label{font:600 9px 'Hanken Grotesk';text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.35)}
+.cob-right{
+  display:flex;align-items:center;justify-content:center;
+  padding:32px 0 32px 48px;position:relative;
+}
+.cob-right::before{
+  content:'';position:absolute;width:280px;height:280px;border-radius:50%;
+  background:radial-gradient(circle,rgba(242,194,0,.06) 0%,transparent 70%);
+  pointer-events:none;
+}
+.cob-map-wrap{position:relative;width:100%;max-width:280px}
+#cobSvg{width:100%;display:block}
+#cob-tt{
+  position:fixed;pointer-events:none;
+  background:#fff;border:1px solid var(--borde);border-radius:8px;
+  padding:9px 13px;font-size:12px;color:var(--tinta);
+  opacity:0;transition:opacity .12s;z-index:9999;
+  box-shadow:0 4px 16px rgba(0,0,0,.12);min-width:130px;
+  font-family:'Hanken Grotesk',sans-serif;
+}
+#cob-tt b{display:block;font-size:12.5px;font-weight:700;margin-bottom:2px}
+#cob-tt span{color:var(--topo);font-weight:500}
+.cob-ticker{
+  display:flex;align-items:center;gap:7px;margin-top:12px;
+  font:600 10.5px 'Hanken Grotesk';color:rgba(255,255,255,.4);letter-spacing:.04em;
+  white-space:nowrap;overflow:hidden;
+}
+.cob-ticker-dot{width:5px;height:5px;border-radius:50%;background:var(--amarillo);flex-shrink:0;box-shadow:0 0 5px var(--amarillo)}
+#cobTickerText{transition:opacity .28s}
+</style>
+
+<section class="testi-section reveal" id="resenas">
+  <div class="testi-header">
+    <div style="margin-bottom:10px"><span class="sc-testi-label"><span class="sc-testi-label-dot"></span> Reseñas verificadas</span></div>
+    <h2>Lo que dicen quienes <em>nos eligen</em></h2>
+    <p>Más de 250 camisetas bordadas enviadas a toda Colombia. Hechas a mano con amor.</p>
+  </div>
+  <div class="testi-columns">
+    <div class="testi-col testi-col-1" id="testiCol1"></div>
+    <div class="testi-col testi-col-2" id="testiCol2"></div>
+    <div class="testi-col testi-col-3" id="testiCol3"></div>
+  </div>
+  <div class="testi-trust">
+    <div class="testi-trust-item"><div class="testi-trust-dot" style="background:var(--amarillo)"></div>+250 pedidos completados</div>
+    <div class="testi-trust-item"><div class="testi-trust-dot" style="background:var(--azul)"></div>Calificación 4.7 / 5</div>
+    <div class="testi-trust-item"><div class="testi-trust-dot" style="background:var(--rojo)"></div>Envío gratis a todo Colombia</div>
+    <div class="testi-trust-item"><div class="testi-trust-dot" style="background:var(--amarillo)"></div>100% bordado a mano</div>
+  </div>
+</section>
+
+<!-- ============ COBERTURA NACIONAL ============ -->
+<section class="cob-section reveal" id="envios">
+  <div class="cob-inner">
+    <div class="cob-left">
+      <div class="cob-hilo"><span></span><span></span><span></span></div>
+      <div class="cob-label"><span class="cob-label-dot"></span> Cobertura nacional</div>
+      <h2 class="cob-title">Llegamos a cada<br>rincón de <span>Colombia</span></h2>
+      <p class="cob-desc">Más de 250 camisetas bordadas enviadas a clientes en todo el país. Despachamos en 1 día hábil · Entrega en 3–4 días hábiles.</p>
+      <div class="cob-stats">
+        <div class="cob-stat"><div class="cob-stat-val am">250+</div><div class="cob-stat-label">Pedidos enviados</div></div>
+        <div class="cob-stat"><div class="cob-stat-val">32</div><div class="cob-stat-label">Ciudades activas</div></div>
+        <div class="cob-stat"><div class="cob-stat-val">3–4 días</div><div class="cob-stat-label">Entrega estimada</div></div>
+        <div class="cob-stat"><div class="cob-stat-val am">4.7★</div><div class="cob-stat-label">Calificación</div></div>
       </div>
-
-      <div class="testi">
-        <div class="testi-top">
-          <div class="testi-foto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
-          </div>
-          <div>
-            <div class="testi-nombre">Andrés Mercado</div>
-            <div class="testi-ciudad">Barranquilla</div>
-          </div>
+    </div>
+    <div class="cob-right">
+      <div class="cob-map-wrap">
+        <svg id="cobSvg"></svg>
+        <div class="cob-ticker">
+          <div class="cob-ticker-dot"></div>
+          <span id="cobTickerText">Cargando…</span>
         </div>
-        <div class="testi-cuerpo">La tela es gruesa pero no da calor, que en Barranquilla es lo que importa. El bordado del tricolor queda brutal, todo el mundo me pregunta dónde la compré.</div>
-        <div class="testi-estrellas">★★★★★</div>
       </div>
-
-      <div class="testi">
-        <div class="testi-top">
-          <div class="testi-foto">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-7 8-7s8 3 8 7"/></svg>
-          </div>
-          <div>
-            <div class="testi-nombre">Valentina Duque</div>
-            <div class="testi-ciudad">Bogotá</div>
-          </div>
-        </div>
-        <div class="testi-cuerpo">Compré el combo para regalar y me quedé con una. La de Carnaval es espectacular, tiene como seis colores y todos bordados. Llegó rápido y bien empacada.</div>
-        <div class="testi-estrellas">★★★★★</div>
-      </div>
-
+      <div id="cob-tt"><b id="cob-tt-c"></b><span id="cob-tt-o"></span></div>
     </div>
   </div>
 </section>
@@ -1494,6 +1636,198 @@ window.addEventListener('pageshow', ()=>{
   if(btn && btn.textContent === 'Enviando…'){ btn.textContent='Confirmar pedido'; btn.disabled=false; }
   document.body.style.overflow = ""; // por si volvimos de Wompi con el body bloqueado
 });
+</script>
+
+<!-- ============ TESTIMONIOS SCROLL INFINITO ============ -->
+<script>
+(function(){
+  const TESTIMONIOS = [
+    {col:1,acc:'acc-amarillo',av:'av-amarillo',ini:'CR',stars:'★★★★★',
+     text:'Pedí la Clásica Blanca y la Orquídea. Se nota que es bordado de verdad, no esa cosa plástica que se despega. Ya las lavé como cuatro veces y están igualitas.',
+     name:'Camila Restrepo',role:'Medellín, Antioquia'},
+    {col:1,acc:'acc-azul',av:'av-azul',ini:'JM',stars:'★★★★★',
+     text:'La tela es suavísima y el bordado tiene un detalle que no esperaba. Todo el mundo me pregunta dónde la compré cuando me la pongo.',
+     name:'Juliana Montoya',role:'Bogotá, Cundinamarca'},
+    {col:1,acc:'acc-rojo',av:'av-rojo',ini:'DP',stars:'★★★★★',
+     text:'Compré el combo de dos para regalar y me quedé con una. La de Carnaval es espectacular, tiene como seis colores y todos bordados. Llegó rápido y bien empacada.',
+     name:'Diego Palacio',role:'Cali, Valle del Cauca'},
+    {col:1,acc:'acc-amarillo',av:'av-amarillo',ini:'SG',stars:'★★★★★',
+     text:'La talla única me quedó perfecta. El algodón es grueso pero no da calor, que en Barranquilla es lo que importa. La compraría otra vez sin dudarlo.',
+     name:'Sara Guerrero',role:'Barranquilla, Atlántico'},
+
+    {col:2,acc:'acc-azul',av:'av-azul',ini:'AM',stars:'★★★★★',
+     text:'Pedí contraentrega un viernes y el lunes ya estaba en mi puerta. Excelente atención por WhatsApp. El bordado tricolor queda brutal.',
+     name:'Andrés Mercado',role:'Barranquilla, Atlántico'},
+    {col:2,acc:'acc-rojo',av:'av-rojo',ini:'VD',stars:'★★★★★',
+     text:'El bordado no se mueve ni después de muchas lavadas. Compré la Colombianísima negra y parece nueva todavía. Calidad colombiana de verdad.',
+     name:'Valentina Duque',role:'Bogotá, Cundinamarca'},
+    {col:2,acc:'acc-amarillo',av:'av-amarillo',ini:'FO',stars:'★★★★★',
+     text:'Me la puse el primer día y en el trabajo todo el mundo me preguntaba dónde la había conseguido. Es la prenda más especial que tengo.',
+     name:'Felipe Ospina',role:'Medellín, Antioquia'},
+    {col:2,acc:'acc-azul',av:'av-azul',ini:'NT',stars:'★★★★★',
+     text:'Llegó con un empaque muy bonito y un papelito adentro. Se nota que cuidan cada detalle desde el bordado hasta la entrega.',
+     name:'Natalia Torres',role:'Manizales, Caldas'},
+
+    {col:3,acc:'acc-rojo',av:'av-rojo',ini:'LC',stars:'★★★★★',
+     text:'Compré dos y las dos llegaron perfectas. El hilo tiene un relieve que se siente al tocarlo, muy diferente a cualquier estampado.',
+     name:'Laura Castro',role:'Pereira, Risaralda'},
+    {col:3,acc:'acc-amarillo',av:'av-amarillo',ini:'MR',stars:'★★★★★',
+     text:'La usé en el partido de Colombia y fue la más bonita de las que vi. Orgullo llevarlo puesto, 100% hecho en Colombia.',
+     name:'Mario Rincón',role:'Bucaramanga, Santander'},
+    {col:3,acc:'acc-azul',av:'av-azul',ini:'IS',stars:'★★★★★',
+     text:'Pedí la Croquis blanca y quedé enamorada. El diseño es elegante y el bordado muy prolijo. Ya tengo la negra en el carrito.',
+     name:'Isabella Silva',role:'Cartagena, Bolívar'},
+    {col:3,acc:'acc-rojo',av:'av-rojo',ini:'CA',stars:'★★★★★',
+     text:'Excelente producto y atención. Me respondieron por WhatsApp al instante y el envío llegó antes de lo esperado. Santo Cielo no defrauda.',
+     name:'Carlos Arango',role:'Cúcuta, Norte de Santander'},
+  ];
+
+  function mkCard(t){
+    return `<div class="tcard ${t.acc}">
+      <div class="tcard-stars">${t.stars}</div>
+      <p class="tcard-quote">${t.text}</p>
+      <div class="tcard-author">
+        <div class="tcard-avatar ${t.av}">${t.ini}</div>
+        <div>
+          <div class="tcard-name">${t.name}</div>
+          <div class="tcard-role">${t.role}</div>
+        </div>
+      </div>
+    </div>`;
+  }
+
+  [1,2,3].forEach(n => {
+    const col = document.getElementById('testiCol'+n);
+    if(!col) return;
+    const items = TESTIMONIOS.filter(t => t.col === n);
+    col.innerHTML = [...items,...items].map(mkCard).join('');
+  });
+})();
+</script>
+
+<!-- ============ MAPA COBERTURA D3 ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
+<script>
+(function(){
+  const RAW = [
+    {city:'Bogotá',        lat:4.711,   lng:-74.072,  orders:95},
+    {city:'Medellín',      lat:6.2518,  lng:-75.5636, orders:52},
+    {city:'Cali',          lat:3.4516,  lng:-76.5319, orders:38},
+    {city:'Barranquilla',  lat:10.9685, lng:-74.7813, orders:30},
+    {city:'Cartagena',     lat:10.3910, lng:-75.4794, orders:18},
+    {city:'Bucaramanga',   lat:7.1193,  lng:-73.1227, orders:14},
+    {city:'Pereira',       lat:4.8133,  lng:-75.6961, orders:12},
+    {city:'Manizales',     lat:5.0703,  lng:-75.5138, orders:10},
+    {city:'Santa Marta',   lat:11.2408, lng:-74.1990, orders:8},
+    {city:'Cúcuta',        lat:7.8939,  lng:-72.5078, orders:7},
+    {city:'Ibagué',        lat:4.4389,  lng:-75.2322, orders:6},
+    {city:'Pasto',         lat:1.2136,  lng:-77.2811, orders:5},
+    {city:'Villavicencio', lat:4.142,   lng:-73.626,  orders:5},
+    {city:'Valledupar',    lat:10.4631, lng:-73.2532, orders:4},
+    {city:'Neiva',         lat:2.9273,  lng:-75.2819, orders:4},
+  ];
+
+  const maxO = Math.max(...RAW.map(d=>d.orders));
+  function rScale(o){ return 3 + 12*(Math.sqrt(o)/Math.sqrt(maxO)); }
+  function fillCol(o){ return o>=60?'rgba(242,194,0,.20)':o>=18?'rgba(0,56,147,.20)':'rgba(255,255,255,.10)'; }
+  function strokeCol(o){ return o>=60?'#F2C200':o>=18?'#003893':'rgba(255,255,255,.45)'; }
+
+  const W=280, H=360;
+  const tt = document.getElementById('cob-tt');
+  const tickerEl = document.getElementById('cobTickerText');
+  if(!tickerEl) return;
+
+  d3.json('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json').then(world => {
+    const countries = topojson.feature(world, world.objects.countries);
+    const colombia  = countries.features.find(f => +f.id === 170);
+    if(!colombia) return;
+
+    const svg = d3.select('#cobSvg')
+      .attr('viewBox',`0 0 ${W} ${H}`)
+      .attr('width','100%');
+
+    const proj = d3.geoMercator().fitSize([W,H], colombia);
+    const path = d3.geoPath(proj);
+
+    svg.append('path').datum(colombia)
+      .attr('d',path)
+      .attr('fill','rgba(255,255,255,.07)')
+      .attr('stroke','rgba(255,255,255,.18)')
+      .attr('stroke-width',.8);
+
+    const defs = svg.append('defs');
+    const filt = defs.append('filter').attr('id','cobGlow').attr('x','-50%').attr('y','-50%').attr('width','200%').attr('height','200%');
+    filt.append('feGaussianBlur').attr('stdDeviation','2').attr('result','blur');
+    const mg = filt.append('feMerge');
+    mg.append('feMergeNode').attr('in','blur');
+    mg.append('feMergeNode').attr('in','SourceGraphic');
+
+    const sorted = [...RAW].sort((a,b)=>a.orders-b.orders);
+
+    const pulseC = svg.selectAll('circle.cobPulse')
+      .data(sorted.filter(d=>d.orders>=18)).join('circle').attr('class','cobPulse')
+      .attr('cx',d=>proj([d.lng,d.lat])[0])
+      .attr('cy',d=>proj([d.lng,d.lat])[1])
+      .attr('r',d=>rScale(d.orders)+3)
+      .attr('fill','none')
+      .attr('stroke',d=>strokeCol(d.orders))
+      .attr('stroke-width',.8)
+      .attr('opacity',.25);
+
+    function animPulse(){
+      pulseC.attr('r',d=>rScale(d.orders)+3).attr('opacity',.25)
+        .transition().duration(1800).ease(d3.easeSinInOut)
+        .attr('r',d=>rScale(d.orders)+8).attr('opacity',0)
+        .on('end',animPulse);
+    }
+    animPulse();
+
+    svg.selectAll('circle.cobDot')
+      .data(sorted).join('circle').attr('class','cobDot')
+      .attr('cx',d=>proj([d.lng,d.lat])[0])
+      .attr('cy',d=>proj([d.lng,d.lat])[1])
+      .attr('r',d=>rScale(d.orders))
+      .attr('fill',d=>fillCol(d.orders))
+      .attr('stroke',d=>strokeCol(d.orders))
+      .attr('stroke-width',1)
+      .attr('filter','url(#cobGlow)')
+      .style('cursor','pointer')
+      .on('mousemove',function(ev,d){
+        document.getElementById('cob-tt-c').textContent=d.city;
+        document.getElementById('cob-tt-o').textContent=d.orders+' pedidos';
+        tt.style.opacity='1';
+        tt.style.left=(ev.clientX+14)+'px';
+        tt.style.top=(ev.clientY-44)+'px';
+        tickerEl.textContent=d.city+' · '+d.orders+' pedidos';
+      })
+      .on('mouseleave',()=>{ tt.style.opacity='0'; });
+
+    svg.selectAll('text.cobLbl')
+      .data(sorted.filter(d=>d.orders>=52)).join('text').attr('class','cobLbl')
+      .attr('x',d=>proj([d.lng,d.lat])[0])
+      .attr('y',d=>proj([d.lng,d.lat])[1]-rScale(d.orders)-4)
+      .attr('text-anchor','middle')
+      .attr('font-size','6.5').attr('font-weight','700')
+      .attr('fill','rgba(242,194,0,.85)')
+      .attr('font-family','Hanken Grotesk,sans-serif')
+      .attr('letter-spacing','.04em')
+      .text(d=>d.city.toUpperCase());
+
+    const byOrders = [...RAW].sort((a,b)=>b.orders-a.orders);
+    let ti=0;
+    tickerEl.textContent=byOrders[0].city+' · '+byOrders[0].orders+' pedidos';
+    setInterval(()=>{
+      ti=(ti+1)%byOrders.length;
+      tickerEl.style.opacity='0';
+      setTimeout(()=>{
+        tickerEl.textContent=byOrders[ti].city+' · '+byOrders[ti].orders+' pedidos';
+        tickerEl.style.opacity='1';
+      },280);
+    },2000);
+
+  }).catch(()=>{});
+})();
 </script>
 
 <!-- ============ FAB CARRITO ============ -->
