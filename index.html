@@ -892,7 +892,7 @@ const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 // Descuentos por cantidad — se aplican al total del carrito
 const DESCUENTO_2 = 35000;  // descuento al llevar 2 camisas
 const DESCUENTO_3 = 60000;  // descuento al llevar 3 o más camisas
-const precioModelo = m => m.precio_base || 85000;
+const precioModelo = m => m.precio_unidad || m.precio_base || 85000;
 // Obtener el color activo de una card
 function colorActivo(modeloId){
   const sel = document.querySelector(`.color-btn.sel[data-mid="${modeloId}"]`);
