@@ -1019,9 +1019,9 @@ footer small{font-size:11.5px;letter-spacing:.06em}
    CONFIGURACIÓN — edita aquí
 ===================================================== */
 /* ── PENDIENTE: reemplaza estos valores antes de publicar ── */
-const WEBHOOK_URL   = "https://TU-N8N.com/webhook/pedido-santo-cielo"; // ← URL de tu webhook n8n
-const WORKER_URL    = "https://TU-WORKER.workers.dev/";                // ← URL de tu Cloudflare Worker (firma Wompi)
-const WOMPI_PUB_KEY = "pub_prod_XXXXXXXXXXXXXXXXXXXXXXXX";             // ← tu public key de Wompi
+const WEBHOOK_URL   = "https://proyectosconpaulagpc.app.n8n.cloud/webhook/camisasboradadas-santocielo-pedidos"; // ← URL de tu webhook n8n
+const WORKER_URL    = "https://wompi-firma.paulaplf555.workers.dev/";                // ← URL de tu Cloudflare Worker (firma Wompi)
+const WOMPI_PUB_KEY = "pub_prod_FuyHbAnx1CTkEcBV9QVUd3MTGPiDKxVI";             // ← tu public key de Wompi
 const RECARGO_CE    = 5000; // recargo por contraentrega (no cambiar)
 
 // Descuentos por cantidad — se aplican al total del carrito
@@ -1513,7 +1513,7 @@ document.getElementById('btnPedir').onclick = async ()=>{
   const c = calcular();
   const recargo = esContra ? RECARGO_CE : 0;
   const totalFinal = c.total + recargo;
-  const referencia = (esContra ? 'CE-' : 'SP-') + Date.now();
+  const referencia = 'CAM-' + Date.now();
   const productos  = carrito.map(it => `${it.nombre} (${it.tag || 'Talla única'}) x1`).join(', ');
 
   const payload = {
