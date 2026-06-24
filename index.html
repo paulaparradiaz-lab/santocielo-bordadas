@@ -1620,7 +1620,7 @@ function filtrarMun(val){
   const filtered = MUNICIPIOS_ALL.filter(m => m.toLowerCase().includes(q)).slice(0,7);
   if(!filtered.length){ sugg.style.display='none'; return; }
   sugg.innerHTML = filtered.map(m =>
-    `<div onclick="selectMun('${m.replace(/'/g,"\'")}\`)" style="padding:9px 14px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:1px solid var(--borde);color:var(--tinta)"
+    `<div onclick="selectMun('${m.replace(/'/g,"\\'")}')" style="padding:9px 14px;font-size:13px;font-weight:500;cursor:pointer;border-bottom:1px solid var(--borde);color:var(--tinta)"
       onmouseover="this.style.background='var(--hueso)'" onmouseout="this.style.background=''">${m}</div>`
   ).join('');
   sugg.style.display='block';
