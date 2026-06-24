@@ -940,20 +940,20 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 
     <div class="panel-co">
       <h3>Datos de envío</h3>
-        <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" autocomplete="name" placeholder="Tu nombre"></div>
-        <div class="campo"><label for="tel">WhatsApp</label><input id="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000"></div>
-        <div class="campo" id="campoCorreo"><label for="correo">Correo electrónico</label><input id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com"></div>
+        <div class="campo"><label for="nombre">Nombre completo</label><input id="nombre" autocomplete="name" placeholder="Tu nombre" onclick="event.stopPropagation()"></div>
+        <div class="campo"><label for="tel">WhatsApp</label><input id="tel" inputmode="tel" autocomplete="tel" placeholder="300 000 0000" onclick="event.stopPropagation()"></div>
+        <div class="campo" id="campoCorreo"><label for="correo">Correo electrónico</label><input id="correo" type="email" autocomplete="email" placeholder="correo@ejemplo.com" onclick="event.stopPropagation()"></div>
         <div class="campo" style="position:relative">
           <label for="ciudad">Ciudad / Municipio</label>
-          <input id="ciudad" autocomplete="off" placeholder="Escribe tu ciudad" oninput="filtrarMun(this.value)" onfocus="filtrarMun(this.value)" onblur="setTimeout(()=>hideMun(),200)">
+          <input id="ciudad" autocomplete="off" placeholder="Escribe tu ciudad" oninput="filtrarMun(this.value)" onfocus="filtrarMun(this.value)" onblur="setTimeout(()= onclick="event.stopPropagation()">hideMun(),200)">
           <div id="munSugg" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--borde);border-top:none;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
         </div>
         <div class="campo" style="position:relative">
           <label for="depto">Departamento</label>
-          <input id="depto" autocomplete="off" placeholder="Se autocompleta con la ciudad" readonly style="background:var(--hueso);color:var(--topo);cursor:default">
+          <input id="depto" autocomplete="off" placeholder="Se autocompleta con la ciudad" readonly style="background:var(--hueso);color:var(--topo);cursor:default" onclick="event.stopPropagation()">
           <div id="depSugg" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--borde);border-top:none;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
         </div>
-        <div class="campo"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Calle, número, barrio"></div>
+        <div class="campo"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Calle, número, barrio" onclick="event.stopPropagation()"></div>
 
         <!-- Aviso contraentrega: solo se muestra en modo contraentrega -->
         <div id="avisoContra" style="display:none;margin-top:16px;background:#FFF8E0;border:1px dashed var(--amarillo);padding:13px 14px;font-size:12.5px;color:var(--topo);line-height:1.6">
@@ -963,7 +963,7 @@ footer small{font-size:11.5px;letter-spacing:.06em}
         <!-- Checkbox compromiso: solo en modo contraentrega -->
         <div id="checkContraWrap" style="display:none;margin-top:12px;background:var(--hueso);border:1px solid var(--borde);padding:12px 14px;font-size:12.5px;color:var(--topo);line-height:1.6;border-radius:2px">
           <label style="display:flex;gap:10px;align-items:flex-start;cursor:pointer">
-            <input type="checkbox" id="checkContra" onchange="toggleContraCheck(this.checked)" style="margin-top:3px;flex-shrink:0">
+            <input type="checkbox" id="checkContra" onchange="toggleContraCheck(this.checked)" style="margin-top:3px;flex-shrink:0" onclick="event.stopPropagation()">
             <span>Acepto el recargo de <b>$5.000</b> y me comprometo a estar disponible para recibir mi pedido.</span>
           </label>
         </div>
