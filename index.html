@@ -948,9 +948,10 @@ footer small{font-size:11.5px;letter-spacing:.06em}
           <input id="ciudad" autocomplete="off" placeholder="Escribe tu ciudad" oninput="filtrarMun(this.value)" onfocus="filtrarMun(this.value)" onblur="setTimeout(()=>hideMun(),200)">
           <div id="munSugg" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--borde);border-top:none;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
         </div>
-        <div class="campo">
+        <div class="campo" style="position:relative">
           <label for="depto">Departamento</label>
           <input id="depto" autocomplete="off" placeholder="Se autocompleta con la ciudad" readonly style="background:var(--hueso);color:var(--topo);cursor:default">
+          <div id="depSugg" style="display:none;position:absolute;left:0;right:0;top:100%;background:#fff;border:1px solid var(--borde);border-top:none;z-index:50;max-height:200px;overflow-y:auto;box-shadow:0 4px 12px rgba(0,0,0,.08)"></div>
         </div>
         <div class="campo"><label for="dir">Dirección</label><input id="dir" autocomplete="street-address" placeholder="Calle, número, barrio"></div>
 
