@@ -429,21 +429,16 @@ header{background:#181410;
 .nudge{margin-top:12px;background:#FFF8E0;border:1px dashed var(--amarillo);font-size:12.5px;
   padding:11px 12px;line-height:1.5;display:none}
 .nudge.show{display:block}
-/* Promociones (bloque de cupón verde, compartido por carrito y sección) */
+/* Upsell de descuento por cantidad (carrito y sección) — tarjeta verde única */
 .promos-activas{border:1px solid #BCD9BC;background:#EAF4EA;border-radius:12px;overflow:hidden}
-.promos-drawer{margin:0 18px 4px}
+.promos-drawer{margin:6px 18px 16px}
 .promos-seccion{margin:30px auto 0;max-width:520px}
-.promos-cab{display:flex;align-items:center;gap:7px;padding:12px 14px;background:#EAF4EA;border-bottom:1px solid rgba(188,217,188,.4);
-  font:700 10px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;color:#2E5B2E}
-.promos-cab svg{width:15px;height:15px}
-.promo-fila{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:12px 14px;background:#EAF4EA;border-bottom:1px solid rgba(188,217,188,.4)}
-.promo-fila:last-of-type{border-bottom:none}
-.promo-n{font-size:12px;font-weight:500;color:var(--tinta)}
-.promo-precio{text-align:right;white-space:nowrap}
-.promo-antes{font-size:12px;color:var(--topo-claro);text-decoration:line-through;margin-right:6px}
-.promo-ah{font:500 13px 'Hanken Grotesk',sans-serif;color:var(--tinta)}
-.promo-pie{padding:11px 14px;text-align:center;background:#EAF4EA;border-top:1px solid rgba(188,217,188,.4);
-  font:700 10px 'Hanken Grotesk';letter-spacing:.1em;text-transform:uppercase;color:#2E5B2E}
+.promo-upsell{display:flex;align-items:center;gap:12px;padding:14px}
+.promo-upsell .ic{width:36px;height:36px;border-radius:50%;background:#C0DD97;color:#27500A;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.promo-upsell .ic svg{width:19px;height:19px}
+.promo-upsell .tt{font:500 13px 'Hanken Grotesk';color:#27500A;line-height:1.35}
+.promo-upsell .ss{font:400 11px 'Hanken Grotesk';color:#3B6D11;line-height:1.4;margin-top:2px}
 .pedir{width:100%;margin-top:16px;font:600 12px 'Hanken Grotesk';letter-spacing:.18em;text-transform:uppercase;
   background:var(--tinta);color:#fff;border:none;padding:17px;transition:opacity .2s;border-radius:16px}
 .pedir:disabled{opacity:.3;cursor:not-allowed}
@@ -600,6 +595,10 @@ footer small{font-size:11.5px;letter-spacing:.06em}
 
   /* ── drawer carrito ── */
   .drawer{width:100%;max-width:100%;border-radius:0}
+
+  /* el banner de envío gratis ya se comunica arriba en la barra fija;
+     aquí dentro del carrito sobra, así que lo ocultamos en móvil */
+  .envio-block{display:none !important}
 
   /* ── FAB carrito ── */
   .fab{bottom:calc(16px + env(safe-area-inset-bottom));right:16px;padding:12px 15px;font-size:10.5px}
@@ -1157,7 +1156,6 @@ function cardHTML(m){
 }
 document.getElementById("gridMundial").innerHTML  = MODELOS.filter(m=>m.coleccion==="mundial").map(cardHTML).join("");
 document.getElementById("gridCatalogo").innerHTML = MODELOS.filter(m=>m.coleccion==="catalogo").map(cardHTML).join("");
-document.getElementById("promosSeccion").innerHTML = promosHTML();
 
 const io = new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){ e.target.classList.add("in"); io.unobserve(e.target); }
@@ -1372,21 +1370,39 @@ function lineasHTML(c){
   return h;
 }
 
-/* Bloque "Promociones": banner verde con descuentos por cantidad */
-function promosHTML(){
-  return `<div class="promos-cab">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 7.5h.01"/><path d="M3 6v5.172a2 2 0 0 0 .586 1.414l7.71 7.71a2.41 2.41 0 0 0 3.408 0l4.592-4.592a2.41 2.41 0 0 0 0-3.408l-7.71-7.71A2 2 0 0 0 10.172 2H5a2 2 0 0 0-2 2z"/></svg>
-      Descuentos por cantidad
-    </div>
-    <div class="promo-fila">
-      <span class="promo-n">2 camisas</span>
-      <span class="promo-precio"><span class="promo-ah">Descuento de ${fmt(DESCUENTO_2)}</span></span>
-    </div>
-    <div class="promo-fila">
-      <span class="promo-n">3 camisas</span>
-      <span class="promo-precio"><span class="promo-ah">Descuento de ${fmt(DESCUENTO_3)}</span></span>
-    </div>
-    <div class="promo-pie">Mezcla los modelos · envío gratis ✓</div>`;
+/* Upsell de descuento por cantidad: la frase cambia según cuántas camisas
+   hay en el carrito, empujando siempre al siguiente escalón de ahorro. */
+function promosHTML(c){
+  const n = c ? c.n : 0;
+  const SVG_GIFT = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C9 3 12 5 12 8c0-3 3-5 4.5-5a2.5 2.5 0 0 1 0 5"/></svg>`;
+  const SVG_CHECK = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`;
+
+  let icono, titulo, sub;
+  if(n >= 3){
+    icono = SVG_CHECK;
+    titulo = "¡Máximo ahorro desbloqueado!";
+    sub = `Estás ahorrando ${fmt(DESCUENTO_3)} en total`;
+  } else if(n === 2){
+    icono = SVG_GIFT;
+    titulo = `Suma 1 camisa más y ahorra ${fmt(DESCUENTO_3 - DESCUENTO_2)} extra`;
+    sub = `Llegarías a ${fmt(DESCUENTO_3)} de descuento total`;
+  } else if(n === 1){
+    icono = SVG_GIFT;
+    titulo = `Suma 1 camisa y ahorra ${fmt(DESCUENTO_2)}`;
+    sub = "Mezcla los modelos que quieras";
+  } else {
+    icono = SVG_GIFT;
+    titulo = `Lleva 2 camisas y ahorra ${fmt(DESCUENTO_2)}`;
+    sub = "Mezcla los modelos · envío gratis";
+  }
+
+  return `<div class="promo-upsell">
+      <span class="ic">${icono}</span>
+      <div>
+        <div class="tt">${titulo}</div>
+        <div class="ss">${sub}</div>
+      </div>
+    </div>`;
 }
 
 /* ---------- drawer ---------- */
@@ -1464,8 +1480,11 @@ function pintarTodo(){
     : `<div class="vacio" style="padding:14px 0">Tu carrito está vacío.</div>`;
   document.getElementById("drawerLineas").innerHTML = lineasHTML(c);
   const dp = document.getElementById("drawerPromos");
-  dp.innerHTML = promosHTML();
+  dp.innerHTML = promosHTML(c);
   dp.style.display = c.n ? "" : "none";
+  // sección del catálogo: mismo upsell, sincronizado con el carrito
+  const ps = document.getElementById("promosSeccion");
+  if(ps) ps.innerHTML = promosHTML(c);
   document.getElementById("drawerTotal").textContent = fmt(c.total);
   document.getElementById("btnPagoOnline").disabled = !c.n;
   document.getElementById("btnPagoContra").disabled = !c.n;
