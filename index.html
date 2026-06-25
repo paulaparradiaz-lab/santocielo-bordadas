@@ -448,6 +448,19 @@ header{position:sticky;top:0;z-index:60;background:#181410;
 .pedir:disabled{opacity:.3;cursor:not-allowed}
 .seguro{margin-top:12px;text-align:center;font-size:11.5px;color:var(--topo-claro)}
 
+/* Badge envío gratis en tarjetas */
+.prod-shipping-badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:rgba(107,142,107,.08);color:#6B8E6B;
+  font:600 9px 'Hanken Grotesk';letter-spacing:.14em;text-transform:uppercase;
+  padding:7px 12px;border-radius:8px;margin-top:8px;
+  border:none;
+}
+.prod-shipping-badge svg{width:13px;height:13px;flex-shrink:0}
+@media(max-width:480px){
+  .prod-shipping-badge{font-size:8.5px;padding:7px 11px;margin-top:6px}
+}
+
 /* ---------- drawer carrito ---------- */
 .velo{position:fixed;inset:0;background:rgba(24,20,16,.45);opacity:0;pointer-events:none;transition:opacity .3s;z-index:80}
 .velo.open{opacity:1;pointer-events:auto}
@@ -1129,6 +1142,10 @@ function cardHTML(m){
       <div class="meta-row">
         <div class="precio" id="precio-${m.id}">${fmt(precioModelo(m))}</div>
         <div class="color-sel">${colorBtns}</div>
+      </div>
+      <div class="prod-shipping-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4Z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Envío gratis
       </div>
       <button class="btn-add" onclick="agregarRapido('${m.id}', this)" aria-label="Agregar al carrito">Agregar</button>
     </div>
